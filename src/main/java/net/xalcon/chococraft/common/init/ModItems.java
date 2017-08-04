@@ -2,6 +2,7 @@ package net.xalcon.chococraft.common.init;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +21,8 @@ public class ModItems
 {
 	@GameRegistry.ObjectHolder("gysahl_green")
 	public static ItemGysahlGreen gysahlGreen;
+
+	public static ItemStack spawneggChocobo;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
