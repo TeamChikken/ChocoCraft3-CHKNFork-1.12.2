@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
 import net.xalcon.chococraft.common.items.ItemGysahlGreen;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
@@ -30,7 +31,8 @@ public class ModItems
     @ItemSetupParameters(stackSize = 4)
     public static Item chocoboSaddle;
 
-	public static ItemStack spawneggChocobo;
+	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
+	public static ItemChocoboSpawnEgg chocoboSpawnEgg;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)

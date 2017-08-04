@@ -10,6 +10,8 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -19,6 +21,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.network.PacketManager;
@@ -37,6 +40,7 @@ public class EntityChocobo extends EntityTameable
     private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
 
     private final RiderState riderState;
+    private ItemStackHandler chocoboChest = new ItemStackHandler();
 
     private float wingRotDelta;
     public float wingRotation;
@@ -45,6 +49,20 @@ public class EntityChocobo extends EntityTameable
     public BagType getBagType()
     {
         return this.dataManager.get(PARAM_BAG_TYPE);
+    }
+
+    public void setBagType(BagType bagType)
+    {
+        BagType oldType = this.getBagType();
+        if(oldType == bagType) return;
+        this.dataManager.set(PARAM_BAG_TYPE, bagType);
+
+        this.reconfigureInventory(oldType, bagType);
+    }
+
+    private void reconfigureInventory(BagType oldType, BagType newType)
+    {
+        // TODO: Implement inventory size changes, drop items if size is getting smaller
     }
 
     public boolean isSaddled()
@@ -60,6 +78,21 @@ public class EntityChocobo extends EntityTameable
     public boolean isMale()
     {
         return this.dataManager.get(PARAM_IS_MALE);
+    }
+
+    public void setMale(boolean isMale)
+    {
+        this.dataManager.set(PARAM_IS_MALE, isMale);
+    }
+
+    public MovementType getMovementType()
+    {
+        return this.dataManager.get(PARAM_MOVEMENT_TYPE);
+    }
+
+    public void setMovementType(MovementType type)
+    {
+        this.dataManager.set(PARAM_MOVEMENT_TYPE, type);
     }
 
     public enum ChocoboColor
@@ -103,8 +136,6 @@ public class EntityChocobo extends EntityTameable
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.tasks.addTask(1, new EntityAISwimming(this));
 
-
-        // TODO: initChest();
         // TODO: Implement Hell Chocobo
 
         this.setColor(ChocoboColor.YELLOW);
@@ -234,15 +265,15 @@ public class EntityChocobo extends EntityTameable
 
             if(isInWater() && this.getAbilityInfo().canWalkOnWater()) {
                 motionY = 0.4d;
-                //moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
+                moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
                 setJumping(true);
             }
 
             if (this.riderState.isJumping() && this.getAbilityInfo().getCanFly())
             {
-                this.isJumping = true;
+                //this.isJumping = true;
                 this.jump();
-                //moveFlying(strafe, forward, 100 / getAbilityInfo().getAirbornSpeed());
+                moveFlying(strafe, forward, 100 / getAbilityInfo().getAirbornSpeed());
             }
             else if (this.riderState.isJumping() && !this.isJumping && this.onGround)
             {
@@ -285,6 +316,29 @@ public class EntityChocobo extends EntityTameable
         else
         {
             super.travel(strafe, vertical, forward);
+        }
+    }
+
+    public void moveFlying(float strafe, float forward, float friction)
+    {
+        float f3 = strafe * strafe + forward * forward;
+
+        if (f3 >= 1.0E-4F)
+        {
+            f3 = MathHelper.sqrt(f3);
+
+            if (f3 < 1.0F)
+            {
+                f3 = 1.0F;
+            }
+
+            f3 = friction / f3;
+            strafe *= f3;
+            forward *= f3;
+            float f4 = MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F);
+            float f5 = MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F);
+            this.motionX += (double) (strafe * f5 - forward * f4);
+            this.motionZ += (double) (forward * f5 + strafe * f4);
         }
     }
 
@@ -334,12 +388,6 @@ public class EntityChocobo extends EntityTameable
     }
 
     @Override
-    protected boolean isMovementBlocked()
-    {
-        return super.isMovementBlocked();
-    }
-
-    @Override
     public boolean shouldRiderFaceForward(EntityPlayer player)
     {
         return true;
@@ -361,6 +409,39 @@ public class EntityChocobo extends EntityTameable
             {
                 player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_fail"), true);
             }
+        }
+    }
+
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound nbt)
+    {
+        super.writeEntityToNBT(nbt);
+        nbt.setByte("Color", (byte) this.getChocoboColor().ordinal());
+        nbt.setByte("BagType", (byte) this.getBagType().ordinal());
+        nbt.setBoolean("Saddled", this.isSaddled());
+        nbt.setBoolean("Male", this.isMale());
+        nbt.setByte("MovementType", (byte) this.getMovementType().ordinal());
+
+        if (getBagType() != BagType.NONE)
+        {
+            nbt.setTag("Inventory", this.chocoboChest.serializeNBT());
+        }
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound nbt)
+    {
+        super.readEntityFromNBT(nbt);
+        this.setColor(ChocoboColor.values()[nbt.getByte("Color")]);
+        this.setBagType(BagType.values()[nbt.getByte("BagType")]);
+        this.setSaddled(nbt.getBoolean("Saddled"));
+        this.setMale(nbt.getBoolean("Male"));
+        this.setMovementType(MovementType.values()[nbt.getByte("MovementType")]);
+
+        if (getBagType() != BagType.NONE)
+        {
+            this.chocoboChest.deserializeNBT(nbt.getCompoundTag("Inventory"));
         }
     }
 }

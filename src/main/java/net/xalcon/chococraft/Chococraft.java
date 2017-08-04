@@ -32,13 +32,6 @@ public class Chococraft
         {
             return new ItemStack(ModItems.gysahlGreen);
         }
-
-        @Override
-        public void displayAllRelevantItems(NonNullList<ItemStack> items)
-        {
-            super.displayAllRelevantItems(items);
-            items.add(ModItems.spawneggChocobo);
-        }
     };
 
     @Mod.InstanceFactory
