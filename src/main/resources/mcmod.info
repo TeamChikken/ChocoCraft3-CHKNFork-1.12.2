@@ -1,0 +1,16 @@
+[
+{
+  "modid": "chococraft3",
+  "name": "Chococraft 3",
+  "description": "Chocobos in Minecraft",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Xalcon"],
+  "credits": "Thanks to EddieV for the original Chococraft, ArnoSaxena(Torojimas) and clienthax for maintaining it",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
