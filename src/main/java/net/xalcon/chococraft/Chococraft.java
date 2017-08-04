@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.xalcon.chococraft.common.CommonProxy;
 import net.xalcon.chococraft.common.configuration.ChocoboAbilityConfiguration;
@@ -48,6 +50,18 @@ public class Chococraft
     @Mod.EventHandler
     public static void onPreInit(FMLPreInitializationEvent event)
     {
-        ChocoboAbilityConfiguration.loadAbilityInfo();
+        proxy.onPreInit(event);
+    }
+
+    @Mod.EventHandler
+    public static void onInit(FMLInitializationEvent event)
+    {
+        proxy.onInit(event);
+    }
+
+    @Mod.EventHandler
+    public static void onPostInit(FMLPostInitializationEvent event)
+    {
+        proxy.onPostInit(event);
     }
 }
