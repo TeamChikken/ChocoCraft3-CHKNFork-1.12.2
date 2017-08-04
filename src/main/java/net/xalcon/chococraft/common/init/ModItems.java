@@ -2,6 +2,7 @@ package net.xalcon.chococraft.common.init;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -12,6 +13,7 @@ import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
 import net.xalcon.chococraft.common.items.ItemGysahlGreen;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
+import net.xalcon.chococraft.utils.inject.InstanceFactoryMethod;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
 
 import java.lang.annotation.ElementType;
@@ -31,8 +33,31 @@ public class ModItems
     @ItemSetupParameters(stackSize = 4)
     public static Item chocoboSaddle;
 
+    @GameRegistry.ObjectHolder("chocobo_feather")
+    public static Item chocoboFeather;
+
+    @GameRegistry.ObjectHolder("chocobo_pack_bag")
+    @ItemSetupParameters(stackSize = 8)
+    public static Item chocoboPackBag;
+
+    @GameRegistry.ObjectHolder("chocobo_saddle_bag")
+    @ItemSetupParameters(stackSize = 8)
+    public static Item chocoboSaddleBag;
+
+    @GameRegistry.ObjectHolder("chocobo_whistle")
+    @ItemSetupParameters(stackSize = 1)
+    public static Item chocoboWhistle;
+
 	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
 	public static ItemChocoboSpawnEgg chocoboSpawnEgg;
+
+	@GameRegistry.ObjectHolder("chocobo_drumstick_raw")
+    @ItemFoodParameters(amount = 2, saturation = 2, isWolfFood = true)
+	public static ItemFood chocoboDrumStickRaw;
+
+	@GameRegistry.ObjectHolder("chocobo_drumstick_cooked")
+    @ItemFoodParameters(amount = 6, saturation = 8, isWolfFood = true)
+	public static ItemFood chocoboDrumStickCooked;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
@@ -60,6 +85,22 @@ public class ModItems
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
+
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    private @interface ItemFoodParameters
+    {
+        int amount();
+        int saturation();
+        boolean isWolfFood() default false;
+    }
+
+    @InstanceFactoryMethod
+    public static ItemFood createItemFood(ItemFoodParameters parameters)
+    {
+        return new ItemFood(parameters.amount(), parameters.saturation(), parameters.isWolfFood());
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)

@@ -18,7 +18,12 @@ public class ClassInjector
 				return (T) field.getType().newInstance();
 
 			Method factoryMethod = Arrays.stream(field.getType().getDeclaredMethods())
-					.filter(m -> m.getAnnotation(InstanceFactoryMethod.class) != null)
+					.filter(m -> m.getAnnotation(InstanceFactoryMethod.class) != null && m.getReturnType() == field.getType())
+					.findFirst().orElse(null);
+
+			if(factoryMethod == null)
+				factoryMethod = Arrays.stream(field.getDeclaringClass().getMethods())
+					.filter(m -> m.getAnnotation(InstanceFactoryMethod.class) != null && m.getReturnType() == field.getType())
 					.findFirst().orElse(null);
 
 			if(factoryMethod.getParameterCount() > 0)
