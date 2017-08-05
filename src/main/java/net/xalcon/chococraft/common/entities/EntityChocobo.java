@@ -13,6 +13,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
@@ -146,11 +147,18 @@ public class EntityChocobo extends EntityTameable
     {
         super(world);
         this.setSize(1.3f, 2.3f);
-        // TODO: this.setMale(world.rand.nextBoolean());
         // TODO: setCustomNameTag(DefaultNames.getRandomName(isMale()));
         // TODO: this.resetFeatherDropTime();
         this.riderState = new RiderState();
         updateStats();
+    }
+
+    @Nullable
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+        this.setMale(this.world.rand.nextBoolean());
+        return super.onInitialSpawn(difficulty, livingdata);
     }
 
     @Override
