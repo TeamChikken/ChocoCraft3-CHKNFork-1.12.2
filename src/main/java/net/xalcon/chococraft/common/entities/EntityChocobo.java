@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.entities.breeding.Breeding;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.network.PacketManager;
 import net.xalcon.chococraft.common.network.packets.PacketChocoboJump;
@@ -45,6 +46,7 @@ public class EntityChocobo extends EntityTameable
     private float wingRotDelta;
     public float wingRotation;
     public float destPos;
+    public boolean fedGoldenGyshal;
 
     public BagType getBagType()
     {
@@ -129,7 +131,7 @@ public class EntityChocobo extends EntityTameable
         // TODO: Does this still exist? ((PathNavigateGround) this.getNavigator()).set(true);
         // TODO: implement follow owner or player with feather (if not tamed)
         // this.tasks.addTask(1, new ChocoboAIFollowOwner(this, 1.0D, 5.0F, 5.0F));// follow speed 1, min and max 5
-        // TODO: this.tasks.addTask(2, new ChocoboAIMate(this, 1.0D));
+        this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
         this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, Collections.singleton(ModItems.gysahlGreen)));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -208,7 +210,11 @@ public class EntityChocobo extends EntityTameable
     @Override
     public EntityAgeable createChild(EntityAgeable entity)
     {
-        return null;
+        EntityChocobo baby = new EntityChocobo(this.getEntityWorld());
+        baby.setColor(Breeding.getColour(this, (EntityChocobo) entity));
+        this.fedGoldenGyshal = false;
+        ((EntityChocobo) entity).fedGoldenGyshal = false;
+        return baby;
     }
 
     @Override
