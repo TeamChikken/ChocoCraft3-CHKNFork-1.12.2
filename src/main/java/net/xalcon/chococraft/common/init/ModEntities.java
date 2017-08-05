@@ -27,7 +27,7 @@ public class ModEntities
         // This is a limitation in the forge registry system :/
         ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo");
         EntityRegistry.registerModEntity(chocoboName,
-                EntityChocobo.class, "chocobo", 0, Chococraft.getInstance(), 64, 1, true, 0xCCCC66, 0x6666FF);
+                EntityChocobo.class, "chocobo", 0, Chococraft.getInstance(), 64, 1, false);
     }
 
     @SubscribeEvent

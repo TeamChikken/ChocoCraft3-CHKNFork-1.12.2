@@ -1,11 +1,8 @@
 package net.xalcon.chococraft.client.renderer.entities;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.xalcon.chococraft.Chococraft;
@@ -45,13 +42,18 @@ public class EntityRendererChocobo extends RenderLiving<EntityChocobo>
     {
         String type = entityChocobo.isChild() ? "chicobos" : "chocobos";
         String path = "textures/entities/" + type + "/" + (entityChocobo.isTamed() ? "tamed" : "untamed") + "/";
-        if (entityChocobo.getBagType() == EntityChocobo.BagType.PACK)
-            path += "pack_bagged/";
-        else if (entityChocobo.getBagType() == EntityChocobo.BagType.SADDLE)
-            path += "saddle_bagged/";
-        else if (entityChocobo.isSaddled())
-            path += "saddled/";
-
+        switch (entityChocobo.getSaddleType())
+        {
+            case SADDLE:
+                path += "saddled/";
+                break;
+            case SADDLE_BAGS:
+                path += "saddle_bagged/";
+                break;
+            case PACK:
+                path += "pack_bagged/";
+                break;
+        }
         if(!entityChocobo.isChild())
             path += (entityChocobo.isMale() ? "male" : "female") + "/";
         path += entityChocobo.getChocoboColor().name().toLowerCase() + "chocobo.png";

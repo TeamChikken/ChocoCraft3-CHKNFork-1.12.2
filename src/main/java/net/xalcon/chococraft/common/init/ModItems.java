@@ -3,15 +3,16 @@ package net.xalcon.chococraft.common.init;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSeeds;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.items.ItemChocoboSaddle;
 import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
-import net.xalcon.chococraft.common.items.ItemGysahlGreen;
+import net.xalcon.chococraft.common.items.ItemGysahlGreenSeeds;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
 import net.xalcon.chococraft.utils.inject.InstanceFactoryMethod;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
@@ -26,23 +27,12 @@ import java.lang.reflect.Field;
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class ModItems
 {
-	@GameRegistry.ObjectHolder("gysahl_green")
-	public static ItemGysahlGreen gysahlGreen;
-
 	@GameRegistry.ObjectHolder("chocobo_saddle")
     @ItemSetupParameters(stackSize = 4)
-    public static Item chocoboSaddle;
+    public static ItemChocoboSaddle chocoboSaddle;
 
     @GameRegistry.ObjectHolder("chocobo_feather")
     public static Item chocoboFeather;
-
-    @GameRegistry.ObjectHolder("chocobo_pack_bag")
-    @ItemSetupParameters(stackSize = 8)
-    public static Item chocoboPackBag;
-
-    @GameRegistry.ObjectHolder("chocobo_saddle_bag")
-    @ItemSetupParameters(stackSize = 8)
-    public static Item chocoboSaddleBag;
 
     @GameRegistry.ObjectHolder("chocobo_whistle")
     @ItemSetupParameters(stackSize = 1)
@@ -50,6 +40,13 @@ public class ModItems
 
 	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
 	public static ItemChocoboSpawnEgg chocoboSpawnEgg;
+
+    @GameRegistry.ObjectHolder("gysahl_green_seeds")
+    public static ItemGysahlGreenSeeds gysahlGreenSeeds;
+
+    @GameRegistry.ObjectHolder("gysahl_green")
+    @ItemFoodParameters(amount = 1, saturation = 1)
+    public static ItemFood gysahlGreen;
 
 	@GameRegistry.ObjectHolder("chocobo_drumstick_raw")
     @ItemFoodParameters(amount = 2, saturation = 2, isWolfFood = true)
@@ -85,7 +82,6 @@ public class ModItems
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
-
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)

@@ -6,7 +6,7 @@ import net.minecraft.network.datasync.DataSerializers;
 public class EntityDataSerializers
 {
     public final static DataSerializer<EntityChocobo.ChocoboColor> CHOCOBO_COLOR = new GenericByteEnumSerializer<>(EntityChocobo.ChocoboColor.values());
-    public final static DataSerializer<EntityChocobo.BagType> BAG_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.BagType.values());
+    public final static DataSerializer<EntityChocobo.SaddleType> BAG_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.SaddleType.values());
     public final static DataSerializer<EntityChocobo.MovementType> MOVEMENT_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.MovementType.values());
 
     static

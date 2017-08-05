@@ -5,13 +5,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -19,12 +14,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.entities.breeding.Breeding;
 import net.xalcon.chococraft.common.init.ModItems;
+import net.xalcon.chococraft.common.items.ItemChocoboSaddle;
 import net.xalcon.chococraft.common.network.PacketManager;
 import net.xalcon.chococraft.common.network.packets.PacketChocoboJump;
 import org.lwjgl.input.Keyboard;
@@ -35,8 +29,7 @@ import java.util.Collections;
 public class EntityChocobo extends EntityTameable
 {
     private static final DataParameter<ChocoboColor> PARAM_VARIANT = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.CHOCOBO_COLOR);
-    private static final DataParameter<BagType> PARAM_BAG_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.BAG_TYPE);
-    private static final DataParameter<Boolean> PARAM_SADDLED = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<SaddleType> PARAM_BAG_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.BAG_TYPE);
     private static final DataParameter<Boolean> PARAM_IS_MALE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
     private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
 
@@ -48,33 +41,28 @@ public class EntityChocobo extends EntityTameable
     public float destPos;
     public boolean fedGoldenGyshal;
 
-    public BagType getBagType()
+    public SaddleType getSaddleType()
     {
         return this.dataManager.get(PARAM_BAG_TYPE);
     }
 
-    public void setBagType(BagType bagType)
+    public void setSaddleType(SaddleType bagType)
     {
-        BagType oldType = this.getBagType();
-        if(oldType == bagType) return;
+        SaddleType oldType = this.getSaddleType();
+        if (oldType == bagType) return;
         this.dataManager.set(PARAM_BAG_TYPE, bagType);
 
         this.reconfigureInventory(oldType, bagType);
     }
 
-    private void reconfigureInventory(BagType oldType, BagType newType)
+    private void reconfigureInventory(SaddleType oldType, SaddleType newType)
     {
         // TODO: Implement inventory size changes, drop items if size is getting smaller
     }
 
     public boolean isSaddled()
     {
-        return this.dataManager.get(PARAM_SADDLED);
-    }
-
-    public void setSaddled(boolean isSaddled)
-    {
-        this.dataManager.set(PARAM_SADDLED, isSaddled);
+        return this.getSaddleType().isRidingSaddle();
     }
 
     public boolean isMale()
@@ -110,9 +98,44 @@ public class EntityChocobo extends EntityTameable
         PURPLE
     }
 
-    public enum BagType
+    public enum SaddleType
     {
-        NONE, SADDLE, PACK
+        NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(false, 6 * 9, 2);
+
+        private boolean isRidingSaddle;
+        private int inventorySize;
+        private int meta;
+
+        public boolean isRidingSaddle()
+        {
+            return this.isRidingSaddle;
+        }
+
+        public int getInventorySize()
+        {
+            return this.inventorySize;
+        }
+
+        public int getMeta()
+        {
+            return this.meta;
+        }
+
+        SaddleType(boolean isRidingSaddle, int inventorySize, int meta)
+        {
+            this.isRidingSaddle = isRidingSaddle;
+            this.inventorySize = inventorySize;
+            this.meta = meta;
+        }
+
+        public final static SaddleType[] ITEM_META = new SaddleType[]{SADDLE, SADDLE_BAGS, PACK};
+
+        public static SaddleType getFromMeta(int meta)
+        {
+            if(meta < 0 || meta >= ITEM_META.length)
+                return NONE;
+            return ITEM_META[meta];
+        }
     }
 
     public enum MovementType
@@ -128,6 +151,12 @@ public class EntityChocobo extends EntityTameable
         // TODO: setCustomNameTag(DefaultNames.getRandomName(isMale()));
         // TODO: this.resetFeatherDropTime();
         this.riderState = new RiderState();
+        updateStats();
+    }
+
+    @Override
+    protected void initEntityAI()
+    {
         // TODO: Does this still exist? ((PathNavigateGround) this.getNavigator()).set(true);
         // TODO: implement follow owner or player with feather (if not tamed)
         // this.tasks.addTask(1, new ChocoboAIFollowOwner(this, 1.0D, 5.0F, 5.0F));// follow speed 1, min and max 5
@@ -137,12 +166,6 @@ public class EntityChocobo extends EntityTameable
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.tasks.addTask(1, new EntityAISwimming(this));
-
-        // TODO: Implement Hell Chocobo
-
-        this.setColor(ChocoboColor.YELLOW);
-        this.isImmuneToFire = getAbilityInfo().isImmuneToFire();
-        this.updateStats();
     }
 
     private void updateStats()
@@ -151,6 +174,7 @@ public class EntityChocobo extends EntityTameable
         setHealth(getMaxHealth());// reset the hp to max
         onGroundSpeedFactor = this.getAbilityInfo().getLandSpeed() / 100f;
         this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(onGroundSpeedFactor);
+        this.isImmuneToFire = getAbilityInfo().isImmuneToFire();
     }
 
     @Override
@@ -158,8 +182,7 @@ public class EntityChocobo extends EntityTameable
     {
         super.entityInit();
         this.dataManager.register(PARAM_VARIANT, ChocoboColor.YELLOW);
-        this.dataManager.register(PARAM_BAG_TYPE, BagType.NONE);
-        this.dataManager.register(PARAM_SADDLED, false);
+        this.dataManager.register(PARAM_BAG_TYPE, SaddleType.NONE);
         this.dataManager.register(PARAM_IS_MALE, false);
         this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
     }
@@ -174,7 +197,7 @@ public class EntityChocobo extends EntityTameable
     public void setColor(ChocoboColor color)
     {
         this.dataManager.set(PARAM_VARIANT, color);
-        // TODO: setStats();
+        this.updateStats();
     }
 
     public ChocoboColor getChocoboColor()
@@ -222,20 +245,34 @@ public class EntityChocobo extends EntityTameable
     {
         if (this.getEntityWorld().isRemote) return true;
 
-        if (this.isSaddled() && player.getHeldItem(hand).isEmpty() && !player.isSneaking())
-            player.startRiding(this);
-        else if (player.getHeldItem(hand).getItem() == ModItems.gysahlGreen)
-            tryTame(player);
-        else if (player.getHeldItem(hand).getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
-            tryApplySaddle(player);
-        return true;
-    }
+        ItemStack heldItemStack = player.getHeldItem(hand);
 
-    private void tryApplySaddle(EntityPlayer player)
-    {
-        this.consumeItemFromStack(player, player.inventory.getCurrentItem());
-        player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
-        this.setSaddled(true);
+        if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking())
+        {
+            player.startRiding(this);
+        }
+        else if (heldItemStack.getItem() == ModItems.gysahlGreen)
+        {
+            this.consumeItemFromStack(player, player.inventory.getCurrentItem());
+            if (world.rand.nextFloat() < 0.15) // TODO: Move chance to config
+            {
+                this.setOwnerId(player.getUniqueID());
+                this.setTamed(true);
+                player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_success"), true);
+            }
+            else
+            {
+                player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_fail"), true);
+            }
+        }
+        else if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
+        {
+            SaddleType saddleType = ((ItemChocoboSaddle)heldItemStack.getItem()).getSaddleType(heldItemStack);
+            this.consumeItemFromStack(player, heldItemStack);
+            player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo." + saddleType.name().toLowerCase() + ".applied"), true);
+            this.setSaddleType(saddleType);
+        }
+        return true;
     }
 
     @Nullable
@@ -269,7 +306,8 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if(isInWater() && this.getAbilityInfo().canWalkOnWater()) {
+            if (isInWater() && this.getAbilityInfo().canWalkOnWater())
+            {
                 motionY = 0.4d;
                 moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
                 setJumping(true);
@@ -290,7 +328,7 @@ public class EntityChocobo extends EntityTameable
 
             if (this.canPassengerSteer())
             {
-                this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
                 super.travel(strafe, vertical, forward);
             }
             else if (rider instanceof EntityPlayer)
@@ -370,7 +408,7 @@ public class EntityChocobo extends EntityTameable
                 if (Minecraft.getMinecraft().player.getUniqueID().equals(riddenByEntity.getUniqueID()) && Keyboard.isKeyDown(Keyboard.KEY_SPACE))
                     this.riderState.setJumping(true);
 
-                if(this.riderState.hasChanged())
+                if (this.riderState.hasChanged())
                 {
                     PacketManager.INSTANCE.sendToServer(new PacketChocoboJump(this.riderState));
                     this.riderState.resetChanged();
@@ -399,37 +437,16 @@ public class EntityChocobo extends EntityTameable
         return true;
     }
 
-    private void tryTame(EntityPlayer player)
-    {
-        if (!isTamed())
-        {
-            this.consumeItemFromStack(player, player.inventory.getCurrentItem());
-            if (world.rand.nextFloat() < 0.1)
-            {
-                //Successfull tame
-                this.setOwnerId(player.getUniqueID());
-                this.setTamed(true);
-                // TODO: implement chocopedia - InventoryHelper.giveIfMissing(new ItemStack(Additions.chocopediaItem), (EntityPlayerMP) player);
-                player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_success"), true);
-            } else
-            {
-                player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_fail"), true);
-            }
-        }
-    }
-
-
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setByte("Color", (byte) this.getChocoboColor().ordinal());
-        nbt.setByte("BagType", (byte) this.getBagType().ordinal());
-        nbt.setBoolean("Saddled", this.isSaddled());
+        nbt.setByte("BagType", (byte) this.getSaddleType().ordinal());
         nbt.setBoolean("Male", this.isMale());
         nbt.setByte("MovementType", (byte) this.getMovementType().ordinal());
 
-        if (getBagType() != BagType.NONE)
+        if (getSaddleType() != SaddleType.NONE)
         {
             nbt.setTag("Inventory", this.chocoboChest.serializeNBT());
         }
@@ -440,12 +457,11 @@ public class EntityChocobo extends EntityTameable
     {
         super.readEntityFromNBT(nbt);
         this.setColor(ChocoboColor.values()[nbt.getByte("Color")]);
-        this.setBagType(BagType.values()[nbt.getByte("BagType")]);
-        this.setSaddled(nbt.getBoolean("Saddled"));
+        this.setSaddleType(SaddleType.values()[nbt.getByte("BagType")]);
         this.setMale(nbt.getBoolean("Male"));
         this.setMovementType(MovementType.values()[nbt.getByte("MovementType")]);
 
-        if (getBagType() != BagType.NONE)
+        if (getSaddleType() != SaddleType.NONE)
         {
             this.chocoboChest.deserializeNBT(nbt.getCompoundTag("Inventory"));
         }

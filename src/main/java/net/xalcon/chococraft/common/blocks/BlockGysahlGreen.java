@@ -3,6 +3,8 @@ package net.xalcon.chococraft.common.blocks;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.item.Item;
+import net.xalcon.chococraft.common.init.ModItems;
 
 public class BlockGysahlGreen extends BlockCrops
 {
@@ -11,6 +13,18 @@ public class BlockGysahlGreen extends BlockCrops
 	public BlockGysahlGreen()
 	{
 
+	}
+
+	@Override
+	protected Item getSeed()
+	{
+		return ModItems.gysahlGreenSeeds;
+	}
+
+	@Override
+	protected Item getCrop()
+	{
+		return ModItems.gysahlGreen;
 	}
 
 	@Override

@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type":
+    {
+      "saddle": { "textures": { "layer0": "chococraft:items/chocobo_saddle" } },
+      "saddle_bags": { "textures": { "layer0": "chococraft:items/chocobo_saddle_bag" } },
+      "pack": { "textures": { "layer0": "chococraft:items/chocobo_saddle_pack" } }
+    }
+  }
+}
