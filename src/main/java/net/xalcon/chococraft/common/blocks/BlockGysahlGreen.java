@@ -3,16 +3,20 @@ package net.xalcon.chococraft.common.blocks;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.xalcon.chococraft.common.init.ModItems;
 
 public class BlockGysahlGreen extends BlockCrops
 {
-	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 4);
+	public static final int MAX_AGE = 4;
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, MAX_AGE);
+
+	private final IBlockState fullyGrownState;
 
 	public BlockGysahlGreen()
 	{
-
+		this.fullyGrownState = this.getDefaultState().withProperty(AGE, this.getMaxAge());
 	}
 
 	@Override
@@ -42,6 +46,11 @@ public class BlockGysahlGreen extends BlockCrops
 	@Override
 	public int getMaxAge()
 	{
-		return 4;
+		return MAX_AGE;
 	}
+
+    public IBlockState getFullyGrownState()
+    {
+        return this.fullyGrownState;
+    }
 }

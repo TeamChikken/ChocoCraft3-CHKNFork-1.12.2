@@ -25,9 +25,9 @@ public class ModEntities
     {
         // NOTE: We cannot use event.getRegistry() for our registration here, because it does only half the registration
         // This is a limitation in the forge registry system :/
-        ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo");
+        ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo_bird");
         EntityRegistry.registerModEntity(chocoboName,
-                EntityChocobo.class, "chocobo", 0, Chococraft.getInstance(), 64, 1, false);
+                EntityChocobo.class, "chocobo_bird", 0, Chococraft.getInstance(), 64, 1, false);
     }
 
     @SubscribeEvent

@@ -18,7 +18,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.entities.breeding.Breeding;
 import net.xalcon.chococraft.common.init.ModItems;
-import net.xalcon.chococraft.common.items.ItemChocoboSaddle;
 import net.xalcon.chococraft.common.network.PacketManager;
 import net.xalcon.chococraft.common.network.packets.PacketChocoboJump;
 import org.lwjgl.input.Keyboard;
@@ -100,7 +99,7 @@ public class EntityChocobo extends EntityTameable
 
     public enum SaddleType
     {
-        NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(false, 6 * 9, 2);
+        NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(true, 6 * 9, 2);
 
         private boolean isRidingSaddle;
         private int inventorySize;
@@ -130,12 +129,12 @@ public class EntityChocobo extends EntityTameable
 
         public final static SaddleType[] ITEM_META = new SaddleType[]{SADDLE, SADDLE_BAGS, PACK};
 
-        public static SaddleType getFromMeta(int meta)
+        public final static SaddleType getFromMeta(int meta)
         {
-            if(meta < 0 || meta >= ITEM_META.length)
-                return NONE;
+            if(meta < 0 || meta >= ITEM_META.length) return NONE;
             return ITEM_META[meta];
         }
+
     }
 
     public enum MovementType
@@ -202,7 +201,7 @@ public class EntityChocobo extends EntityTameable
 
     public ChocoboColor getChocoboColor()
     {
-        return this.dataManager.get(PARAM_VARIANT);
+        return ChocoboColor.YELLOW; //TEMP  this.dataManager.get(PARAM_VARIANT);
     }
 
     public ChocoboAbilityInfo getAbilityInfo()
@@ -267,9 +266,9 @@ public class EntityChocobo extends EntityTameable
         }
         else if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
         {
-            SaddleType saddleType = ((ItemChocoboSaddle)heldItemStack.getItem()).getSaddleType(heldItemStack);
+            SaddleType saddleType = ModItems.chocoboSaddle.getSaddleType(heldItemStack);
             this.consumeItemFromStack(player, heldItemStack);
-            player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo." + saddleType.name().toLowerCase() + ".applied"), true);
+            player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
             this.setSaddleType(saddleType);
         }
         return true;

@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSeeds;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -75,13 +76,22 @@ public class ModItems
             if(parameters != null)
                 applyParameters(item, parameters);
 			event.getRegistry().register(item);
-
-			if(item instanceof IItemModelRegistrationHandler)
-				((IItemModelRegistrationHandler) item).registerItemModel(item);
-			else
-				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
+
+    @SubscribeEvent
+	public static void onRegisterModels(ModelRegistryEvent event)
+    {
+        for(Field field : ModItems.class.getDeclaredFields())
+        {
+            if(!Item.class.isAssignableFrom(field.getType())) continue;
+            Item item = ClassInjector.getOrNull(field);
+            if(item instanceof IItemModelRegistrationHandler)
+                ((IItemModelRegistrationHandler) item).registerItemModel(item);
+            else
+                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        }
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)

@@ -9,7 +9,7 @@ public class EntityDataSerializers
     public final static DataSerializer<EntityChocobo.SaddleType> BAG_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.SaddleType.values());
     public final static DataSerializer<EntityChocobo.MovementType> MOVEMENT_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.MovementType.values());
 
-    static
+    public static void init()
     {
         DataSerializers.registerSerializer(CHOCOBO_COLOR);
         DataSerializers.registerSerializer(BAG_TYPE);
