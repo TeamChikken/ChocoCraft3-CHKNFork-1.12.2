@@ -49,6 +49,9 @@ public class ModItems
     @ItemFoodParameters(amount = 1, saturation = 1)
     public static ItemFood gysahlGreen;
 
+    @GameRegistry.ObjectHolder("lovely_gysahl_green")
+    public static Item lovelyGysahlGreen;
+
 	@GameRegistry.ObjectHolder("chocobo_drumstick_raw")
     @ItemFoodParameters(amount = 2, saturation = 2, isWolfFood = true)
 	public static ItemFood chocoboDrumStickRaw;

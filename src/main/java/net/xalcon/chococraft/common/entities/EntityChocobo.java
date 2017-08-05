@@ -232,8 +232,7 @@ public class EntityChocobo extends EntityTameable
     @Override
     public boolean isBreedingItem(ItemStack stack)
     {
-        // TODO: implement breeding
-        return false;
+        return stack.getItem() == ModItems.lovelyGysahlGreen;
     }
 
     @Nullable
@@ -257,6 +256,7 @@ public class EntityChocobo extends EntityTameable
         if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking())
         {
             player.startRiding(this);
+            return true;
         }
         else if (heldItemStack.getItem() == ModItems.gysahlGreen)
         {
@@ -271,6 +271,7 @@ public class EntityChocobo extends EntityTameable
             {
                 player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_fail"), true);
             }
+            return true;
         }
         else if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
         {
@@ -278,8 +279,10 @@ public class EntityChocobo extends EntityTameable
             this.consumeItemFromStack(player, heldItemStack);
             player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
             this.setSaddleType(saddleType);
+            return true;
         }
-        return true;
+
+        return super.processInteract(player, hand);
     }
 
     @Nullable
