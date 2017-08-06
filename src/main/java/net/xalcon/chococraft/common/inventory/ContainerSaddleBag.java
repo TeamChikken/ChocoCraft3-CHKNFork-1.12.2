@@ -46,7 +46,13 @@ public class ContainerSaddleBag extends Container
 
     private void bindInventoryBig(IItemHandler inventory)
     {
-
+        for(int row = 0; row < 5; row++)
+        {
+            for(int col = 0; col < 9; col++)
+            {
+                this.addSlotToContainer(new SlotItemHandler(inventory, row * 9 + col, 8 + col * 18, 18 + row * 18));
+            }
+        }
     }
 
     private void bindPlayerInventory(EntityPlayer player)
