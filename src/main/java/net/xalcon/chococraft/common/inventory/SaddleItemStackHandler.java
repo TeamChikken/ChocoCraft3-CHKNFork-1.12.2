@@ -2,24 +2,27 @@ package net.xalcon.chococraft.common.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import sun.invoke.empty.Empty;
+import net.xalcon.chococraft.Chococraft;
 
 import javax.annotation.Nonnull;
 
-public class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
+public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
 {
-    private ItemStack itemStack = ItemStack.EMPTY;
+    protected ItemStack itemStack = ItemStack.EMPTY;
 
     @Override
     public void setStackInSlot(int slot, @Nonnull ItemStack stack)
     {
+        ItemStack oldStack = this.itemStack;
         this.itemStack = stack;
+        if(!(oldStack.isEmpty() && stack.isEmpty())) // dont update if we change from empty to empty
+        {
+            this.onStackChanged();
+        }
     }
 
     @Override
@@ -48,6 +51,7 @@ public class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifia
                 return ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - 1);
             this.itemStack = stack.splitStack(1);
         }
+        this.onStackChanged();
         return stack;
     }
 
@@ -60,7 +64,9 @@ public class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifia
 
         if(simulate)
             return ItemHandlerHelper.copyStackWithSize(this.itemStack, amount);
-        return this.itemStack.splitStack(amount);
+        ItemStack outStack = this.itemStack.splitStack(amount);
+        this.onStackChanged();
+        return outStack;
     }
 
     @Override
@@ -79,5 +85,8 @@ public class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifia
     public void deserializeNBT(NBTTagCompound nbt)
     {
         this.itemStack = new ItemStack(nbt);
+        this.onStackChanged();
     }
+
+    protected abstract void onStackChanged();
 }

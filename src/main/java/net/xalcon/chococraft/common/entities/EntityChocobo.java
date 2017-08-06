@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -17,7 +16,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
@@ -38,10 +36,18 @@ public class EntityChocobo extends EntityTameable
     private static final DataParameter<ChocoboColor> PARAM_VARIANT = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.CHOCOBO_COLOR);
     private static final DataParameter<Boolean> PARAM_IS_MALE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
     private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
+    private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
 
     private final RiderState riderState;
     public final ItemStackHandler chocoboInventory = new ItemStackHandler();
-    public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler();
+    public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler()
+    {
+        @Override
+        protected void onStackChanged()
+        {
+            EntityChocobo.this.setSaddleType(this.itemStack);
+        }
+    };
 
     private float wingRotDelta;
     public float wingRotation;
@@ -50,25 +56,24 @@ public class EntityChocobo extends EntityTameable
 
     public SaddleType getSaddleType()
     {
-        return ModItems.chocoboSaddle.getSaddleType(this.saddleItemStackHandler.getStackInSlot(0));
+        return ModItems.chocoboSaddle.getSaddleType(this.dataManager.get(PARAM_SADDLE_ITEM));
     }
 
-    private ItemStack setSaddle(ItemStack saddleStack)
+    private void setSaddleType(ItemStack saddleStack)
     {
-        ItemStack existingSaddle = this.saddleItemStackHandler.getStackInSlot(0);
-        this.saddleItemStackHandler.setStackInSlot(0, saddleStack.splitStack(1));
         SaddleType newType = ModItems.chocoboSaddle.getSaddleType(saddleStack);
         SaddleType oldType = this.getSaddleType();
         if (oldType != newType)
         {
+            this.dataManager.set(PARAM_SADDLE_ITEM, saddleStack.copy());
             this.reconfigureInventory(oldType, newType);
         }
-        return existingSaddle;
     }
 
     private void reconfigureInventory(SaddleType oldType, SaddleType newType)
     {
         // TODO: Implement inventory size changes, drop items if size is getting smaller
+        Chococraft.log.info("{}: reconfigure inventory from {} to {}", this.world.isRemote ? "Client": "Server", oldType, newType);
     }
 
     public boolean isSaddled()
@@ -144,6 +149,7 @@ public class EntityChocobo extends EntityTameable
         this.dataManager.register(PARAM_VARIANT, ChocoboColor.YELLOW);
         this.dataManager.register(PARAM_IS_MALE, false);
         this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
+        this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
     }
 
     // TODO: implement mounting
@@ -236,9 +242,10 @@ public class EntityChocobo extends EntityTameable
 
         if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
         {
-            this.consumeItemFromStack(player, heldItemStack);
             player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
-            this.setSaddle(heldItemStack);
+            this.saddleItemStackHandler.setStackInSlot(0, heldItemStack.copy().splitStack(1));
+            this.consumeItemFromStack(player, heldItemStack);
+            this.setSaddleType(heldItemStack);
             return true;
         }
 

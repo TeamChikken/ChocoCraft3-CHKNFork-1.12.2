@@ -3,6 +3,7 @@ package net.xalcon.chococraft.common.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -17,10 +18,10 @@ public class ContainerSaddleBag extends Container
         switch(chocobo.getSaddleType())
         {
             case SADDLE_BAGS:
-                bindInventorySmall(chocobo.chocoboInventory);
+                //bindInventorySmall(chocobo.chocoboInventory);
                 break;
             case PACK:
-                bindInventoryBig(chocobo.chocoboInventory);
+                //bindInventoryBig(chocobo.chocoboInventory);
                 break;
         }
 
@@ -63,5 +64,11 @@ public class ContainerSaddleBag extends Container
     public boolean canInteractWith(EntityPlayer playerIn)
     {
         return true;
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+    {
+        return ItemStack.EMPTY;
     }
 }
