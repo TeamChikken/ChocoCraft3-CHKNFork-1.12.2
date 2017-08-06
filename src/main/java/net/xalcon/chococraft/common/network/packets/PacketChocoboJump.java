@@ -14,7 +14,7 @@ public class PacketChocoboJump implements IMessage
 
     public PacketChocoboJump() {}
 
-    public PacketChocoboJump(RiderState riderState) {//TODO make interface for controllable entities for haxylib, edit this to take that interface etc
+    public PacketChocoboJump(RiderState riderState) {
         this.riderState = riderState;
     }
 

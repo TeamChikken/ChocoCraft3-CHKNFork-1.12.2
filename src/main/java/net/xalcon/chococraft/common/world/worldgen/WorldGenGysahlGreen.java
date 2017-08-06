@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.init.ModBlocks;
 
 import java.util.Random;
@@ -18,7 +19,7 @@ public class WorldGenGysahlGreen implements IWorldGenerator
         if(!world.provider.isSurfaceWorld() || !world.provider.hasSkyLight())
             return;
 
-        if(random.nextInt(1000) > 100)
+        if(random.nextFloat() > ChocoConfig.world.gysahlGreenSpawnChance)
             return;
 
         // offset the generation by +8 on x and z to prevent cascading chunk generation
@@ -28,7 +29,7 @@ public class WorldGenGysahlGreen implements IWorldGenerator
 
         IBlockState blockState = ModBlocks.gysahlGreen.getFullyGrownState();
 
-        for (int i = 0; i < 64; ++i)
+        for (int i = 0; i < ChocoConfig.world.gysahlGreenPatchSize; ++i)
         {
             BlockPos blockPos = finalPosition.add(
                     random.nextInt(8) - random.nextInt(8),

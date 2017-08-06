@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.entities.breeding.Breeding;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
@@ -251,7 +252,7 @@ public class EntityChocobo extends EntityTameable
         if (heldItemStack.getItem() == ModItems.gysahlGreen)
         {
             this.consumeItemFromStack(player, player.inventory.getCurrentItem());
-            if (world.rand.nextFloat() < 0.15) // TODO: Move chance to config
+            if (world.rand.nextFloat() < ChocoConfig.chocobo.tameChance)
             {
                 this.setOwnerId(player.getUniqueID());
                 this.setTamed(true);
@@ -405,7 +406,7 @@ public class EntityChocobo extends EntityTameable
             // Client side
             if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer)
             {
-                // TODO: THIS CRASHES ON A DEDICATED SERVER! MOVE THIS SOMEWHERE ELSE! Maybe in a keyboard event handler
+                // :thonk: no idea why this is not crashing on a dedicated server, but we might want to move this somewhere else
                 if (Minecraft.getMinecraft().player.getUniqueID().equals(riddenByEntity.getUniqueID()) && Keyboard.isKeyDown(Keyboard.KEY_SPACE))
                     this.riderState.setJumping(true);
 

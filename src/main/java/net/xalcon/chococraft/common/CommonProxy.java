@@ -26,10 +26,14 @@ public class CommonProxy
         EntityDataSerializers.init();
         PacketManager.init();
 
-        GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), 3); // TODO: Make weight configurable
+        GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
 
-        // TODO: Make configurable
-        EntityRegistry.addSpawn(EntityChocobo.class, 10, 1, 3, EnumCreatureType.CREATURE, BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
+        EntityRegistry.addSpawn(EntityChocobo.class,
+                ChocoConfig.world.chocoboSpawnWeight,
+                ChocoConfig.world.chocoboPackSizeMin,
+                ChocoConfig.world.chocoboPackSizeMax,
+                EnumCreatureType.CREATURE,
+                BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
     }
 
     public void onPostInit(FMLPostInitializationEvent event)
