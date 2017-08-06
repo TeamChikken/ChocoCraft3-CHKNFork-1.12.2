@@ -3,7 +3,6 @@ package net.xalcon.chococraft.common.entities;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializer;
-import net.minecraft.network.datasync.DataSerializers;
 
 import java.io.IOException;
 

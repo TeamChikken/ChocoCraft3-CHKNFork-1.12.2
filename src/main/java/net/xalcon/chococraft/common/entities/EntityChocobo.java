@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -72,8 +73,31 @@ public class EntityChocobo extends EntityTameable
 
     private void reconfigureInventory(SaddleType oldType, SaddleType newType)
     {
-        // TODO: Implement inventory size changes, drop items if size is getting smaller
-        Chococraft.log.info("{}: reconfigure inventory from {} to {}", this.world.isRemote ? "Client": "Server", oldType, newType);
+        if(!this.getEntityWorld().isRemote)
+        {
+            /*if(this.chocoboInventory.getSlots() > newType.getInventorySize())
+            {
+                // inventory is getting smaller, drop overflow
+                for(int i = newType.getInventorySize(); i < this.chocoboInventory.getSlots(); i++)
+                {
+                    ItemStack stack = this.chocoboInventory.extractItem(i, Integer.MAX_VALUE, false);
+                    InventoryHelper.spawnItemStack(this.getEntityWorld(), this.posX, this.posY + .5, this.posZ, stack);
+                }
+            }*/
+            // TODO: Handle resizing. ItemStackHandler#setSize() clears the internal inventory!
+            for(int i = 0; i < this.chocoboInventory.getSlots(); i++)
+            {
+                ItemStack stack = this.chocoboInventory.extractItem(i, Integer.MAX_VALUE, false);
+                InventoryHelper.spawnItemStack(this.getEntityWorld(), this.posX, this.posY + .5, this.posZ, stack);
+            }
+        }
+        this.chocoboInventory.setSize(newType.getInventorySize());
+
+        for(EntityPlayer player : world.playerEntities)
+        {
+            if(player.openContainer instanceof ContainerSaddleBag)
+                ((ContainerSaddleBag) player.openContainer).refreshSlots(this, player);
+        }
     }
 
     public boolean isSaddled()

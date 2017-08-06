@@ -1,8 +1,5 @@
 package net.xalcon.chococraft.common.init;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemMonsterPlacer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;

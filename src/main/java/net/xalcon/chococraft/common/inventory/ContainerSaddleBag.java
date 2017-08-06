@@ -5,7 +5,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 
@@ -13,15 +12,21 @@ public class ContainerSaddleBag extends Container
 {
     public ContainerSaddleBag(EntityChocobo chocobo, EntityPlayer player)
     {
+        this.refreshSlots(chocobo, player);
+    }
+
+    public void refreshSlots(EntityChocobo chocobo, EntityPlayer player)
+    {
+        this.inventorySlots.clear();
         bindPlayerInventory(player);
 
         switch(chocobo.getSaddleType())
         {
             case SADDLE_BAGS:
-                //bindInventorySmall(chocobo.chocoboInventory);
+                bindInventorySmall(chocobo.chocoboInventory);
                 break;
             case PACK:
-                //bindInventoryBig(chocobo.chocoboInventory);
+                bindInventoryBig(chocobo.chocoboInventory);
                 break;
         }
 
@@ -34,7 +39,7 @@ public class ContainerSaddleBag extends Container
         {
             for(int col = 0; col < 5; col++)
             {
-                this.addSlotToContainer(new SlotItemHandler(inventory, row * 5 + col, 80 + col * 18, 80 + row * 18));
+                this.addSlotToContainer(new SlotItemHandler(inventory, row * 5 + col, 44 + col * 18, 36 + row * 18));
             }
         }
     }

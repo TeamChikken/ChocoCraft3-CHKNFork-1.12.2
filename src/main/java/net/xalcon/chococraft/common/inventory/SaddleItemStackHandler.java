@@ -6,7 +6,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.xalcon.chococraft.Chococraft;
 
 import javax.annotation.Nonnull;
 
@@ -19,7 +18,8 @@ public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandl
     {
         ItemStack oldStack = this.itemStack;
         this.itemStack = stack;
-        if(!(oldStack.isEmpty() && stack.isEmpty())) // dont update if we change from empty to empty
+        // dont update if we change from empty to empty
+        if(!(oldStack.isEmpty() && stack.isEmpty()))
         {
             this.onStackChanged();
         }
