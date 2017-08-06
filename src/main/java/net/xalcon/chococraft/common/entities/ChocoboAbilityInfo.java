@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ChocoboAbilityInfo {
 
-    private static HashMap<EntityChocobo.ChocoboColor, ChocoboAbilityInfo> abilityInfos = new HashMap<EntityChocobo.ChocoboColor, ChocoboAbilityInfo>();
+    private static HashMap<ChocoboColor, ChocoboAbilityInfo> abilityInfos = new HashMap<ChocoboColor, ChocoboAbilityInfo>();
 
-    private EntityChocobo.ChocoboColor chocoboColor;
+    private ChocoboColor chocoboColor;
     private int maxHP;
     private boolean canClimb = false;
     private boolean canWalkOnWater = false;
@@ -24,13 +24,13 @@ public class ChocoboAbilityInfo {
     private List<PotionEffect> effectList = new ArrayList<PotionEffect>();
     private float airSpeed;
 
-    public ChocoboAbilityInfo(EntityChocobo.ChocoboColor chocoboColor) {
+    public ChocoboAbilityInfo(ChocoboColor chocoboColor) {
         if(abilityInfos.containsKey(chocoboColor))
             throw new UnsupportedOperationException("Editing defined abilities is not permitted");
         this.chocoboColor = chocoboColor;
     }
 
-    public static ChocoboAbilityInfo getAbilityInfo(EntityChocobo.ChocoboColor chocoboColor) {
+    public static ChocoboAbilityInfo getAbilityInfo(ChocoboColor chocoboColor) {
         return abilityInfos.get(chocoboColor);
     }
 

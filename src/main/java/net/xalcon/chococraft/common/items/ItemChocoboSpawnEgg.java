@@ -4,8 +4,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,6 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.entities.ChocoboColor;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
 
@@ -33,7 +32,7 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
     {
         if(this.isInCreativeTab(tab))
         {
-            for(EntityChocobo.ChocoboColor color : EntityChocobo.ChocoboColor.values())
+            for(ChocoboColor color : ChocoboColor.values())
                 items.add(new ItemStack(this, 1, color.ordinal()));
         }
     }
@@ -49,15 +48,15 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
     {
         if(worldIn.isRemote) return EnumActionResult.SUCCESS;
 
-        Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Chococraft.MODID, "chocobo"), worldIn);
+        Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Chococraft.MODID, "chocobo_bird"), worldIn);
 
         int meta = player.getHeldItem(hand).getMetadata();
-        if(meta < 0 || meta >= EntityChocobo.ChocoboColor.values().length) return EnumActionResult.FAIL;
+        if(meta < 0 || meta >= ChocoboColor.values().length) return EnumActionResult.FAIL;
 
         if (entity instanceof EntityChocobo)
         {
             EntityChocobo entityliving = (EntityChocobo)entity;
-            entityliving.setColor(EntityChocobo.ChocoboColor.values()[meta]);
+            entityliving.setColor(ChocoboColor.values()[meta]);
             if(player.isSneaking())
                 entityliving.setGrowingAge(-24000);
             entity.setLocationAndAngles(pos.getX() + .5, pos.getY() + getYOffset(worldIn, pos), pos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
@@ -79,7 +78,7 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
 
         // this registers a "blockstate" for our item, which allows different models depending on the variant
         ResourceLocation loc = new ResourceLocation(rl.getResourceDomain(), "items/" + rl.getResourcePath());
-        for(EntityChocobo.ChocoboColor color : EntityChocobo.ChocoboColor.values())
+        for(ChocoboColor color : ChocoboColor.values())
             ModelLoader.setCustomModelResourceLocation(this, color.ordinal(), new ModelResourceLocation(loc, "type=" + color.name().toLowerCase()));
     }
 
@@ -87,8 +86,8 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
     public String getUnlocalizedName(ItemStack stack)
     {
         int meta = stack.getMetadata();
-        if(meta >= 0 && meta < EntityChocobo.ChocoboColor.values().length)
-            return super.getUnlocalizedName(stack) + "." + EntityChocobo.ChocoboColor.values()[meta].name().toLowerCase();
+        if(meta >= 0 && meta < ChocoboColor.values().length)
+            return super.getUnlocalizedName(stack) + "." + ChocoboColor.values()[meta].name().toLowerCase();
         return super.getUnlocalizedName(stack);
     }
 

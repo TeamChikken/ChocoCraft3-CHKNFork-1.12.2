@@ -4,7 +4,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.xalcon.chococraft.common.entities.ChocoboAbilityInfo;
 
-import static net.xalcon.chococraft.common.entities.EntityChocobo.ChocoboColor;
+import net.xalcon.chococraft.common.entities.ChocoboColor;
 
 public class ChocoboAbilityConfiguration
 {

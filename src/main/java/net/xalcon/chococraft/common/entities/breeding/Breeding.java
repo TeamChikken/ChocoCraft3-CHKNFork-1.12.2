@@ -1,16 +1,12 @@
 package net.xalcon.chococraft.common.entities.breeding;
 
 
+import net.xalcon.chococraft.common.entities.ChocoboColor;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 public class Breeding {
 
-    public static EntityChocobo.ChocoboColor getColour(EntityChocobo firstParent, EntityChocobo secondParent) {
+    public static ChocoboColor getColour(EntityChocobo firstParent, EntityChocobo secondParent) {
         return firstParent.getChocoboColor();
 
         /*int randColour = firstParent.getEntityWorld().rand.nextInt(100);

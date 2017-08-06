@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.xalcon.chococraft.common.CommonProxy;
 import net.xalcon.chococraft.common.configuration.ChocoboAbilityConfiguration;
 import net.xalcon.chococraft.common.init.ModItems;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Chococraft.MODID, version = Chococraft.VERSION)
 public class Chococraft
@@ -21,6 +23,8 @@ public class Chococraft
     public static final String VERSION = "@VERSION@";
 
     private final static Chococraft instance = new Chococraft();
+
+    public final static Logger log = LogManager.getLogger(MODID);
 
     @SidedProxy(clientSide = "net.xalcon.chococraft.client.ClientProxy", serverSide = "net.xalcon.chococraft.common.CommonProxy")
     public static CommonProxy proxy;

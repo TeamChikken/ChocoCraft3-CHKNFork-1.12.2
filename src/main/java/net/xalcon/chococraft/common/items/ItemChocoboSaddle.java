@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.xalcon.chococraft.common.entities.SaddleType;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
 
 public class ItemChocoboSaddle extends Item implements IItemModelRegistrationHandler
@@ -27,7 +27,7 @@ public class ItemChocoboSaddle extends Item implements IItemModelRegistrationHan
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
         if(!this.isInCreativeTab(tab)) return;
-        for(EntityChocobo.SaddleType type : EntityChocobo.SaddleType.ITEM_META)
+        for(SaddleType type : SaddleType.ITEM_META)
         {
             items.add(new ItemStack(this, 1, type.getMeta()));
         }
@@ -41,14 +41,16 @@ public class ItemChocoboSaddle extends Item implements IItemModelRegistrationHan
 
         // this registers a "blockstate" for our item, which allows different models depending on the variant
         ResourceLocation loc = new ResourceLocation(rl.getResourceDomain(), "items/" + rl.getResourcePath());
-        for(EntityChocobo.SaddleType type : EntityChocobo.SaddleType.ITEM_META)
+        for(SaddleType type : SaddleType.ITEM_META)
         {
             ModelLoader.setCustomModelResourceLocation(this, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.name().toLowerCase()));
         }
     }
 
-    public EntityChocobo.SaddleType getSaddleType(ItemStack stack)
+    public SaddleType getSaddleType(ItemStack stack)
     {
-        return EntityChocobo.SaddleType.getFromMeta(stack.getMetadata());
+        if(stack.getItem() != this)
+            return SaddleType.NONE;
+        return SaddleType.getFromMeta(stack.getMetadata());
     }
 }

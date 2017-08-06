@@ -5,9 +5,9 @@ import net.minecraft.network.datasync.DataSerializers;
 
 public class EntityDataSerializers
 {
-    public final static DataSerializer<EntityChocobo.ChocoboColor> CHOCOBO_COLOR = new GenericByteEnumSerializer<>(EntityChocobo.ChocoboColor.values());
-    public final static DataSerializer<EntityChocobo.SaddleType> BAG_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.SaddleType.values());
-    public final static DataSerializer<EntityChocobo.MovementType> MOVEMENT_TYPE = new GenericByteEnumSerializer<>(EntityChocobo.MovementType.values());
+    public final static DataSerializer<ChocoboColor> CHOCOBO_COLOR = new GenericByteEnumSerializer<>(ChocoboColor.values());
+    public final static DataSerializer<SaddleType> BAG_TYPE = new GenericByteEnumSerializer<>(SaddleType.values());
+    public final static DataSerializer<MovementType> MOVEMENT_TYPE = new GenericByteEnumSerializer<>(MovementType.values());
 
     public static void init()
     {
