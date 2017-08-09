@@ -165,7 +165,7 @@ public class EntityChocobo extends EntityTameable
         onGroundSpeedFactor = this.getAbilityInfo().getLandSpeed() / 100f;
         this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(onGroundSpeedFactor);
         this.isImmuneToFire = getAbilityInfo().isImmuneToFire();
-        this.stepHeight = this.getAbilityInfo().getStepHeight(this.isBeingRidden());
+        this.stepHeight = this.getAbilityInfo().getStepHeight(true);
     }
 
     @Override
@@ -309,20 +309,7 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if (isInWater() && this.getAbilityInfo().canWalkOnWater())
-            {
-                motionY = 0.4d;
-                //moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
-                setJumping(true);
-            }
-
-            if (this.riderState.isJumping() && this.getAbilityInfo().getCanFly())
-            {
-                //this.isJumping = true;
-                this.jump();
-                //moveFlying(strafe, forward, 100 / getAbilityInfo().getAirbornSpeed());
-            }
-            else if (this.riderState.isJumping() && !this.isJumping && this.onGround)
+            if (this.riderState.isJumping() && !this.isJumping && this.onGround)
             {
                 this.motionY += 0.75;
                 this.riderState.setJumping(false);
