@@ -1,0 +1,2 @@
+* **Feathers:** In the past, chocobos dropped feathers which were used for a view crafting recipes. How can this be useful?
+* **Treasure Hunt:** A mechanic to search for burried treasures using the chocobos proximity search (similar to FF9s treasure hunt)
