@@ -1,7 +1,8 @@
-package net.xalcon.chococraft.common.entities;
+package net.xalcon.chococraft.common.entities.properties;
 
 import net.minecraft.network.datasync.DataSerializer;
 import net.minecraft.network.datasync.DataSerializers;
+import net.xalcon.chococraft.utils.GenericByteEnumSerializer;
 
 public class EntityDataSerializers
 {

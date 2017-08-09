@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities;
+package net.xalcon.chococraft.common.entities.properties;
 
 public class RiderState
 {

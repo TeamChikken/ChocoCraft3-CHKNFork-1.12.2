@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities;
+package net.xalcon.chococraft.utils;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;

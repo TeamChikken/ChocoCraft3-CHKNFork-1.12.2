@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.entities.breeding.Breeding;
+import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
 import net.xalcon.chococraft.common.inventory.SaddleItemStackHandler;
@@ -54,7 +54,6 @@ public class EntityChocobo extends EntityTameable
     private float wingRotDelta;
     public float wingRotation;
     public float destPos;
-    public boolean fedGoldenGyshal;
 
     public SaddleType getSaddleType()
     {
@@ -224,9 +223,7 @@ public class EntityChocobo extends EntityTameable
     public EntityAgeable createChild(EntityAgeable entity)
     {
         EntityChocobo baby = new EntityChocobo(this.getEntityWorld());
-        baby.setColor(Breeding.getColour(this, (EntityChocobo) entity));
-        this.fedGoldenGyshal = false;
-        ((EntityChocobo) entity).fedGoldenGyshal = false;
+        baby.setColor(this.getEntityWorld().rand.nextBoolean() ? this.getChocoboColor() : ((EntityChocobo)entity).getChocoboColor());
         return baby;
     }
 

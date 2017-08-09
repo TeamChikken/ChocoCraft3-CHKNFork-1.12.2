@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.ChocoboColor;
+import net.xalcon.chococraft.common.entities.properties.ChocoboColor;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
 

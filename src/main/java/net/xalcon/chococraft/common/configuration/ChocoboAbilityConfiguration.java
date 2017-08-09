@@ -2,8 +2,8 @@ package net.xalcon.chococraft.common.configuration;
 
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.xalcon.chococraft.common.entities.ChocoboAbilityInfo;
-import net.xalcon.chococraft.common.entities.ChocoboColor;
+import net.xalcon.chococraft.common.entities.properties.ChocoboAbilityInfo;
+import net.xalcon.chococraft.common.entities.properties.ChocoboColor;
 
 public class ChocoboAbilityConfiguration
 {
