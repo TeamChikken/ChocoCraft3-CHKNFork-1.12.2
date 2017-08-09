@@ -165,6 +165,7 @@ public class EntityChocobo extends EntityTameable
         onGroundSpeedFactor = this.getAbilityInfo().getLandSpeed() / 100f;
         this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(onGroundSpeedFactor);
         this.isImmuneToFire = getAbilityInfo().isImmuneToFire();
+        this.stepHeight = this.getAbilityInfo().getStepHeight(this.isBeingRidden());
     }
 
     @Override
@@ -192,7 +193,7 @@ public class EntityChocobo extends EntityTameable
 
     public ChocoboColor getChocoboColor()
     {
-        return ChocoboColor.YELLOW; //TEMP  this.dataManager.get(PARAM_VARIANT);
+        return this.dataManager.get(PARAM_VARIANT);
     }
 
     public ChocoboAbilityInfo getAbilityInfo()
@@ -311,7 +312,7 @@ public class EntityChocobo extends EntityTameable
             if (isInWater() && this.getAbilityInfo().canWalkOnWater())
             {
                 motionY = 0.4d;
-                moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
+                //moveFlying(strafe, forward, 100 / getAbilityInfo().getWaterSpeed());
                 setJumping(true);
             }
 
@@ -319,7 +320,7 @@ public class EntityChocobo extends EntityTameable
             {
                 //this.isJumping = true;
                 this.jump();
-                moveFlying(strafe, forward, 100 / getAbilityInfo().getAirbornSpeed());
+                //moveFlying(strafe, forward, 100 / getAbilityInfo().getAirbornSpeed());
             }
             else if (this.riderState.isJumping() && !this.isJumping && this.onGround)
             {
@@ -362,29 +363,6 @@ public class EntityChocobo extends EntityTameable
         else
         {
             super.travel(strafe, vertical, forward);
-        }
-    }
-
-    public void moveFlying(float strafe, float forward, float friction)
-    {
-        float f3 = strafe * strafe + forward * forward;
-
-        if (f3 >= 1.0E-4F)
-        {
-            f3 = MathHelper.sqrt(f3);
-
-            if (f3 < 1.0F)
-            {
-                f3 = 1.0F;
-            }
-
-            f3 = friction / f3;
-            strafe *= f3;
-            forward *= f3;
-            float f4 = MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F);
-            float f5 = MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F);
-            this.motionX += (double) (strafe * f5 - forward * f4);
-            this.motionZ += (double) (forward * f5 + strafe * f4);
         }
     }
 

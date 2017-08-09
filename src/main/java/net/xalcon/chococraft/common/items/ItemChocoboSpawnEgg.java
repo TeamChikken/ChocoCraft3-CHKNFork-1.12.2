@@ -56,13 +56,13 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
         if (entity instanceof EntityChocobo)
         {
             EntityChocobo entityliving = (EntityChocobo)entity;
-            entityliving.setColor(ChocoboColor.values()[meta]);
             if(player.isSneaking())
                 entityliving.setGrowingAge(-24000);
             entity.setLocationAndAngles(pos.getX() + .5, pos.getY() + getYOffset(worldIn, pos), pos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
             entityliving.rotationYawHead = entityliving.rotationYaw;
             entityliving.renderYawOffset = entityliving.rotationYaw;
             entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
+            entityliving.setColor(ChocoboColor.values()[meta]);
             worldIn.spawnEntity(entity);
             entityliving.playLivingSound();
         }
