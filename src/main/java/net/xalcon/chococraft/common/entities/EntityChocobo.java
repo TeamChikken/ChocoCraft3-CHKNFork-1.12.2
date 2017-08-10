@@ -1,6 +1,5 @@
 package net.xalcon.chococraft.common.entities;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityTameable;
@@ -26,9 +25,7 @@ import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
 import net.xalcon.chococraft.common.inventory.SaddleItemStackHandler;
 import net.xalcon.chococraft.common.network.PacketManager;
-import net.xalcon.chococraft.common.network.packets.PacketChocoboJump;
 import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
-import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -40,7 +37,6 @@ public class EntityChocobo extends EntityTameable
     private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
     private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
 
-    private final RiderState riderState;
     public final ItemStackHandler chocoboInventory = new ItemStackHandler();
     public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler()
     {
@@ -131,7 +127,6 @@ public class EntityChocobo extends EntityTameable
         this.setSize(1.3f, 2.3f);
         // TODO: setCustomNameTag(DefaultNames.getRandomName(isMale()));
         // TODO: this.resetFeatherDropTime();
-        this.riderState = new RiderState();
         updateStats();
     }
 
@@ -175,11 +170,6 @@ public class EntityChocobo extends EntityTameable
         this.dataManager.register(PARAM_IS_MALE, false);
         this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
         this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
-    }
-
-    public RiderState getRiderState()
-    {
-        return riderState;
     }
 
     public void setColor(ChocoboColor color)
@@ -303,11 +293,11 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if (this.riderState.isJumping() && !this.isJumping && this.onGround)
+            if (rider.isJumping && !this.isJumping && this.onGround)
             {
                 this.motionY += 0.75;
-                this.riderState.setJumping(false);
                 this.isJumping = true;
+                this.isAirBorne = true;
             }
 
             if (this.canPassengerSteer())
@@ -325,7 +315,6 @@ public class EntityChocobo extends EntityTameable
             if (this.onGround)
             {
                 this.isJumping = false;
-                this.riderState.setJumping(false);
             }
 
             this.prevLimbSwingAmount = this.limbSwingAmount;
@@ -363,19 +352,6 @@ public class EntityChocobo extends EntityTameable
         if (this.getEntityWorld().isRemote)
         {
             // Client side
-            if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer)
-            {
-                // :thonk: no idea why this is not crashing on a dedicated server, but we might want to move this somewhere else
-                if (Minecraft.getMinecraft().player.getUniqueID().equals(riddenByEntity.getUniqueID()) && Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-                    this.riderState.setJumping(true);
-
-                if (this.riderState.hasChanged())
-                {
-                    PacketManager.INSTANCE.sendToServer(new PacketChocoboJump(this.riderState));
-                    this.riderState.resetChanged();
-                }
-            }
-
             this.destPos += (double) (this.onGround ? -1 : 4) * 0.3D;
             this.destPos = MathHelper.clamp(destPos, 0f, 1f);
 
