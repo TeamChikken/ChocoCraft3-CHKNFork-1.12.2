@@ -177,8 +177,6 @@ public class EntityChocobo extends EntityTameable
         this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
     }
 
-    // TODO: implement mounting
-
     public RiderState getRiderState()
     {
         return riderState;
@@ -290,7 +288,6 @@ public class EntityChocobo extends EntityTameable
     @Override
     public void travel(float strafe, float vertical, float forward)
     {
-        // OLD TODO some point in future, move this to its own ai class
         EntityLivingBase rider = (EntityLivingBase) this.getControllingPassenger();
         if (rider != null)
         {
@@ -387,8 +384,10 @@ public class EntityChocobo extends EntityTameable
 
             this.wingRotDelta *= 0.9D;
 
-            if (!this.onGround && this.motionY < 0.0D)
-                this.motionY *= 0.8D;
+            // TODO: Move this to common code, not just client
+            // Simulates slow fall
+            /*if (!this.onGround && this.motionY < 0.0D)
+                this.motionY *= 0.8D;*/
             this.wingRotation += this.wingRotDelta * 2.0F;
 
             return;// Rest of code should be run on server only
