@@ -14,7 +14,7 @@ def mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_ver
 def mc_username = project.hasProperty('dev_username') ? dev_username : "${mod_id}_dev"
 def mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
 
-version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}"
+version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}.${getBuildNumber()}"
 group = "net.xalcon.${mod_id}"
 archivesBaseName = "${mod_id}_${mc_version}"
 
@@ -45,7 +45,7 @@ processResources {
 
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
-		expand 'version':project.version
+		expand 'version':project.version, 'mcversion':mc_version_compat_range
 	}
 
 	from(sourceSets.main.resources.srcDirs) {
@@ -53,6 +53,10 @@ processResources {
 	}
 	
 	rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+def static getBuildNumber() {
+    return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 }
 
 jar {
