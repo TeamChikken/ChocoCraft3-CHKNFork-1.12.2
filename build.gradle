@@ -39,7 +39,7 @@ processResources {
 
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
-		expand 'version':project.version
+		expand 'version':project.version, 'mcversion':mc_version_compat_range
 	}
 
 	from(sourceSets.main.resources.srcDirs) {
