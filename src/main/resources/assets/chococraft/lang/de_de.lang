@@ -19,6 +19,7 @@ item.chococraft.chocobo_spawn_egg.purple.name=Lila Chocobo Spawn-Ei
 
 chococraft.entity_chocobo.tame_fail=§cZähmung fehlgeschlagen
 chococraft.entity_chocobo.tame_success=§aZähmung erfolgreich
+chococraft.entity_chocobo.saddle_applied=Chocobo gesattelt
 
 chococraft.general.world=Welt
 chococraft.general.world.gysahlgreenspawnweight=Gizarkraut Spawnanteil

@@ -19,6 +19,7 @@ item.chococraft.chocobo_spawn_egg.purple.name=Purple Chocobo Spawn Egg
 
 chococraft.entity_chocobo.tame_fail=§cTame failed
 chococraft.entity_chocobo.tame_success=§aTame succeeded
+chococraft.entity_chocobo.saddle_applied=Saddle applied
 
 chococraft.general.world=World
 chococraft.general.world.gysahlgreenspawnweight=Gysahl Green Spawn Weight

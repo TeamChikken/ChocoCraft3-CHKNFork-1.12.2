@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.chococraft.common.configuration.ChocoboAbilityConfiguration;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.common.entities.properties.EntityDataSerializers;
 import net.xalcon.chococraft.common.network.PacketManager;
@@ -18,7 +17,6 @@ public class CommonProxy
 {
     public void onPreInit(FMLPreInitializationEvent event)
     {
-        ChocoboAbilityConfiguration.loadAbilityInfo();
     }
 
     public void onInit(FMLInitializationEvent event)

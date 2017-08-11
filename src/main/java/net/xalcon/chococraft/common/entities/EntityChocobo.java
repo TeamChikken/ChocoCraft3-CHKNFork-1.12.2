@@ -156,12 +156,11 @@ public class EntityChocobo extends EntityTameable
 
     private void updateStats()
     {
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getAbilityInfo().getMaxHP());// set max health
-        setHealth(getMaxHealth());// reset the hp to max
-        onGroundSpeedFactor = this.getAbilityInfo().getLandSpeed() / 100f;
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
+        setHealth(getMaxHealth());
+        onGroundSpeedFactor = 40 / 100f;
         this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(onGroundSpeedFactor);
-        this.isImmuneToFire = getAbilityInfo().isImmuneToFire();
-        this.stepHeight = this.getAbilityInfo().getStepHeight(true);
+        this.stepHeight = 1.0f;
     }
 
     @Override
@@ -183,11 +182,6 @@ public class EntityChocobo extends EntityTameable
     public ChocoboColor getChocoboColor()
     {
         return this.dataManager.get(PARAM_VARIANT);
-    }
-
-    public ChocoboAbilityInfo getAbilityInfo()
-    {
-        return ChocoboAbilityInfo.getAbilityInfo(this.getChocoboColor());
     }
 
     @Nullable
@@ -220,7 +214,7 @@ public class EntityChocobo extends EntityTameable
     public EntityAgeable createChild(EntityAgeable entity)
     {
         EntityChocobo baby = new EntityChocobo(this.getEntityWorld());
-        baby.setColor(this.getEntityWorld().rand.nextBoolean() ? this.getChocoboColor() : ((EntityChocobo)entity).getChocoboColor());
+        baby.setColor(ChocoboColor.values()[this.rand.nextInt(ChocoboColor.values().length)]);
         return baby;
     }
 
@@ -350,12 +344,8 @@ public class EntityChocobo extends EntityTameable
     {
         super.onLivingUpdate();
 
-        if (this.getAbilityInfo().canClimb() || this.isBeingRidden())
-            this.stepHeight = 1.0F;
-
+        this.stepHeight = 1f;
         this.fallDistance = 0f;
-
-        Entity riddenByEntity = this.getControllingPassenger();
 
         // Wing rotations, control packet, client side
         if (this.getEntityWorld().isRemote)
