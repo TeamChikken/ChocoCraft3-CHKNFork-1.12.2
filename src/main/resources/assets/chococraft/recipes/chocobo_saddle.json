@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLF",
+    "NSN",
+    " N "
+  ],
+  "key": {
+    "L": { "ore": "leather", "type": "forge:ore_dict" },
+    "F": { "ore": "feather", "type": "forge:ore_dict" },
+    "S": { "ore": "string", "type": "forge:ore_dict" },
+    "N": { "ore": "nuggetIron", "type": "forge:ore_dict" }
+  },
+  "result": {
+    "item": "chococraft:chocobo_saddle",
+    "count": 1,
+    "data": 0
+  }
+}

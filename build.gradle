@@ -30,7 +30,13 @@ minecraft {
 	clientRunArgs = [ "--username ${mc_username}", "--uuid ${mc_uuid}" ]
 }
 
+repositories {
+	maven { url 'http://dvs1.progwml6.com/files/maven' } // JEI
+}
+
 dependencies {
+	deobfCompile "mezz.jei:jei_1.12:4.7.5.85:api"
+	runtime "mezz.jei:jei_1.12:4.7.5.85"
 }
 
 processResources {

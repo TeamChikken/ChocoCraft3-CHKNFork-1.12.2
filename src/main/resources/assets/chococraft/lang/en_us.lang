@@ -1,5 +1,24 @@
-tile.chococraft.gysahl_greens.name=Gysahl Greens
-item.chococraft.gysahl_greens.name=Gysahl Greens
+tile.chococraft.gysahl_green.name=Gysahl Green
+
+item.chococraft.gysahl_green.name=Gysahl Green
+item.chococraft.gysahl_green_seeds.name=Gysahl Green Seeds
+item.chococraft.lovely_gysahl_green.name=Lovely Gysahl Green
+
+item.chococraft.chocobo_saddle.name=Chocobo Saddle
+item.chococraft.chocobo_drumstick_raw.name=Raw Chocobo Drumstick
+item.chococraft.chocobo_drumstick_cooked.name=Cooked Chocobo Drumstick
+item.chococraft.chocobo_spawn_egg.yellow.name=Yellow Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.green.name=Green Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.blue.name=Blue Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.white.name=White Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.black.name=Black Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.gold.name=Golden Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.pink.name=Pink Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.red.name=Red Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.purple.name=Purple Chocobo Spawn Egg
+
+chococraft.entity_chocobo.tame_fail=§cTame failed
+chococraft.entity_chocobo.tame_success=§aTame succeeded
 
 chococraft.general.world=World
 chococraft.general.world.gysahlgreenspawnweight=Gysahl Green Spawn Weight

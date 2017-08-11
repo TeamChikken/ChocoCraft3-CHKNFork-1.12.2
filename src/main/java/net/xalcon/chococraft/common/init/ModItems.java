@@ -31,12 +31,12 @@ public class ModItems
     @ItemSetupParameters(stackSize = 4)
     public static ItemChocoboSaddle chocoboSaddle;
 
-    @GameRegistry.ObjectHolder("chocobo_feather")
-    public static Item chocoboFeather;
+    //@GameRegistry.ObjectHolder("chocobo_feather")
+    //public static Item chocoboFeather;
 
-    @GameRegistry.ObjectHolder("chocobo_whistle")
-    @ItemSetupParameters(stackSize = 1)
-    public static Item chocoboWhistle;
+    //@GameRegistry.ObjectHolder("chocobo_whistle")
+    //@ItemSetupParameters(stackSize = 1)
+    //public static Item chocoboWhistle;
 
 	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
 	public static ItemChocoboSpawnEgg chocoboSpawnEgg;

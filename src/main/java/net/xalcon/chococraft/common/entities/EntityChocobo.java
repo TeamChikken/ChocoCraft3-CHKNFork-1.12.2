@@ -235,7 +235,7 @@ public class EntityChocobo extends EntityTameable
             return true;
         }
 
-        if (heldItemStack.getItem() == ModItems.gysahlGreen)
+        if (!this.isTamed() && heldItemStack.getItem() == ModItems.gysahlGreen)
         {
             this.consumeItemFromStack(player, player.inventory.getCurrentItem());
             if (world.rand.nextFloat() < ChocoConfig.chocobo.tameChance)

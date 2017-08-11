@@ -48,7 +48,7 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationH
     {
         if(worldIn.isRemote) return EnumActionResult.SUCCESS;
 
-        Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Chococraft.MODID, "chocobo_bird"), worldIn);
+        Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Chococraft.MODID, "chocobo"), worldIn);
 
         int meta = player.getHeldItem(hand).getMetadata();
         if(meta < 0 || meta >= ChocoboColor.values().length) return EnumActionResult.FAIL;
