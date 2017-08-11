@@ -9,12 +9,12 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}.${getBuildNumber()}"
+def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}"
 def mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_version_major}.${((mc_version_minor.toInteger())+1)})"
 def mc_username = project.hasProperty('dev_username') ? dev_username : "${mod_id}_dev"
 def mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
 
-version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}"
+version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}.${getBuildNumber()}"
 group = "net.xalcon.${mod_id}"
 archivesBaseName = "${mod_id}_${mc_version}"
 
