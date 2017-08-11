@@ -42,6 +42,9 @@ public class ChocoConfig
         @Config.RangeInt(min = 0, max = 100)
         @Config.RequiresMcRestart
         public int chocoboPackSizeMax = 3;
+
+        @Config.RequiresMcRestart
+        public int retrogenId = 1;
     }
 
     public static class ChocoboConfig
