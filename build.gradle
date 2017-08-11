@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}"
+def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}.${getBuildNumber()}"
 def mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_version_major}.${((mc_version_minor.toInteger())+1)})"
 def mc_username = project.hasProperty('dev_username') ? dev_username : "${mod_id}_dev"
 def mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
@@ -47,6 +47,10 @@ processResources {
 	}
 	
 	rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+def static getBuildNumber() {
+    return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 }
 
 jar {
