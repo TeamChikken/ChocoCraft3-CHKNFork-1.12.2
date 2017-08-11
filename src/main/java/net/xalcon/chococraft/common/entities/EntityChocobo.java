@@ -12,6 +12,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
@@ -36,6 +37,7 @@ public class EntityChocobo extends EntityTameable
     private static final DataParameter<Boolean> PARAM_IS_MALE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
     private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
     private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
+    private static final ResourceLocation CHOCOBO_LOOTABLE = new ResourceLocation(Chococraft.MODID, "entities/chocobo");
 
     public final ItemStackHandler chocoboInventory = new ItemStackHandler();
     public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler()
@@ -186,6 +188,13 @@ public class EntityChocobo extends EntityTameable
     public ChocoboAbilityInfo getAbilityInfo()
     {
         return ChocoboAbilityInfo.getAbilityInfo(this.getChocoboColor());
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable()
+    {
+        return CHOCOBO_LOOTABLE;
     }
 
     @Override

@@ -1,6 +1,7 @@
 {
   "pools": [
     {
+      "name": "chocobo_meat",
       "rolls": 1,
       "entries": [
         {
