@@ -103,6 +103,8 @@ curseforge {
 		changelogType = "markdown"
 		changelog = new File('changelog.md')
 		releaseType = mod_version_type
+		addGameVersion '1.12'
+		addGameVersion '1.12.1'
 		mainArtifact jar
 	}
 }
