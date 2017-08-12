@@ -12,11 +12,12 @@ import net.xalcon.chococraft.common.init.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Chococraft.MODID, version = Chococraft.VERSION)
+@Mod(modid = Chococraft.MODID, version = Chococraft.VERSION, acceptedMinecraftVersions = Chococraft.MC_VERSION)
 public class Chococraft
 {
     public static final String MODID = "chococraft";
     public static final String VERSION = "@VERSION@";
+    public static final String MC_VERSION = "@MC_VERSION@";
 
     private final static Chococraft instance = new Chococraft();
 
