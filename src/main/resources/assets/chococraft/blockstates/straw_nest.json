@@ -1,0 +1,25 @@
+{
+    "forge_marker": 1,
+    "defaults":
+    {
+        "textures": {
+            "texture": "chococraft:blocks/straw_nest",
+            "egg": "blocks/hardened_clay_stained_white"
+        },
+        "model": "chococraft:straw_nest"
+    },
+    "variants":
+    {
+        "egg":
+        {
+            "false": { },
+            "true": {
+                "submodel": {
+                    "egg_model": {
+                        "model": "chococraft:chocobo_egg"
+                    }
+                }
+            }
+        }
+    }
+}

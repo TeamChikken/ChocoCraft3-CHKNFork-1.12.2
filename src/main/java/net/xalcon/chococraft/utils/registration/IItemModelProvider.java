@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
-public interface IItemModelRegistrationHandler
+public interface IItemModelProvider
 {
 	default void registerItemModel(Item item)
 	{

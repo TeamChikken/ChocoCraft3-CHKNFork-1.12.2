@@ -16,11 +16,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.entities.properties.ChocoboColor;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
+import net.xalcon.chococraft.utils.registration.IItemModelProvider;
 
 import java.util.List;
 
-public class ItemChocoboSpawnEgg extends Item implements IItemModelRegistrationHandler
+public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider
 {
     public ItemChocoboSpawnEgg()
     {

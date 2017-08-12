@@ -15,7 +15,7 @@ import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
 import net.xalcon.chococraft.common.items.ItemGysahlGreenSeeds;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
 import net.xalcon.chococraft.utils.inject.InstanceFactoryMethod;
-import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
+import net.xalcon.chococraft.utils.registration.IItemModelProvider;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -88,8 +88,8 @@ public class ModItems
         {
             if(!Item.class.isAssignableFrom(field.getType())) continue;
             Item item = ClassInjector.getOrNull(field);
-            if(item instanceof IItemModelRegistrationHandler)
-                ((IItemModelRegistrationHandler) item).registerItemModel(item);
+            if(item instanceof IItemModelProvider)
+                ((IItemModelProvider) item).registerItemModel(item);
             else
                 ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
         }

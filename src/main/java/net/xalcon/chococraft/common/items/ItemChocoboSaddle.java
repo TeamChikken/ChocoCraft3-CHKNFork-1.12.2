@@ -8,9 +8,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.xalcon.chococraft.common.entities.properties.SaddleType;
-import net.xalcon.chococraft.utils.registration.IItemModelRegistrationHandler;
+import net.xalcon.chococraft.utils.registration.IItemModelProvider;
 
-public class ItemChocoboSaddle extends Item implements IItemModelRegistrationHandler
+public class ItemChocoboSaddle extends Item implements IItemModelProvider
 {
     public ItemChocoboSaddle()
     {
