@@ -19,14 +19,8 @@ public class EntityRendererChocobo extends RenderLiving<EntityChocobo>
     @Override
     public void renderLivingLabel(EntityChocobo entityChocobo, String str, double x, double y, double z, int maxDistance)
     {
+        // move the label up by 0.2 units
         super.renderLivingLabel(entityChocobo, str, x, y + 0.2d, z, maxDistance);
-    }
-
-    @Override
-    public float handleRotationFloat(EntityChocobo entityChocobo, float f)
-    {
-        //Wing rotation
-        return (MathHelper.sin(entityChocobo.wingRotation) + 1F) * entityChocobo.destPos;
     }
 
     @Override

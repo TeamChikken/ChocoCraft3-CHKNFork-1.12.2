@@ -2,6 +2,7 @@ package net.xalcon.chococraft.common.entities;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -13,6 +14,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
@@ -21,6 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.ChocoConfig;
+import net.xalcon.chococraft.common.RidingEventHandler;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
@@ -30,6 +33,7 @@ import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.List;
 
 public class EntityChocobo extends EntityTameable
 {
@@ -219,10 +223,15 @@ public class EntityChocobo extends EntityTameable
     }
 
     @Override
+    public boolean canRiderInteract()
+    {
+        return true;
+    }
+
+    @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand)
     {
         if (this.getEntityWorld().isRemote) return true;
-
         ItemStack heldItemStack = player.getHeldItem(hand);
 
         if(this.isTamed() && player.isSneaking())
@@ -278,10 +287,12 @@ public class EntityChocobo extends EntityTameable
         return this.isTamed();
     }
 
+    private boolean canFly = false;
+
     @Override
     public void travel(float strafe, float vertical, float forward)
     {
-        EntityLivingBase rider = (EntityLivingBase) this.getControllingPassenger();
+        EntityPlayer rider = (EntityPlayer) this.getControllingPassenger();
         if (rider != null)
         {
             this.prevRotationYaw = this.rotationYaw = rider.rotationYaw;
@@ -296,7 +307,7 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if (rider.isJumping && !this.isJumping && this.onGround)
+            if (rider.isJumping && !this.isJumping && this.onGround && !this.canFly)
             {
                 this.motionY += 0.75;
                 this.isJumping = true;
@@ -305,14 +316,24 @@ public class EntityChocobo extends EntityTameable
 
             if (this.canPassengerSteer())
             {
-                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
-                super.travel(strafe, vertical, forward);
-            }
-            else if (rider instanceof EntityPlayer)
-            {
-                this.motionX = 0.0D;
-                this.motionY = 0.0D;
-                this.motionZ = 0.0D;
+                if(this.canFly && rider.isJumping)
+                {
+                    double d3 = this.motionY;
+                    float f = this.jumpMovementFactor;
+                    this.jumpMovementFactor = rider.capabilities.getFlySpeed() * (float)(this.isSprinting() ? 2 : 1);
+                    this.motionY = 0.3;
+                    super.travel(strafe, vertical, forward);
+                    this.motionY = d3 * 0.6D;
+                    this.jumpMovementFactor = f;
+                    this.fallDistance = 0.0F;
+                    this.setFlag(7, false);
+                }
+                else
+                {
+
+                    this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+                    super.travel(strafe, vertical, forward);
+                }
             }
 
             if (this.onGround)
@@ -320,18 +341,27 @@ public class EntityChocobo extends EntityTameable
                 this.isJumping = false;
             }
 
-            this.prevLimbSwingAmount = this.limbSwingAmount;
-            double d1 = this.posX - this.prevPosX;
-            double d0 = this.posZ - this.prevPosZ;
-            float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-
-            if (f4 > 1.0F)
+            if(this.onGround)
             {
-                f4 = 1.0F;
-            }
+                this.prevLimbSwingAmount = this.limbSwingAmount;
+                double d1 = this.posX - this.prevPosX;
+                double d0 = this.posZ - this.prevPosZ;
+                float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
-            this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
-            this.limbSwing += this.limbSwingAmount;
+                if (f4 > 1.0F)
+                {
+                    f4 = 1.0F;
+                }
+
+                this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
+                this.limbSwing += this.limbSwingAmount;
+            }
+            else
+            {
+                this.limbSwing = 0;
+                this.limbSwingAmount = 0;
+                this.prevLimbSwingAmount = 0;
+            }
         }
         else
         {
@@ -347,6 +377,13 @@ public class EntityChocobo extends EntityTameable
         this.stepHeight = 1f;
         this.fallDistance = 0f;
 
+        // slowfall / glide
+        if (!this.onGround && this.motionY < 0.0D)
+        {
+            if(!this.isBeingRidden() || !this.getControllingPassenger().isSneaking())
+                this.motionY *= 0.8D;
+        }
+
         // Wing rotations, control packet, client side
         if (this.getEntityWorld().isRemote)
         {
@@ -356,16 +393,8 @@ public class EntityChocobo extends EntityTameable
 
             if (!this.onGround)
                 this.wingRotDelta = Math.min(wingRotation, 1f);
-
             this.wingRotDelta *= 0.9D;
-
-            // TODO: Move this to common code, not just client
-            // Simulates slow fall
-            /*if (!this.onGround && this.motionY < 0.0D)
-                this.motionY *= 0.8D;*/
             this.wingRotation += this.wingRotDelta * 2.0F;
-
-            return;// Rest of code should be run on server only
         }
     }
 

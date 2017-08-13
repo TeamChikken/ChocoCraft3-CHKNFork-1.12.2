@@ -225,48 +225,50 @@ public class ModelChocobo extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+    public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        if(entity instanceof EntityChocobo && ((EntityChocobo) entity).isChild())
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
+        if(!(entity instanceof EntityChocobo)) return;
+
+        if(((EntityChocobo) entity).isChild())
         {
-            child_head.render(f5);
-            child_body.render(f5);
-            child_rightleg.render(f5);
-            child_leftleg.render(f5);
+            child_head.render(scale);
+            child_body.render(scale);
+            child_rightleg.render(scale);
+            child_leftleg.render(scale);
         }
         else
         {
-            head.render(f5);
-            feather.render(f5);
-            feather_2.render(f5);
+            head.render(scale);
+            feather.render(scale);
+            feather_2.render(scale);
 
-            neck.render(f5);
-            body.render(f5);
-            leftSaddleBag.render(f5);
-            rightSaddleBag.render(f5);
-            packBag.render(f5);
+            neck.render(scale);
+            body.render(scale);
+            leftSaddleBag.render(scale);
+            rightSaddleBag.render(scale);
+            packBag.render(scale);
 
-            rightWing.render(f5);
-            leftWing.render(f5);
+            rightWing.render(scale);
+            leftWing.render(scale);
 
-            tail.render(f5);
-            tail_2.render(f5);
-            tail_3.render(f5);
+            tail.render(scale);
+            tail_2.render(scale);
+            tail_3.render(scale);
 
-            rightThigh.render(f5);
-            leftThigh.render(f5);
+            rightThigh.render(scale);
+            leftThigh.render(scale);
 
-            rightShin.render(f5);
-            leftShin.render(f5);
+            rightShin.render(scale);
+            leftShin.render(scale);
 
-            talonRB.render(f5);
-            talonRR.render(f5);
-            talonRL.render(f5);
+            talonRB.render(scale);
+            talonRR.render(scale);
+            talonRL.render(scale);
 
-            talonLL.render(f5);
-            talonLR.render(f5);
-            talonLB.render(f5);
+            talonLL.render(scale);
+            talonLR.render(scale);
+            talonLB.render(scale);
         }
     }
 
@@ -278,27 +280,29 @@ public class ModelChocobo extends ModelBase
     }
 
     @Override
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
     {
-        if(entity instanceof EntityChocobo && ((EntityChocobo) entity).isChild())
+        if(!(entity instanceof EntityChocobo)) return;
+
+        if(((EntityChocobo) entity).isChild())
         {
-            child_head.rotateAngleX = -(f4 / 57.29578F);
-            child_head.rotateAngleY = f3 / 57.29578F;
-            child_rightleg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-            child_leftleg.rotateAngleY = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+            child_head.rotateAngleX = -(headPitch / 57.29578F);
+            child_head.rotateAngleY = netHeadYaw / 57.29578F;
+            child_rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+            child_leftleg.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 1.4F * limbSwingAmount;
         }
         else
         {
-            // f2 = wing z movement (flutter)
-            // f3 = head y movement
-            // f4 = head x movement
-            // cos(f) and f1 = leg movement
+            // ageInTicks = wing z movement (flutter)
+            // netHeadYaw = head y movement
+            // headPitch = head x movement
+            // cos(limbSwing) and limbSwingAmount = leg movement
 
             float pi = (float)Math.PI;
 
             // head/neck movement
-            head.rotateAngleX = f4 * (pi/180F);
-            head.rotateAngleY = f3 * (pi/180F);
+            head.rotateAngleX = headPitch * (pi/180F);
+            head.rotateAngleY = netHeadYaw * (pi/180F);
             neck.rotateAngleX = 0.0F;
             neck.rotateAngleY = head.rotateAngleY;
             feather.rotateAngleX = head.rotateAngleX + 0.1745329F;
@@ -308,14 +312,14 @@ public class ModelChocobo extends ModelBase
 
 
             // walking animation
-            this.setRightLegXRotation(MathHelper.cos(f * 0.6662F) * 0.8F * f1);
-            this.setLeftLegXRotation(MathHelper.cos(f * 0.6662F + pi) * 0.8F * f1);
+            this.setRightLegXRotation(MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount);
+            this.setLeftLegXRotation(MathHelper.cos(limbSwing * 0.6662F + pi) * 0.8F * limbSwingAmount);
 
             // flying animation
-            if (Math.abs(entity.motionY) > 0.1F)
+            if (Math.abs(entity.motionY) > 0.1F || !entity.onGround)
             {
-                setRotation(rightWing, (pi/2F) - (pi/12), -0.0174533F, -f2);
-                setRotation(leftWing, (pi/2F) - (pi/12), 0.0174533F, f2);
+                setRotation(rightWing, (pi/2F) - (pi/12), -0.0174533F, -90 + MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
+                setRotation(leftWing, (pi/2F) - (pi/12), 0.0174533F, 90 + MathHelper.cos(limbSwing * 0.6662F + pi) * 1.4F * limbSwingAmount);
                 this.setLeftLegXRotation(0.6F);
                 this.setRightLegXRotation(0.6F);
             }
