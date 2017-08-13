@@ -1,12 +1,15 @@
 package net.xalcon.chococraft.common.entities;
 
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -14,7 +17,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
@@ -23,7 +25,6 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.RidingEventHandler;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
@@ -33,7 +34,6 @@ import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.List;
 
 public class EntityChocobo extends EntityTameable
 {
@@ -52,6 +52,8 @@ public class EntityChocobo extends EntityTameable
             EntityChocobo.this.setSaddleType(this.itemStack);
         }
     };
+
+    private ChocoboAbilityInfo abilityInfo;
 
     private float wingRotDelta;
     public float wingRotation;
@@ -131,8 +133,6 @@ public class EntityChocobo extends EntityTameable
     {
         super(world);
         this.setSize(1.3f, 2.3f);
-        // TODO: setCustomNameTag(DefaultNames.getRandomName(isMale()));
-        // TODO: this.resetFeatherDropTime();
         updateStats();
     }
 
@@ -148,8 +148,7 @@ public class EntityChocobo extends EntityTameable
     protected void initEntityAI()
     {
         // TODO: Does this still exist? ((PathNavigateGround) this.getNavigator()).set(true);
-        // TODO: implement follow owner or player with feather (if not tamed)
-        // this.tasks.addTask(1, new ChocoboAIFollowOwner(this, 1.0D, 5.0F, 5.0F));// follow speed 1, min and max 5
+        // TODO: implement follow movement type AI
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
         this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, Collections.singleton(ModItems.gysahlGreen)));
@@ -175,6 +174,9 @@ public class EntityChocobo extends EntityTameable
         this.dataManager.register(PARAM_IS_MALE, false);
         this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
         this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
+
+        this.abilityInfo = new ChocoboAbilityInfo(this);
+        this.abilityInfo.registerDataParameters();
     }
 
     public void setColor(ChocoboColor color)
@@ -225,7 +227,13 @@ public class EntityChocobo extends EntityTameable
     @Override
     public boolean canRiderInteract()
     {
-        return true;
+        return false;
+    }
+
+    @Override
+    public boolean shouldDismountInWater(Entity rider)
+    {
+        return false;
     }
 
     @Override
@@ -287,8 +295,6 @@ public class EntityChocobo extends EntityTameable
         return this.isTamed();
     }
 
-    private boolean canFly = false;
-
     @Override
     public void travel(float strafe, float vertical, float forward)
     {
@@ -307,16 +313,36 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if (rider.isJumping && !this.isJumping && this.onGround && !this.canFly)
+            if(this.isInWater())
             {
-                this.motionY += 0.75;
-                this.isJumping = true;
-                this.isAirBorne = true;
+                this.jumpMovementFactor = this.getAIMoveSpeed();
+            }
+            else
+            {
+                this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1f;
+            }
+
+            if (rider.isJumping)
+            {
+                if(!this.abilityInfo.canDive() && this.isInWater())
+                {
+                    this.motionY = 0.3;
+                }
+                if(!this.isJumping && this.onGround && !this.abilityInfo.canFly())
+                {
+                    //this.motionY += 0.75;
+                    this.isJumping = true;
+                    this.isAirBorne = true;
+                }
+            }
+            else if (this.onGround)
+            {
+                this.isJumping = false;
             }
 
             if (this.canPassengerSteer())
             {
-                if(this.canFly && rider.isJumping)
+                if(this.abilityInfo.canFly() && rider.isJumping)
                 {
                     double d3 = this.motionY;
                     float f = this.jumpMovementFactor;
@@ -334,11 +360,6 @@ public class EntityChocobo extends EntityTameable
                     this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
                     super.travel(strafe, vertical, forward);
                 }
-            }
-
-            if (this.onGround)
-            {
-                this.isJumping = false;
             }
 
             if(this.onGround)
@@ -378,7 +399,7 @@ public class EntityChocobo extends EntityTameable
         this.fallDistance = 0f;
 
         // slowfall / glide
-        if (!this.onGround && this.motionY < 0.0D)
+        if (!this.onGround && this.abilityInfo.canGlide() && this.motionY < 0.0D)
         {
             if(!this.isBeingRidden() || !this.getControllingPassenger().isSneaking())
                 this.motionY *= 0.8D;
@@ -415,6 +436,8 @@ public class EntityChocobo extends EntityTameable
 
         if (getSaddleType() != SaddleType.NONE)
             nbt.setTag("Inventory", this.chocoboInventory.serializeNBT());
+
+        nbt.setTag("Stats", this.abilityInfo.serializeNbt());
     }
 
     @Override
@@ -428,6 +451,8 @@ public class EntityChocobo extends EntityTameable
 
         if (getSaddleType() != SaddleType.NONE)
             this.chocoboInventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
+
+        this.abilityInfo.deserializeNbt(nbt.getCompoundTag("Stats"));
     }
 
     private void displayChocoboInventory(EntityPlayerMP player)
