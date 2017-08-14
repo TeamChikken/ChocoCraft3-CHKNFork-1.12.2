@@ -275,8 +275,8 @@ public class EntityChocobo extends EntityTameable
         {
             player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
             this.saddleItemStackHandler.setStackInSlot(0, heldItemStack.copy().splitStack(1));
-            this.consumeItemFromStack(player, heldItemStack);
             this.setSaddleType(heldItemStack);
+            this.consumeItemFromStack(player, heldItemStack);
             return true;
         }
 
@@ -313,31 +313,18 @@ public class EntityChocobo extends EntityTameable
                 forward *= 0.25F;
             }
 
-            if(this.isInWater())
-            {
-                this.jumpMovementFactor = this.getAIMoveSpeed();
-            }
-            else
-            {
-                this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1f;
-            }
-
             if (rider.isJumping)
             {
-                if(!this.abilityInfo.canDive() && this.isInWater())
+                if(this.abilityInfo.canDive() && this.isInWater())
                 {
                     this.motionY = 0.3;
                 }
-                if(!this.isJumping && this.onGround && !this.abilityInfo.canFly())
+                else if(!this.isJumping && this.onGround && !this.abilityInfo.canFly())
                 {
-                    //this.motionY += 0.75;
+                    this.motionY += 0.75;
                     this.isJumping = true;
                     this.isAirBorne = true;
                 }
-            }
-            else if (this.onGround)
-            {
-                this.isJumping = false;
             }
 
             if (this.canPassengerSteer())
@@ -360,6 +347,11 @@ public class EntityChocobo extends EntityTameable
                     this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
                     super.travel(strafe, vertical, forward);
                 }
+            }
+
+            if (this.onGround)
+            {
+                this.isJumping = false;
             }
 
             if(this.onGround)

@@ -1,3 +1,8 @@
+# Version 0.2.1 - alpha
+- fix chocobos eating saddles when being rightclicked with one in hand.
+  I dont want to force chocobos onto a certain diet, but i dont think
+  leather is very nutritious and therefore should be avoided.
+
 # Version 0.2 - alpha
 - First release
 - Chocobos spawn randomly in the overworld (and maybe other dimensions)
