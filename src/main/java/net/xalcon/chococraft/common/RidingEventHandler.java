@@ -13,6 +13,7 @@ public class RidingEventHandler
     public static void onMountEntity(EntityMountEvent event)
     {
         if(event.isMounting()) return;
+        if(event.getEntityBeingMounted().isDead) return;
         if(!(event.getEntityBeingMounted() instanceof EntityChocobo)) return;
 
         if(!event.getEntityBeingMounted().onGround)

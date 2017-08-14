@@ -31,6 +31,7 @@ import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
 import net.xalcon.chococraft.common.inventory.SaddleItemStackHandler;
 import net.xalcon.chococraft.common.network.PacketManager;
 import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
+import net.xalcon.chococraft.utils.WorldUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -54,6 +55,7 @@ public class EntityChocobo extends EntityTameable
     };
 
     private ChocoboAbilityInfo abilityInfo;
+    private boolean isChocoboJumping;
 
     private float wingRotDelta;
     public float wingRotation;
@@ -301,79 +303,85 @@ public class EntityChocobo extends EntityTameable
         EntityPlayer rider = (EntityPlayer) this.getControllingPassenger();
         if (rider != null)
         {
-            this.prevRotationYaw = this.rotationYaw = rider.rotationYaw;
+            this.prevRotationYaw = rider.rotationYaw;
+            this.rotationYaw = rider.rotationYaw;
             this.rotationPitch = rider.rotationPitch * 0.5F;
             this.setRotation(this.rotationYaw, this.rotationPitch);
-            this.rotationYawHead = this.renderYawOffset = this.rotationYaw;
+            this.rotationYawHead = this.rotationYaw;
+            this.renderYawOffset = this.rotationYaw;
+
             strafe = rider.moveStrafing * 0.5F;
             forward = rider.moveForward;
 
+            // reduce movement speed by 75% if moving backwards
             if (forward <= 0.0F)
-            {
                 forward *= 0.25F;
-            }
 
-            if (rider.isJumping)
-            {
-                if(this.abilityInfo.canDive() && this.isInWater())
-                {
-                    this.motionY = 0.3;
-                }
-                else if(!this.isJumping && this.onGround && !this.abilityInfo.canFly())
-                {
-                    this.motionY += 0.75;
-                    this.isJumping = true;
-                    this.isAirBorne = true;
-                }
-            }
+            if(this.onGround)
+                this.isChocoboJumping = false;
+
+            this.jumpMovementFactor = .1f;
 
             if (this.canPassengerSteer())
             {
-                if(this.abilityInfo.canFly() && rider.isJumping)
+                if(rider.isJumping)
                 {
-                    double d3 = this.motionY;
-                    float f = this.jumpMovementFactor;
-                    this.jumpMovementFactor = rider.capabilities.getFlySpeed() * (float)(this.isSprinting() ? 2 : 1);
-                    this.motionY = 0.3;
-                    super.travel(strafe, vertical, forward);
-                    this.motionY = d3 * 0.6D;
-                    this.jumpMovementFactor = f;
-                    this.fallDistance = 0.0F;
-                    this.setFlag(7, false);
-                }
-                else
-                {
-
-                    this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
-                    super.travel(strafe, vertical, forward);
-                }
-            }
-
-            if (this.onGround)
-            {
-                this.isJumping = false;
-            }
-
-            if(this.onGround)
-            {
-                this.prevLimbSwingAmount = this.limbSwingAmount;
-                double d1 = this.posX - this.prevPosX;
-                double d0 = this.posZ - this.prevPosZ;
-                float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-
-                if (f4 > 1.0F)
-                {
-                    f4 = 1.0F;
+                    if(this.abilityInfo.canFly())
+                    {
+                        // flight logic
+                        this.motionY += this.onGround ? .5f : .1f;
+                        if(motionY > 0.5f)
+                            this.motionY = 0.5f;
+                    }
+                    else
+                    {
+                        // jump logic
+                        if(!this.isChocoboJumping && this.onGround)
+                        {
+                            this.motionY = .6f;
+                            this.isChocoboJumping = true;
+                        }
+                    }
                 }
 
-                this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
-                this.limbSwing += this.limbSwingAmount;
-            }
-            else
-            {
-                this.limbSwing = 0;
-                this.limbSwingAmount = 0;
-                this.prevLimbSwingAmount = 0;
+                if(this.isInWater())
+                {
+                    if(!this.abilityInfo.canDive())
+                    {
+                        if(rider.isSneaking())
+                        {
+                            this.motionY -= 0.05f;
+                            if(this.motionY < -0.7f)
+                                this.motionY = -0.7f;
+                        }
+
+                        if(rider.isJumping)
+                        {
+                            this.motionY = .5f;
+                        }
+                    }
+                    else
+                    {
+                        if(rider.isJumping)
+                        {
+                            this.motionY = .2f;
+                        }
+                        else if(this.motionY < 0)
+                        {
+                            int distance = WorldUtils.getDistanceToSurface(this.getPosition(), this.getEntityWorld());
+                            if(distance > 0)
+                                this.motionY = .01f + Math.min(0.05f * distance, 0.7);
+                        }
+                    }
+                }
+
+                if(!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0)
+                {
+                    this.motionY *= 0.8f;
+                }
+
+                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+                super.travel(strafe, vertical, forward);
             }
         }
         else
@@ -408,6 +416,28 @@ public class EntityChocobo extends EntityTameable
                 this.wingRotDelta = Math.min(wingRotation, 1f);
             this.wingRotDelta *= 0.9D;
             this.wingRotation += this.wingRotDelta * 2.0F;
+
+            if(this.onGround)
+            {
+                this.prevLimbSwingAmount = this.limbSwingAmount;
+                double d1 = this.posX - this.prevPosX;
+                double d0 = this.posZ - this.prevPosZ;
+                float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+
+                if (f4 > 1.0F)
+                {
+                    f4 = 1.0F;
+                }
+
+                this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
+                this.limbSwing += this.limbSwingAmount;
+            }
+            else
+            {
+                this.limbSwing = 0;
+                this.limbSwingAmount = 0;
+                this.prevLimbSwingAmount = 0;
+            }
         }
     }
 
