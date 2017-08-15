@@ -41,6 +41,7 @@ public class EntityChocobo extends EntityTameable
 	private static final DataParameter<Boolean> PARAM_IS_MALE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
 	private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
 	private static final ResourceLocation CHOCOBO_LOOTABLE = new ResourceLocation(Chococraft.MODID, "entities/chocobo");
 
 	public final ItemStackHandler chocoboInventory = new ItemStackHandler();
@@ -117,6 +118,7 @@ public class EntityChocobo extends EntityTameable
 		this.dataManager.register(PARAM_IS_MALE, false);
 		this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
 		this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
+		this.dataManager.register(PARAM_STAMINA, 10f);
 
 		this.abilityInfo = new ChocoboAbilityInfo(this);
 		this.abilityInfo.registerDataParameters();
