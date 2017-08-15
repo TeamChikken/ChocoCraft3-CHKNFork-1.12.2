@@ -51,7 +51,7 @@ public class ChocoboAbilityInfo
         this.chocobo.getDataManager().register(LEVEL, 1);
         this.chocobo.getDataManager().register(HEALTH, 20f);
         this.chocobo.getDataManager().register(RESISTANCE, 0f);
-        this.chocobo.getDataManager().register(SPEED, 1f);
+        this.chocobo.getDataManager().register(SPEED, 0.2f);
         this.chocobo.getDataManager().register(STAMINA, 10f);
 
         this.chocobo.getDataManager().register(CAN_FLY, false);

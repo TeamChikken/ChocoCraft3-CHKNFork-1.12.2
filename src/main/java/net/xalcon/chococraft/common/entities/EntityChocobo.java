@@ -191,6 +191,11 @@ public class EntityChocobo extends EntityTameable
 		return ModItems.chocoboSaddle.getSaddleType(this.dataManager.get(PARAM_SADDLE_ITEM));
 	}
 
+	public float getStaminaPercentage()
+	{
+		return (this.ticksExisted % 200) / 200f;
+	}
+
 	private void setSaddleType(ItemStack saddleStack)
 	{
 		SaddleType newType = ModItems.chocoboSaddle.getSaddleType(saddleStack);
@@ -343,6 +348,10 @@ public class EntityChocobo extends EntityTameable
 
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
+
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.abilityInfo.getHealth());
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.abilityInfo.getSpeed());
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(this.abilityInfo.getResistance());
 
 		// Wing rotations, control packet, client side
 		if (this.getEntityWorld().isRemote)
