@@ -52,6 +52,7 @@ public class EntityChocobo extends EntityTameable
 			EntityChocobo.this.setSaddleType(this.itemStack);
 		}
 	};
+
 	public float wingRotation;
 	public float destPos;
 	private ChocoboAbilityInfo abilityInfo;
@@ -207,6 +208,8 @@ public class EntityChocobo extends EntityTameable
 		}
 	}
 
+	public ChocoboAbilityInfo getAbilityInfo() { return this.abilityInfo; }
+
 	@Override
 	public double getMountedYOffset()
 	{
@@ -312,7 +315,7 @@ public class EntityChocobo extends EntityTameable
 					}
 				}
 
-				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0)
+				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.abilityInfo.canGlide())
 				{
 					this.motionY *= 0.8f;
 				}

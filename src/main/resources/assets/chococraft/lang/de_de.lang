@@ -24,3 +24,21 @@ chococraft.entity_chocobo.saddle_applied=Chocobo gesattelt
 chococraft.general.world=Welt
 chococraft.general.world.gysahlgreenspawnweight=Gizarkraut Spawnanteil
 chococraft.general.gysahlgreenpatchsize=Gizarkraut Pflanzengröße
+
+cmd.chococraft.chocobo.invalid_set_parameters=Parameter ungültig
+cmd.chococraft.chocobo.successfuly_set_parameters=Parameter %s wurde auf %s gesetzt
+
+cmd.chococraft.chocobo.get_level=Level: %s
+cmd.chococraft.chocobo.get_health=Leben: %s
+cmd.chococraft.chocobo.get_resistance=Resistenz: %s
+cmd.chococraft.chocobo.get_speed=Geschwindigkeit: %s
+cmd.chococraft.chocobo.get_stamina=Ausdauer: %s
+
+cmd.chococraft.chocobo.can_not_sprint=Kann sprinten: §cfalse
+cmd.chococraft.chocobo.can_sprint=Kann sprinten: §atrue
+cmd.chococraft.chocobo.can_not_dive=Kann tauchen: §cfalse
+cmd.chococraft.chocobo.can_dive=Kann tauchen: §atrue
+cmd.chococraft.chocobo.can_not_glide=Kann gleiten: §cfalse
+cmd.chococraft.chocobo.can_glide=Kann gleiten: §atrue
+cmd.chococraft.chocobo.can_not_fly=Kann fliegen: §cfalse
+cmd.chococraft.chocobo.can_fly=Kann fliegen: §atrue
