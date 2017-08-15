@@ -62,7 +62,7 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider
             entityliving.rotationYawHead = entityliving.rotationYaw;
             entityliving.renderYawOffset = entityliving.rotationYaw;
             entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
-            entityliving.setColor(ChocoboColor.values()[meta]);
+            entityliving.setChocoboColor(ChocoboColor.values()[meta]);
             worldIn.spawnEntity(entity);
             entityliving.playLivingSound();
         }
