@@ -37,12 +37,26 @@ import java.util.Collections;
 
 public class EntityChocobo extends EntityTameable
 {
+	private static final ResourceLocation CHOCOBO_LOOTABLE = new ResourceLocation(Chococraft.MODID, "entities/chocobo");
+
+	private static final byte CAN_SPRINT_BIT = 0b0001;
+	private static final byte CAN_DIVE_BIT = 0b0010;
+	private static final byte CAN_GLIDE_BIT = 0b0100;
+	private static final byte CAN_FLY_BIT = 0b1000;
+
 	private static final DataParameter<ChocoboColor> PARAM_VARIANT = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.CHOCOBO_COLOR);
 	private static final DataParameter<Boolean> PARAM_IS_MALE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
 	private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
-	private static final DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
-	private static final ResourceLocation CHOCOBO_LOOTABLE = new ResourceLocation(Chococraft.MODID, "entities/chocobo");
+
+	private final static DataParameter<Integer> PARAM_LEVEL = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.VARINT);
+	private final static DataParameter<Float> PARAM_HEALTH = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
+	private final static DataParameter<Float> PARAM_RESISTANCE = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
+	private final static DataParameter<Float> PARAM_SPEED = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
+	private final static DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
+	private final static DataParameter<Float> PARAM_MAX_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
+
+	private final static DataParameter<Byte> PARAM_ABILITY_MASK = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BYTE);
 
 	public final ItemStackHandler chocoboInventory = new ItemStackHandler();
 	public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler()
@@ -56,7 +70,6 @@ public class EntityChocobo extends EntityTameable
 
 	public float wingRotation;
 	public float destPos;
-	private ChocoboAbilityInfo abilityInfo;
 	private boolean isChocoboJumping;
 	private float wingRotDelta;
 
@@ -64,16 +77,6 @@ public class EntityChocobo extends EntityTameable
 	{
 		super(world);
 		this.setSize(1.3f, 2.3f);
-		updateStats();
-	}
-
-	private void updateStats()
-	{
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
-		setHealth(getMaxHealth());
-		onGroundSpeedFactor = 40 / 100f;
-		this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(onGroundSpeedFactor);
-		this.stepHeight = 1.0f;
 	}
 
 	@Override
@@ -118,10 +121,15 @@ public class EntityChocobo extends EntityTameable
 		this.dataManager.register(PARAM_IS_MALE, false);
 		this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
 		this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
-		this.dataManager.register(PARAM_STAMINA, 10f);
 
-		this.abilityInfo = new ChocoboAbilityInfo(this);
-		this.abilityInfo.registerDataParameters();
+		this.dataManager.register(PARAM_LEVEL, 1);
+		this.dataManager.register(PARAM_HEALTH, 20f);
+		this.dataManager.register(PARAM_RESISTANCE, 0f);
+		this.dataManager.register(PARAM_SPEED, 0.2f);
+		this.dataManager.register(PARAM_STAMINA, 10f);
+		this.dataManager.register(PARAM_MAX_STAMINA, 10f);
+
+		this.dataManager.register(PARAM_ABILITY_MASK, (byte)0);
 	}
 
 	@Override
@@ -136,7 +144,17 @@ public class EntityChocobo extends EntityTameable
 		if (getSaddleType() != SaddleType.NONE)
 			this.chocoboInventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
 
-		this.abilityInfo.deserializeNbt(nbt.getCompoundTag("Stats"));
+		this.setLevel(nbt.getInteger("level"));
+		this.setMaxHealthStat(nbt.getFloat("max_health"));
+		this.setResistanceStat(nbt.getFloat("resistance"));
+		this.setSpeedStat(nbt.getFloat("speed"));
+		this.setStaminaStat(nbt.getFloat("stamina"));
+		this.setMaxStaminaStat(nbt.getFloat("max_stamina"));
+
+		this.setCanFly(nbt.getBoolean("can_fly"));
+		this.setCanGlide(nbt.getBoolean("can_glide"));
+		this.setCanSprint(nbt.getBoolean("can_sprint"));
+		this.setCanDive(nbt.getBoolean("can_dive"));
 	}
 
 	@Override
@@ -151,7 +169,17 @@ public class EntityChocobo extends EntityTameable
 		if (getSaddleType() != SaddleType.NONE)
 			nbt.setTag("Inventory", this.chocoboInventory.serializeNBT());
 
-		nbt.setTag("Stats", this.abilityInfo.serializeNbt());
+		nbt.setInteger("level", this.getLevel());
+		nbt.setFloat("max_health", this.getMaxHealthStat());
+		nbt.setFloat("resistance", this.getResistanceStat());
+		nbt.setFloat("speed", this.getSpeedStat());
+		nbt.setFloat("stamina", this.getStaminaStat());
+		nbt.setFloat("max_stamina", this.getMaxStaminaStat());
+
+		nbt.setBoolean("can_fly", this.canFly());
+		nbt.setBoolean("can_glide", this.canGlide());
+		nbt.setBoolean("can_sprint", this.canSprint());
+		nbt.setBoolean("can_dive", this.canDive());
 	}
 
 	public ChocoboColor getChocoboColor()
@@ -210,7 +238,35 @@ public class EntityChocobo extends EntityTameable
 		}
 	}
 
-	public ChocoboAbilityInfo getAbilityInfo() { return this.abilityInfo; }
+	//region Chocobo statistics getter/setter
+	public int getLevel() { return this.dataManager.get(PARAM_LEVEL); }
+	public void setLevel(int value) { this.dataManager.set(PARAM_LEVEL, value); }
+	public float getMaxHealthStat() { return this.dataManager.get(PARAM_HEALTH); }
+	public void setMaxHealthStat(float value) { this.dataManager.set(PARAM_HEALTH, value); }
+	public float getResistanceStat() { return this.dataManager.get(PARAM_RESISTANCE); }
+	public void setResistanceStat(float value) { this.dataManager.set(PARAM_RESISTANCE, value); }
+	public float getSpeedStat() { return this.dataManager.get(PARAM_SPEED); }
+	public void setSpeedStat(float value) { this.dataManager.set(PARAM_SPEED, value); }
+	public float getStaminaStat() { return this.dataManager.get(PARAM_STAMINA); }
+	public void setStaminaStat(float value) { this.dataManager.set(PARAM_STAMINA, value); }
+	public float getMaxStaminaStat() { return this.dataManager.get(PARAM_MAX_STAMINA); }
+	public void setMaxStaminaStat(float value) { this.dataManager.set(PARAM_MAX_STAMINA, value); }
+
+	public boolean canFly() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_FLY_BIT) > 0; }
+	public void setCanFly(boolean state) { this.setAbilityMaskBit(CAN_FLY_BIT, state); }
+	public boolean canGlide() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_GLIDE_BIT) > 0; }
+	public void setCanGlide(boolean state) { this.setAbilityMaskBit(CAN_GLIDE_BIT, state); }
+	public boolean canSprint() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_SPRINT_BIT) > 0; }
+	public void setCanSprint(boolean state) { this.setAbilityMaskBit(CAN_SPRINT_BIT, state); }
+	public boolean canDive() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_DIVE_BIT) > 0; }
+	public void setCanDive(boolean state) { this.setAbilityMaskBit(CAN_DIVE_BIT, state); }
+
+	private void setAbilityMaskBit(int bit, boolean state)
+	{
+		int value = this.dataManager.get(PARAM_ABILITY_MASK);
+		this.dataManager.set(PARAM_ABILITY_MASK, (byte)(state ? value | bit : value & ~bit));
+	}
+	//endregion
 
 	@Override
 	public double getMountedYOffset()
@@ -271,7 +327,7 @@ public class EntityChocobo extends EntityTameable
 			{
 				if (rider.isJumping)
 				{
-					if (this.abilityInfo.canFly())
+					if (this.canFly())
 					{
 						// flight logic
 						this.motionY += this.onGround ? .5f : .1f;
@@ -290,7 +346,7 @@ public class EntityChocobo extends EntityTameable
 
 				if (this.isInWater())
 				{
-					if (!this.abilityInfo.canDive())
+					if (!this.canDive())
 					{
 						if (rider.isSneaking())
 						{
@@ -317,7 +373,7 @@ public class EntityChocobo extends EntityTameable
 					}
 				}
 
-				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.abilityInfo.canGlide())
+				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.canGlide())
 				{
 					this.motionY *= 0.8f;
 				}
@@ -354,9 +410,9 @@ public class EntityChocobo extends EntityTameable
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
 
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.abilityInfo.getHealth());
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.abilityInfo.getSpeed());
-		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(this.abilityInfo.getResistance());
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getMaxHealthStat());
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.getSpeedStat());
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(this.getResistanceStat());
 
 		// Wing rotations, control packet, client side
 		if (this.getEntityWorld().isRemote)
