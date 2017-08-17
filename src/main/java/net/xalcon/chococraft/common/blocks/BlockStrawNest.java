@@ -7,16 +7,21 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.xalcon.chococraft.common.init.ModBlocks;
 import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
+import net.xalcon.chococraft.utils.WorldUtils;
 import net.xalcon.chococraft.utils.inject.AttachedTileEntity;
 import net.xalcon.chococraft.utils.registration.IItemBlockProvider;
 
@@ -68,6 +73,37 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
     public int getMetaFromState(IBlockState state)
     {
         return state.getValue(HAS_EGG) ? 1 : 0;
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+        TileEntityChocoboNest nest = WorldUtils.getTileEntitySafe(worldIn, pos, TileEntityChocoboNest.class);
+        if(nest == null) return false;
+
+        ItemStack heldItem = playerIn.getHeldItem(hand);
+        if(heldItem.isEmpty())
+        {
+            ItemStack nestItemStack = nest.getEggItemStack();
+            if(nestItemStack.isEmpty()) return false;
+            if(worldIn.isRemote) return true;
+            nest.setEggItemStack(ItemStack.EMPTY);
+            playerIn.setHeldItem(hand, nestItemStack);
+            IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, false);
+            worldIn.setBlockState(pos, newState);
+            return true;
+        }
+        else if(BlockChocoboEgg.isChocoboEgg(heldItem))
+        {
+            if(!nest.getEggItemStack().isEmpty()) return false;
+            if(worldIn.isRemote) return true;
+            nest.setEggItemStack(playerIn.getHeldItem(hand).copy());
+            playerIn.getHeldItem(hand).shrink(1);
+            IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, true);
+            worldIn.setBlockState(pos, newState);
+            return true;
+        }
+        return false;
     }
 
     @Override

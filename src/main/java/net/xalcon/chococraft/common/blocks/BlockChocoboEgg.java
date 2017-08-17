@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -42,5 +44,11 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
     {
         return BlockFaceShape.UNDEFINED;
+    }
+
+    public static boolean isChocoboEgg(ItemStack itemStack)
+    {
+        return itemStack.getItem() instanceof ItemBlock &&
+                ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockChocoboEgg;
     }
 }

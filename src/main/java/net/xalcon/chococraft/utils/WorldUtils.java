@@ -1,8 +1,12 @@
 package net.xalcon.chococraft.utils;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class WorldUtils
 {
@@ -20,5 +24,13 @@ public class WorldUtils
         }
 
         return lastLiquidPos == null ? -1 : lastLiquidPos.getY() - startPos.getY();
+    }
+
+    @Nullable
+    public static <T extends TileEntity> T getTileEntitySafe(IBlockAccess world, BlockPos pos, Class<T> tileClass)
+    {
+        TileEntity tile = world.getTileEntity(pos);
+        if(tile == null || !tileClass.isAssignableFrom(tile.getClass())) return null;
+        return tileClass.cast(tile);
     }
 }
