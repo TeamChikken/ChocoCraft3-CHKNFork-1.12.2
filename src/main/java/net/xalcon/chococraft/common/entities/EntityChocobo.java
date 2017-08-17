@@ -1,5 +1,7 @@
 package net.xalcon.chococraft.common.entities;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -233,6 +235,18 @@ public class EntityChocobo extends EntityTameable
 	public float getStamina() { return this.dataManager.get(PARAM_STAMINA); }
 	public void setStamina(float value) { this.dataManager.set(PARAM_STAMINA, value); }
 
+	private boolean useStamina(float value)
+	{
+		if(value == 0) return true;
+		float curStamina = this.dataManager.get(PARAM_STAMINA);
+		if(curStamina < value) return false;
+
+		float maxStamina = (float) this.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getAttributeValue();
+		float newStamina = MathHelper.clamp(curStamina - value, 0, maxStamina);
+		this.dataManager.set(PARAM_STAMINA, newStamina);
+		return true;
+	}
+
 	public boolean canFly() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_FLY_BIT) > 0; }
 	public void setCanFly(boolean state) { this.setAbilityMaskBit(CAN_FLY_BIT, state); }
 	public boolean canGlide() { return (this.dataManager.get(PARAM_ABILITY_MASK) & CAN_GLIDE_BIT) > 0; }
@@ -308,16 +322,17 @@ public class EntityChocobo extends EntityTameable
 			{
 				if (rider.isJumping)
 				{
-					if (this.canFly())
+					if (this.canFly() && this.useStamina(ChocoConfig.chocobo.flyStaminaCost))
 					{
 						// flight logic
 						this.motionY += this.onGround ? .5f : .1f;
 						if (motionY > 0.5f)
 							this.motionY = 0.5f;
-					} else
+					}
+					else
 					{
 						// jump logic
-						if (!this.isChocoboJumping && this.onGround)
+						if (!this.isChocoboJumping && this.onGround && this.useStamina(ChocoConfig.chocobo.jumpStaminaCost))
 						{
 							this.motionY = .6f;
 							this.isChocoboJumping = true;
@@ -345,7 +360,8 @@ public class EntityChocobo extends EntityTameable
 						if (rider.isJumping)
 						{
 							this.motionY = .2f;
-						} else if (this.motionY < 0)
+						}
+						else if (this.motionY < 0)
 						{
 							int distance = WorldUtils.getDistanceToSurface(this.getPosition(), this.getEntityWorld());
 							if (distance > 0)
@@ -354,7 +370,7 @@ public class EntityChocobo extends EntityTameable
 					}
 				}
 
-				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.canGlide())
+				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.canGlide() && this.useStamina(ChocoConfig.chocobo.glideStaminaCost))
 				{
 					this.motionY *= 0.8f;
 				}
@@ -387,6 +403,8 @@ public class EntityChocobo extends EntityTameable
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
+
+		this.useStamina(-ChocoConfig.chocobo.staminaRegenRate);
 
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
