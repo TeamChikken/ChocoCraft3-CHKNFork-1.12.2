@@ -19,6 +19,7 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
     public final static AxisAlignedBB BOUNDS_EMPTY = new AxisAlignedBB(0, 0, 0, 1, .1875, 1);
     public final static PropertyBool HAS_EGG = PropertyBool.create("egg");
 
+    @SuppressWarnings("unused") // used by class factory
     public BlockStrawNest()
     {
         super(Material.ROCK);

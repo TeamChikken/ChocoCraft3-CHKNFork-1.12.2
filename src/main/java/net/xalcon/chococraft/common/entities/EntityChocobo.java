@@ -1,7 +1,5 @@
 package net.xalcon.chococraft.common.entities;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -523,6 +521,7 @@ public class EntityChocobo extends EntityTameable
 		PacketManager.INSTANCE.sendTo(new PacketOpenChocoboGui(this, player.currentWindowId), player);
 	}
 
+	@SuppressWarnings("unused")
 	private void reconfigureInventory(SaddleType oldType, SaddleType newType)
 	{
 		if (!this.getEntityWorld().isRemote)

@@ -52,8 +52,8 @@ public class ChocoConfig
         @Config.RangeDouble(min = 0, max = 1)
         public double tameChance = 0.15;
 
-        @Config.RangeDouble(min = 0)
-        public float sprintStaminaCost = 0.01f;
+        //@Config.RangeDouble(min = 0)
+        //public float sprintStaminaCost = 0.01f;
         @Config.RangeDouble(min = 0)
         public float glideStaminaCost = 0.00f;
         @Config.RangeDouble(min = 0)

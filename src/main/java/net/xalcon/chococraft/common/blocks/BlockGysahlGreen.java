@@ -14,6 +14,7 @@ public class BlockGysahlGreen extends BlockCrops
 
 	private final IBlockState fullyGrownState;
 
+	@SuppressWarnings("unused") // used by class factory
 	public BlockGysahlGreen()
 	{
 		this.fullyGrownState = this.getDefaultState().withProperty(AGE, this.getMaxAge());

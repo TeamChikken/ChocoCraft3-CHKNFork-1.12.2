@@ -14,7 +14,7 @@ public class ClassInjector
 	{
 		try
 		{
-			if(field.getType().getConstructors().length == 1)
+			if(field.getType().getConstructors().length == 1 && field.getType().getConstructors()[0].getParameterCount() == 0)
 				return (T) field.getType().newInstance();
 
 			Method factoryMethod = Arrays.stream(field.getType().getDeclaredMethods())
@@ -25,6 +25,9 @@ public class ClassInjector
 				factoryMethod = Arrays.stream(field.getDeclaringClass().getMethods())
 					.filter(m -> m.getAnnotation(InstanceFactoryMethod.class) != null && m.getReturnType() == field.getType())
 					.findFirst().orElse(null);
+
+			if(factoryMethod == null)
+				throw new RuntimeException("No suitable 0 parameter constructor or instance factory found for "+field.getName()+" ("+field.getType()+")");
 
 			if(factoryMethod.getParameterCount() > 0)
 			{

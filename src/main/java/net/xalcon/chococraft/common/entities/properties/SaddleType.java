@@ -30,9 +30,10 @@ public enum SaddleType
         this.meta = meta;
     }
 
+    @SuppressWarnings("PublicStaticArrayField") // pff, security issues?! yeah, no.
     public final static SaddleType[] ITEM_META = new SaddleType[]{SADDLE, SADDLE_BAGS, PACK};
 
-    public final static SaddleType getFromMeta(int meta)
+    public static SaddleType getFromMeta(int meta)
     {
         if(meta < 0 || meta >= ITEM_META.length) return NONE;
         return ITEM_META[meta];

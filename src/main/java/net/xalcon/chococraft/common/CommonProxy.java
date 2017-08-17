@@ -15,10 +15,12 @@ import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
 
 public class CommonProxy
 {
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void onPreInit(FMLPreInitializationEvent event)
     {
     }
 
+    @SuppressWarnings("unused")
     public void onInit(FMLInitializationEvent event)
     {
         EntityDataSerializers.init();
@@ -34,8 +36,8 @@ public class CommonProxy
                 BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
     }
 
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void onPostInit(FMLPostInitializationEvent event)
     {
-
     }
 }

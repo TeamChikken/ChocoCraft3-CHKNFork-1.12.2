@@ -12,6 +12,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
 {
     public final static AxisAlignedBB BOUNDS = new AxisAlignedBB(.25, 0, .25, .75, .75, .75);
 
+    @SuppressWarnings("unused")
     public BlockChocoboEgg()
     {
         super(Material.ROCK);
