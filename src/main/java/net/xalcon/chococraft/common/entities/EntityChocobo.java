@@ -376,7 +376,8 @@ public class EntityChocobo extends EntityTameable
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical, forward);
 			}
-		} else
+		}
+		else
 		{
 			super.travel(strafe, vertical, forward);
 		}

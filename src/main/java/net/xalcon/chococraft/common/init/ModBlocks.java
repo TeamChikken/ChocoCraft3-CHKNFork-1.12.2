@@ -11,6 +11,7 @@ import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
 import net.xalcon.chococraft.common.blocks.BlockGysahlGreen;
 import net.xalcon.chococraft.common.blocks.BlockStrawNest;
+import net.xalcon.chococraft.utils.inject.AttachedTileEntity;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
 import net.xalcon.chococraft.utils.registration.IItemBlockProvider;
 import net.xalcon.chococraft.utils.registration.IItemModelProvider;
@@ -48,6 +49,10 @@ public class ModBlocks
 			block.setCreativeTab(Chococraft.creativeTab);
 
 			event.getRegistry().register(block);
+
+			AttachedTileEntity attachedTileEntity = field.getType().getAnnotation(AttachedTileEntity.class);
+			if(attachedTileEntity != null)
+				GameRegistry.registerTileEntity(attachedTileEntity.tile(), Chococraft.MODID + ":" + attachedTileEntity.name());
 		}
 	}
 
