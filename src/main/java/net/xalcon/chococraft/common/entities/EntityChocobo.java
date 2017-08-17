@@ -404,7 +404,7 @@ public class EntityChocobo extends EntityTameable
 	{
 		super.onLivingUpdate();
 
-		this.useStamina(-ChocoConfig.chocobo.staminaRegenRate);
+		this.regenerateStamina();
 
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
@@ -442,6 +442,23 @@ public class EntityChocobo extends EntityTameable
 				this.prevLimbSwingAmount = 0;
 			}
 		}
+	}
+
+	private void regenerateStamina()
+	{
+		// ... yes, we also allow regeneration while in lava :P
+		// this effectivly limits regeneration to only work while on the ground
+		if(!this.onGround && !this.isInWater() && !this.isInLava())
+			return;
+
+		float regen = ChocoConfig.chocobo.staminaRegenRate;
+
+		// half the amount of regeneration while moving
+		if(this.motionX != 0 || this.motionZ != 0)
+			regen *= 0.5;
+
+		// TODO: implement regen bonus (another IAttribute?)
+		this.useStamina(-regen);
 	}
 
 	@Override
