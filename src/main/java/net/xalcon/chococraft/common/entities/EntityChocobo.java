@@ -71,7 +71,7 @@ public class EntityChocobo extends EntityTameable
 	public EntityChocobo(World world)
 	{
 		super(world);
-		this.setSize(1.3f, 2.3f);
+		this.setSize(1.2f, 2.8f);
 	}
 
 	@Override
