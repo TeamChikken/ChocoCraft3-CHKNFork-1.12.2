@@ -13,12 +13,13 @@ plugins {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply from: 'gradle/nonnull.gradle'
 
-def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}"
-def mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_version_major}.${((mc_version_minor.toInteger())+1)})"
-def mc_username = project.hasProperty('dev_username') ? dev_username : "${mod_id}_dev"
-def mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
-def buildNumber = "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
+mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}"
+mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_version_major}.${((mc_version_minor.toInteger())+1)})"
+mc_username = project.hasProperty('dev_username') ? dev_username : "${mod_id}_dev"
+mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
+buildNumber = "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 
 version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}.${buildNumber}"
 group = "net.xalcon.${mod_id}"
