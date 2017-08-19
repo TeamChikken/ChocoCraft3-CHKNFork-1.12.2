@@ -42,8 +42,21 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         new CheckOffset(new Vec3i(1, 3, 0), false),
         new CheckOffset(new Vec3i(1, 3, 1), false),
     };
+
     private ItemStackHandler inventory = new ItemStackHandler(1)
     {
+        @Override
+        public int getSlotLimit(int slot)
+        {
+            return 1;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, @Nonnull ItemStack stack)
+        {
+            return 1;
+        }
+
         @Override
         protected void onContentsChanged(int slot)
         {
@@ -182,7 +195,7 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         return new TextComponentTranslation(Chococraft.MODID + ".container.nest");
     }
 
-    private void onInventoryChanged()
+    public void onInventoryChanged()
     {
         this.markDirty();
         IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, !this.getEggItemStack().isEmpty());

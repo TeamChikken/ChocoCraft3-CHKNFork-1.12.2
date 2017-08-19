@@ -3,8 +3,12 @@ package net.xalcon.chococraft.common.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
+
+import javax.annotation.Nonnull;
 
 public class ContainerNest extends Container
 {
@@ -41,5 +45,69 @@ public class ContainerNest extends Container
     public boolean canInteractWith(EntityPlayer playerIn)
     {
         return true;
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+    {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index == 36)
+            {
+                if (!this.mergeItemStack(itemstack1, 0, 36, true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 36, 37, false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            this.tile.onInventoryChanged();
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
+    }
+
+    private static class SlotEgg extends SlotItemHandler
+    {
+        public SlotEgg(IItemHandler itemHandler, int index, int xPosition, int yPosition)
+        {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public void onSlotChanged()
+        {
+            super.onSlotChanged();
+        }
+
+        @Override
+        public boolean canTakeStack(EntityPlayer playerIn)
+        {
+            return true;
+        }
+
+        @Override
+        public boolean isItemValid(@Nonnull ItemStack stack)
+        {
+            return super.isItemValid(stack);
+        }
     }
 }
