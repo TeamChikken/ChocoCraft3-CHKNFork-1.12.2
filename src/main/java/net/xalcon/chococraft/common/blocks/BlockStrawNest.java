@@ -90,8 +90,6 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
             if(worldIn.isRemote) return true;
             nest.setEggItemStack(playerIn.getHeldItem(hand).copy());
             playerIn.getHeldItem(hand).shrink(1);
-            IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, true);
-            worldIn.setBlockState(pos, newState);
             return true;
         }
         else

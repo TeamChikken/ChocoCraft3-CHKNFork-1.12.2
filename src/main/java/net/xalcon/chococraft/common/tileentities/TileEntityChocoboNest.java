@@ -19,6 +19,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
+import net.xalcon.chococraft.common.blocks.BlockStrawNest;
+import net.xalcon.chococraft.common.init.ModBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +42,15 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         new CheckOffset(new Vec3i(1, 3, 0), false),
         new CheckOffset(new Vec3i(1, 3, 1), false),
     };
-    private ItemStackHandler inventory = new ItemStackHandler(1);
+    private ItemStackHandler inventory = new ItemStackHandler(1)
+    {
+        @Override
+        protected void onContentsChanged(int slot)
+        {
+            TileEntityChocoboNest.this.onInventoryChanged();
+        }
+    };
+
     private UUID ownerChocobo;
     private boolean isSheltered;
     private int ticks = 0;
@@ -170,5 +180,12 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     public ITextComponent getDisplayName()
     {
         return new TextComponentTranslation(Chococraft.MODID + ".container.nest");
+    }
+
+    private void onInventoryChanged()
+    {
+        this.markDirty();
+        IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, !this.getEggItemStack().isEmpty());
+        this.getWorld().setBlockState(this.getPos(), newState);
     }
 }
