@@ -84,18 +84,7 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
         if(nest == null) return false;
 
         ItemStack heldItem = playerIn.getHeldItem(hand);
-        if(heldItem.isEmpty() && !playerIn.isSneaking())
-        {
-            ItemStack nestItemStack = nest.getEggItemStack();
-            if(nestItemStack.isEmpty()) return false;
-            if(worldIn.isRemote) return true;
-            nest.setEggItemStack(ItemStack.EMPTY);
-            playerIn.setHeldItem(hand, nestItemStack);
-            IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, false);
-            worldIn.setBlockState(pos, newState);
-            return true;
-        }
-        else if(BlockChocoboEgg.isChocoboEgg(heldItem))
+        if(BlockChocoboEgg.isChocoboEgg(heldItem))
         {
             if(!nest.getEggItemStack().isEmpty()) return false;
             if(worldIn.isRemote) return true;
