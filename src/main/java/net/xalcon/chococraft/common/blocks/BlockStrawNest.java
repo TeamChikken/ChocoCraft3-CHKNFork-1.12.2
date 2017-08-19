@@ -19,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.ChococraftGuiHandler;
 import net.xalcon.chococraft.common.init.ModBlocks;
 import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
 import net.xalcon.chococraft.utils.WorldUtils;
@@ -82,7 +84,7 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
         if(nest == null) return false;
 
         ItemStack heldItem = playerIn.getHeldItem(hand);
-        if(heldItem.isEmpty())
+        if(heldItem.isEmpty() && !playerIn.isSneaking())
         {
             ItemStack nestItemStack = nest.getEggItemStack();
             if(nestItemStack.isEmpty()) return false;
@@ -102,6 +104,10 @@ public class BlockStrawNest extends Block implements IItemBlockProvider
             IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, true);
             worldIn.setBlockState(pos, newState);
             return true;
+        }
+        else
+        {
+            playerIn.openGui(Chococraft.getInstance(), ChococraftGuiHandler.GUI_CHOCOBO_NEST, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
         return false;
     }

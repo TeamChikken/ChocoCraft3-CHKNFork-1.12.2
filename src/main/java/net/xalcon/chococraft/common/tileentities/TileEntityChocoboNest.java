@@ -12,11 +12,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
@@ -82,6 +86,11 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
             this.inventory.setStackInSlot(0, ItemStack.EMPTY);
         else if(BlockChocoboEgg.isChocoboEgg(itemStack))
             this.inventory.setStackInSlot(0, itemStack);
+    }
+
+    public IItemHandler getInventory()
+    {
+        return this.inventory;
     }
 
     //region Data Synchronization/Persistence
@@ -154,5 +163,12 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
     {
         return oldState.getBlock() != newSate.getBlock();
+    }
+
+    @Nonnull
+    @Override
+    public ITextComponent getDisplayName()
+    {
+        return new TextComponentTranslation(Chococraft.MODID + ".container.nest");
     }
 }

@@ -1,16 +1,28 @@
 package net.xalcon.chococraft;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.xalcon.chococraft.common.ChocoConfig;
+import net.xalcon.chococraft.common.ChococraftGuiHandler;
 import net.xalcon.chococraft.common.CommonProxy;
 import net.xalcon.chococraft.common.commands.CommandChocobo;
+import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.xalcon.chococraft.common.entities.properties.EntityDataSerializers;
 import net.xalcon.chococraft.common.init.ModItems;
+import net.xalcon.chococraft.common.network.PacketManager;
+import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,25 +55,24 @@ public class Chococraft
         return instance;
     }
 
-    @Mod.EventHandler
+    @Mod.EventHandler @SuppressWarnings("unused")
     public static void onPreInit(FMLPreInitializationEvent event)
     {
-        proxy.onPreInit(event);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ChococraftGuiHandler());
+        EntityDataSerializers.init();
+        PacketManager.init();
+
+        GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
+
+        EntityRegistry.addSpawn(EntityChocobo.class,
+                ChocoConfig.world.chocoboSpawnWeight,
+                ChocoConfig.world.chocoboPackSizeMin,
+                ChocoConfig.world.chocoboPackSizeMax,
+                EnumCreatureType.CREATURE,
+                BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
     }
 
-    @Mod.EventHandler
-    public static void onInit(FMLInitializationEvent event)
-    {
-        proxy.onInit(event);
-    }
-
-    @Mod.EventHandler
-    public static void onPostInit(FMLPostInitializationEvent event)
-    {
-        proxy.onPostInit(event);
-    }
-
-    @Mod.EventHandler
+    @Mod.EventHandler @SuppressWarnings("unused")
     public static void onServerStarting(FMLServerStartingEvent event)
     {
         event.registerServerCommand(new CommandChocobo());
