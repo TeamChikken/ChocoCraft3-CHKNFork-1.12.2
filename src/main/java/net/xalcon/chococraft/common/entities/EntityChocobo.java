@@ -1,5 +1,6 @@
 package net.xalcon.chococraft.common.entities;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -23,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
 import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
@@ -469,15 +471,19 @@ public class EntityChocobo extends EntityTameable
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-		if (this.getEntityWorld().isRemote) return true;
+
 		ItemStack heldItemStack = player.getHeldItem(hand);
 
 		if (this.isTamed() && player.isSneaking())
 		{
-			if (player instanceof EntityPlayerMP)
-				this.displayChocoboInventory((EntityPlayerMP) player);
+			/*if (player instanceof EntityPlayerMP)
+				this.displayChocoboInventory((EntityPlayerMP) player);*/
+			if(this.world.isRemote)
+				Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboInfo(this));
 			return true;
 		}
+
+		if (this.getEntityWorld().isRemote) return true;
 
 		if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking())
 		{
