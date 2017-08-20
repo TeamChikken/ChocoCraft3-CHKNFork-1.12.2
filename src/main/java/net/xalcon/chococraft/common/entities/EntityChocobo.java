@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -392,7 +393,16 @@ public class EntityChocobo extends EntityTameable
 		return null;
 	}
 
-	@Override
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal)
+    {
+        if(otherAnimal == this || !(otherAnimal instanceof EntityChocobo)) return false;
+        if(!this.isInLove() || !otherAnimal.isInLove()) return false;
+        EntityChocobo otherChocobo = (EntityChocobo) otherAnimal;
+        return otherChocobo.isMale() != this.isMale();
+    }
+
+    @Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();

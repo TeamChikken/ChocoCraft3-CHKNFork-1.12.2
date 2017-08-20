@@ -29,9 +29,11 @@ public class ChocoboBreedInfo
         this.father = new ChocoboStatSnapshot(nbt.getCompoundTag("father"));
     }
 
-    public void serialize(NBTTagCompound nbt)
+    public NBTTagCompound serialize()
     {
+        NBTTagCompound nbt = new NBTTagCompound();
         nbt.setTag("mother", this.mother.serialize());
-        nbt.setTag("mother", this.mother.serialize());
+        nbt.setTag("father", this.mother.serialize());
+        return nbt;
     }
 }
