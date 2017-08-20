@@ -52,6 +52,7 @@ public class EntityChocobo extends EntityTameable
 	private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
 
 	private final static DataParameter<Integer> PARAM_LEVEL = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.VARINT);
+	private final static DataParameter<Integer> PARAM_GENERATION = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.VARINT);
 	private final static DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
 	private final static DataParameter<Byte> PARAM_ABILITY_MASK = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BYTE);
 
@@ -144,6 +145,7 @@ public class EntityChocobo extends EntityTameable
 			this.chocoboInventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
 
 		this.setLevel(nbt.getInteger("Level"));
+		this.setGeneration(nbt.getInteger("Generation"));
 		this.setStamina(nbt.getFloat("Stamina"));
 
 		this.setCanFly(nbt.getBoolean("CanFly"));
@@ -165,6 +167,7 @@ public class EntityChocobo extends EntityTameable
 			nbt.setTag("Inventory", this.chocoboInventory.serializeNBT());
 
 		nbt.setInteger("Level", this.getLevel());
+		nbt.setInteger("Generation", this.getGeneration());
 		nbt.setFloat("Stamina", this.getStamina());
 
 		nbt.setBoolean("CanFly", this.canFly());
@@ -213,11 +216,6 @@ public class EntityChocobo extends EntityTameable
 		return ModItems.chocoboSaddle.getSaddleType(this.dataManager.get(PARAM_SADDLE_ITEM));
 	}
 
-	public float getStaminaPercentage()
-	{
-		return (float) (this.getStamina() / this.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getAttributeValue());
-	}
-
 	private void setSaddleType(ItemStack saddleStack)
 	{
 		SaddleType newType = ModItems.chocoboSaddle.getSaddleType(saddleStack);
@@ -234,6 +232,14 @@ public class EntityChocobo extends EntityTameable
 	public void setLevel(int value) { this.dataManager.set(PARAM_LEVEL, value); }
 	public float getStamina() { return this.dataManager.get(PARAM_STAMINA); }
 	public void setStamina(float value) { this.dataManager.set(PARAM_STAMINA, value); }
+
+    public float getStaminaPercentage()
+    {
+        return (float) (this.getStamina() / this.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getAttributeValue());
+    }
+
+	public int getGeneration() { return this.dataManager.get(PARAM_GENERATION); }
+	public void setGeneration(int value) { this.dataManager.set(PARAM_GENERATION, value); }
 
 	private boolean useStamina(float value)
 	{
@@ -270,12 +276,6 @@ public class EntityChocobo extends EntityTameable
 	}
 
 	@Override
-	public boolean canRiderInteract()
-	{
-		return false;
-	}
-
-	@Override
 	public boolean shouldDismountInWater(Entity rider)
 	{
 		return false;
@@ -285,12 +285,6 @@ public class EntityChocobo extends EntityTameable
 	public Entity getControllingPassenger()
 	{
 		return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
-	}
-
-	@Override
-	public float getJumpUpwardsMotion()
-	{
-		return 0.5f;
 	}
 
 	@Override
@@ -395,9 +389,7 @@ public class EntityChocobo extends EntityTameable
 	@Override
 	public EntityAgeable createChild(EntityAgeable entity)
 	{
-		EntityChocobo baby = new EntityChocobo(this.getEntityWorld());
-		baby.setChocoboColor(ChocoboColor.values()[this.rand.nextInt(ChocoboColor.values().length)]);
-		return baby;
+		return null;
 	}
 
 	@Override
@@ -465,13 +457,12 @@ public class EntityChocobo extends EntityTameable
 	@Override
 	public boolean isBreedingItem(ItemStack stack)
 	{
-		return stack.getItem() == ModItems.lovelyGysahlGreen;
+		return false;
 	}
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-
 		ItemStack heldItemStack = player.getHeldItem(hand);
 
 		if (this.isTamed() && player.isSneaking())

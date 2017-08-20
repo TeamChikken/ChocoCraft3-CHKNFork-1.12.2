@@ -91,10 +91,10 @@ public class GuiChocoboInfo extends GuiScreen
         if(!this.chocobo.canGlide())
             this.drawTexturedModalRect(62, 54, 176, 32, 16, 16);
 
-        if(this.chocobo.canDive())
+        if(!this.chocobo.canDive())
             this.drawTexturedModalRect(98, 54, 176, 32, 16, 16);
 
-        if(this.chocobo.canFly())
+        if(!this.chocobo.canFly())
             this.drawTexturedModalRect(134, 54, 176, 32, 16, 16);
     }
 }
