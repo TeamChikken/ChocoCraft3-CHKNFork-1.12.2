@@ -13,6 +13,7 @@ plugins {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply from: 'gradle/nonnull.gradle'
 
 def mc_version = "${mc_version_major}.${mc_version_minor}.${mc_version_patch}"
 def mc_version_compat_range = "[${mc_version_major}.${mc_version_minor},${mc_version_major}.${((mc_version_minor.toInteger())+1)})"

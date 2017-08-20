@@ -3,6 +3,7 @@ package net.xalcon.chococraft.common.init;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -23,6 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
+@SuppressWarnings("unused")
 @GameRegistry.ObjectHolder(Chococraft.MODID)
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class ModItems
@@ -88,10 +90,21 @@ public class ModItems
         {
             if(!Item.class.isAssignableFrom(field.getType())) continue;
             Item item = ClassInjector.getOrNull(field);
+            if(item == null)
+			{
+				Chococraft.log.error("The field for {} is null! This should not happen!", field.getName());
+				continue;
+			}
             if(item instanceof IItemModelProvider)
-                ((IItemModelProvider) item).registerItemModel(item);
+			{
+				((IItemModelProvider) item).registerItemModel(item);
+			}
             else
-                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+			{
+				ResourceLocation rl = item.getRegistryName();
+				assert rl != null;
+				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(rl, "inventory"));
+			}
         }
     }
 

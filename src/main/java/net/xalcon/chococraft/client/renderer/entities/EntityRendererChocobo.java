@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.client.models.entities.ModelChocobo;
 import net.xalcon.chococraft.common.entities.EntityChocobo;

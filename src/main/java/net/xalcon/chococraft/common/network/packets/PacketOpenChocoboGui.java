@@ -25,6 +25,7 @@ public class PacketOpenChocoboGui implements IMessage
     @Nullable
     public NBTTagCompound inventory;
 
+    @SuppressWarnings("unused") // this constructor is used by forge to construct our packet on the 'other side'
     public PacketOpenChocoboGui() { }
 
     public PacketOpenChocoboGui(EntityChocobo chocobo, int windowId)
@@ -58,9 +59,10 @@ public class PacketOpenChocoboGui implements IMessage
             ByteBufUtils.writeTag(buf, inventory);
     }
 
+    @SuppressWarnings("unused") // instantiated by forge
     public static class Handler implements IMessageHandler<PacketOpenChocoboGui, IMessage>
     {
-        @Override @SideOnly(Side.CLIENT)
+        @Override @Nullable @SideOnly(Side.CLIENT)
         public IMessage onMessage(PacketOpenChocoboGui message, MessageContext ctx)
         {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() ->

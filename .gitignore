@@ -6,6 +6,8 @@ bin
 .classpath
 .project
 
+package-info.java
+
 # idea
 out
 *.ipr

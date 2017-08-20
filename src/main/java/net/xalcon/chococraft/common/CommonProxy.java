@@ -15,27 +15,4 @@ import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
 
 public class CommonProxy
 {
-    public void onPreInit(FMLPreInitializationEvent event)
-    {
-    }
-
-    public void onInit(FMLInitializationEvent event)
-    {
-        EntityDataSerializers.init();
-        PacketManager.init();
-
-        GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
-
-        EntityRegistry.addSpawn(EntityChocobo.class,
-                ChocoConfig.world.chocoboSpawnWeight,
-                ChocoConfig.world.chocoboPackSizeMin,
-                ChocoConfig.world.chocoboPackSizeMax,
-                EnumCreatureType.CREATURE,
-                BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
-    }
-
-    public void onPostInit(FMLPostInitializationEvent event)
-    {
-
-    }
 }

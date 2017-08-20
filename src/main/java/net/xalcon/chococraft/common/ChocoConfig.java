@@ -17,29 +17,31 @@ public class ChocoConfig
     public static WorldConfig world = new WorldConfig();
     @Config.Name("chocobo")
     public static ChocoboConfig chocobo = new ChocoboConfig();
+    @Config.Name("breeding")
+    public static BreedingConfig breeding = new BreedingConfig();
 
     public static class WorldConfig
     {
-        @Config.RangeInt(min = 0, max = 99999)
+        @Config.RangeInt(min = 0)
         @Config.Comment("Controls the weight compared to other world gen")
         @Config.RequiresMcRestart
         public int gysahlGreenSpawnWeight = 3;
 
-        @Config.RangeInt(min = 0, max = 128)
+        @Config.RangeInt(min = 0)
         public int gysahlGreenPatchSize = 64;
 
         @Config.RangeDouble(min = 0, max = 1)
         public double gysahlGreenSpawnChance = 0.1;
 
-        @Config.RangeInt(min = 0, max = 99999)
+        @Config.RangeInt(min = 0)
         @Config.RequiresMcRestart
         public int chocoboSpawnWeight = 10;
 
-        @Config.RangeInt(min = 0, max = 100)
+        @Config.RangeInt(min = 0)
         @Config.RequiresMcRestart
         public int chocoboPackSizeMin = 1;
 
-        @Config.RangeInt(min = 0, max = 100)
+        @Config.RangeInt(min = 0)
         @Config.RequiresMcRestart
         public int chocoboPackSizeMax = 3;
 
@@ -51,8 +53,28 @@ public class ChocoConfig
     {
         @Config.RangeDouble(min = 0, max = 1)
         public double tameChance = 0.15;
+
+        @Config.RangeDouble(min = 0)
+        public float sprintStaminaCost = 0.01f;
+        @Config.RangeDouble(min = 0)
+        public float glideStaminaCost = 0.00f;
+        @Config.RangeDouble(min = 0)
+        public float flyStaminaCost = 0.05f;
+        @Config.RangeDouble(min = 0)
+        public float jumpStaminaCost = 0.00f;
+        @Config.RangeDouble(min = 0)
+        public float staminaRegenRate = 0.025f;
     }
 
+    public static class BreedingConfig
+    {
+        @Config.RangeInt(min = 0)
+        public int maxHealth = 100;
+        @Config.RangeInt(min = 0)
+        public int maxSpeed = 120;
+        @Config.RangeInt(min = 0)
+        public float maxStamina;
+    }
 
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)

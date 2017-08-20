@@ -1,5 +1,7 @@
 package net.xalcon.chococraft.common.entities.properties;
 
+import java.util.Random;
+
 public enum ChocoboColor
 {
     YELLOW,
@@ -10,5 +12,12 @@ public enum ChocoboColor
     GOLD,
     PINK,
     RED,
-    PURPLE
+    PURPLE;
+
+    private static Random rand = new Random();
+
+    public static ChocoboColor getRandomColor()
+    {
+        return values()[rand.nextInt(values().length)];
+    }
 }

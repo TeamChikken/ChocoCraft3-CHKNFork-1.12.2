@@ -7,7 +7,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.xalcon.chococraft.common.ChocoConfig;
 
@@ -58,7 +57,7 @@ public class RetrogenManager
 		}
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public static void onWorldTick(TickEvent.WorldTickEvent event)
 	{
 		if(!(event.world instanceof WorldServer)) return;
@@ -67,5 +66,5 @@ public class RetrogenManager
 		{
 
 		}
-	}
+	}*/
 }

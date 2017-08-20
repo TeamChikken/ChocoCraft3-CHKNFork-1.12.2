@@ -24,3 +24,21 @@ chococraft.entity_chocobo.saddle_applied=Saddle applied
 chococraft.general.world=World
 chococraft.general.world.gysahlgreenspawnweight=Gysahl Green Spawn Weight
 chococraft.general.gysahlgreenpatchsize=Gysahl Green Patch Size
+
+cmd.chococraft.chocobo.invalid_set_parameters=Invalid parameters
+cmd.chococraft.chocobo.successfuly_set_parameters=Set %s to %s
+
+cmd.chococraft.chocobo.get_level=Level: %s
+cmd.chococraft.chocobo.get_health=Health: %s
+cmd.chococraft.chocobo.get_resistance=Resitance: %s
+cmd.chococraft.chocobo.get_speed=Speed: %s
+cmd.chococraft.chocobo.get_stamina=Stamina: %s
+
+cmd.chococraft.chocobo.can_not_sprint=Can Sprint: §cfalse
+cmd.chococraft.chocobo.can_sprint=Can Sprint: §atrue
+cmd.chococraft.chocobo.can_not_dive=Can Dive: §cfalse
+cmd.chococraft.chocobo.can_dive=Can Dive: §atrue
+cmd.chococraft.chocobo.can_not_glide=Can Glide: §cfalse
+cmd.chococraft.chocobo.can_glide=Can Glide: §atrue
+cmd.chococraft.chocobo.can_not_fly=Can Fly: §cfalse
+cmd.chococraft.chocobo.can_fly=Can Fly: §atrue
