@@ -33,7 +33,7 @@ public class ChocoboBreedInfo
     {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setTag("mother", this.mother.serialize());
-        nbt.setTag("father", this.mother.serialize());
+        nbt.setTag("father", this.father.serialize());
         return nbt;
     }
 }
