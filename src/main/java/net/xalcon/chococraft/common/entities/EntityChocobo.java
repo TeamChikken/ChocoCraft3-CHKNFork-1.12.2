@@ -13,11 +13,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
@@ -27,6 +29,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
 import net.xalcon.chococraft.common.ChocoConfig;
+import net.xalcon.chococraft.common.entities.breeding.EntityChocoboAIMate;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
@@ -71,8 +74,10 @@ public class EntityChocobo extends EntityTameable
 	public float destPos;
 	private boolean isChocoboJumping;
 	private float wingRotDelta;
+	private BlockPos nestPos;
+    private boolean isPregnant;
 
-	public EntityChocobo(World world)
+    public EntityChocobo(World world)
 	{
 		super(world);
 		this.setSize(1.2f, 2.8f);
@@ -83,7 +88,7 @@ public class EntityChocobo extends EntityTameable
 	{
 		// TODO: Does this still exist? ((PathNavigateGround) this.getNavigator()).set(true);
 		// TODO: implement follow movement type AI
-		this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
+		this.tasks.addTask(2, new EntityChocoboAIMate(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
 		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, Collections.singleton(ModItems.gysahlGreen)));
 		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -145,6 +150,9 @@ public class EntityChocobo extends EntityTameable
 		if (getSaddleType() != SaddleType.NONE)
 			this.chocoboInventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
 
+		if(nbt.hasKey("NestPos"))
+		    this.nestPos = NBTUtil.getPosFromTag(nbt.getCompoundTag("NestPos"));
+
 		this.setLevel(nbt.getInteger("Level"));
 		this.setGeneration(nbt.getInteger("Generation"));
 		this.setStamina(nbt.getFloat("Stamina"));
@@ -166,6 +174,9 @@ public class EntityChocobo extends EntityTameable
 
 		if (getSaddleType() != SaddleType.NONE)
 			nbt.setTag("Inventory", this.chocoboInventory.serializeNBT());
+
+		if(this.nestPos != null)
+		    nbt.setTag("NestPos", NBTUtil.createPosTag(this.nestPos));
 
 		nbt.setInteger("Level", this.getLevel());
 		nbt.setInteger("Generation", this.getGeneration());
@@ -227,6 +238,28 @@ public class EntityChocobo extends EntityTameable
 			this.reconfigureInventory(oldType, newType);
 		}
 	}
+
+	@Nullable
+	public BlockPos getNestPosition()
+	{
+		return this.nestPos;
+	}
+
+	public void setNestPosition(@Nullable BlockPos nestPos)
+	{
+		this.nestPos = nestPos;
+	}
+
+    public void setPregnant(boolean state)
+    {
+        if(this.isMale()) return; // NO.
+        this.isPregnant = state;
+    }
+
+    public boolean isPregnant()
+    {
+        return this.isPregnant;
+    }
 
 	//region Chocobo statistics getter/setter
 	public int getLevel() { return this.dataManager.get(PARAM_LEVEL); }

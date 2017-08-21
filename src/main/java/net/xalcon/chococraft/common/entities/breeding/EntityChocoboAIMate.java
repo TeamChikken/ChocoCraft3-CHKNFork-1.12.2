@@ -27,13 +27,13 @@ public class EntityChocoboAIMate extends EntityAIBase
     @Override
     public boolean shouldExecute()
     {
-        return this.chocobo.isInLove() && (this.targetMate = this.getNearbyMate()) != null;
+        return this.chocobo.isInLove() && !this.chocobo.isPregnant() && (this.targetMate = this.getNearbyMate()) != null;
     }
 
     @Override
     public boolean shouldContinueExecuting()
     {
-        return this.targetMate.isEntityAlive() && this.targetMate.isInLove() && this.spawnBabyDelay < 60;
+        return this.targetMate.isEntityAlive() && this.targetMate.isInLove() && this.spawnBabyDelay < 60 && !this.chocobo.isPregnant();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class EntityChocoboAIMate extends EntityAIBase
 
         if (this.spawnBabyDelay >= 60 && this.chocobo.getDistanceSqToEntity(this.targetMate) < 9.0D)
         {
-            this.spawnEgg();
+            this.setPregnant();
         }
     }
 
@@ -75,8 +75,10 @@ public class EntityChocoboAIMate extends EntityAIBase
         return closestMate;
     }
 
-    private void spawnEgg()
+    private void setPregnant()
     {
+        if(this.chocobo.isMale()) return;
 
+        this.chocobo.setPregnant(true);
     }
 }

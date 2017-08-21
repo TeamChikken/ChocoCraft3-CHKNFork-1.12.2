@@ -1,8 +1,6 @@
 package net.xalcon.chococraft.common.tileentities;
 
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
@@ -10,6 +8,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
@@ -20,10 +19,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
 import net.xalcon.chococraft.common.blocks.BlockStrawNest;
+import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.common.init.ModBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public class TileEntityChocoboNest extends TileEntity implements ITickable
@@ -77,25 +78,54 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
             ticks = 0;
 
         if(this.ticks % 200 == 100)
-            this.updateSheltered();
+        {
+            boolean changed = this.updateSheltered();
+            changed |= this.updateOwner();
+        }
     }
 
-    private void updateSheltered()
+    private boolean updateOwner()
     {
-        // TODO: Make this better
+        if(this.ownerChocobo != null) return false;
+        List<EntityChocobo> chocobos = this.world.getEntitiesWithinAABB(EntityChocobo.class, new AxisAlignedBB(this.pos).expand(16, 8, 16));
+        double dist = Double.MAX_VALUE;
+        EntityChocobo closestChocobo = null;
+        for(EntityChocobo chocobo : chocobos)
+        {
+            double d = chocobo.getPosition().distanceSq(this.pos);
+            if(d < dist)
+            {
+                dist = d;
+                closestChocobo = chocobo;
+            }
+        }
+
+        if(closestChocobo != null)
+        {
+            this.ownerChocobo = closestChocobo.getUniqueID();
+            closestChocobo.setNestPosition(this.pos);
+        }
+        return this.ownerChocobo != null;
+    }
+
+    private boolean updateSheltered()
+    {
+        boolean changed = false;
+        // TODO: Make this better, use "can see sky" for shelter detection
         for(CheckOffset checkOffset : SHELTER_CHECK_OFFSETS)
         {
             if(world.isAirBlock(this.getPos().add(checkOffset.offset)) != checkOffset.shouldBeAir)
             {
                 if(this.isSheltered)
-                    this.markDirty();
+                    changed = true;
                 this.isSheltered = false;
-                return;
+                return changed;
             }
         }
         if(!this.isSheltered)
-            this.markDirty();
+            changed = true;
         this.isSheltered = true;
+        return changed;
     }
 
     public ItemStack getEggItemStack()
