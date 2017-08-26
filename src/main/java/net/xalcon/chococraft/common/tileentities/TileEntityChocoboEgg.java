@@ -36,4 +36,14 @@ public class TileEntityChocoboEgg extends TileEntity
         super.handleUpdateTag(nbt);
         this.breedInfo = new ChocoboBreedInfo(nbt.getCompoundTag("BreedInfo"));
     }
+
+    public ChocoboBreedInfo getBreedInfo()
+    {
+        return this.breedInfo;
+    }
+
+    public void setBreedInfo(ChocoboBreedInfo breedInfo)
+    {
+        this.breedInfo = breedInfo;
+    }
 }

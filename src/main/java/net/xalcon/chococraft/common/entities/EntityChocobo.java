@@ -29,6 +29,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
 import net.xalcon.chococraft.common.ChocoConfig;
+import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.xalcon.chococraft.common.entities.breeding.EntityChocoboAIMate;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
@@ -75,7 +76,6 @@ public class EntityChocobo extends EntityTameable
 	private boolean isChocoboJumping;
 	private float wingRotDelta;
 	private BlockPos nestPos;
-    private boolean isPregnant;
 
     public EntityChocobo(World world)
 	{
@@ -114,6 +114,7 @@ public class EntityChocobo extends EntityTameable
 
 		this.dataManager.register(PARAM_LEVEL, 1);
 		this.dataManager.register(PARAM_STAMINA, 10f);
+		this.dataManager.register(PARAM_GENERATION, 0);
 		this.dataManager.register(PARAM_ABILITY_MASK, (byte)0);
 	}
 
@@ -249,17 +250,6 @@ public class EntityChocobo extends EntityTameable
 	{
 		this.nestPos = nestPos;
 	}
-
-    public void setPregnant(boolean state)
-    {
-        if(this.isMale()) return; // NO.
-        this.isPregnant = state;
-    }
-
-    public boolean isPregnant()
-    {
-        return this.isPregnant;
-    }
 
 	//region Chocobo statistics getter/setter
 	public int getLevel() { return this.dataManager.get(PARAM_LEVEL); }
@@ -538,6 +528,11 @@ public class EntityChocobo extends EntityTameable
 				player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.tame_fail"), true);
 			}
 			return true;
+		}
+
+		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen)
+		{
+			this.setInLove(player);
 		}
 
 		if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
