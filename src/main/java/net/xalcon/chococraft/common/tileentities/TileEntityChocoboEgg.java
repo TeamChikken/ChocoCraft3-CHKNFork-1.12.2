@@ -4,6 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
 
+import javax.annotation.Nullable;
+
 public class TileEntityChocoboEgg extends TileEntity
 {
     private ChocoboBreedInfo breedInfo;
@@ -37,6 +39,7 @@ public class TileEntityChocoboEgg extends TileEntity
         this.breedInfo = new ChocoboBreedInfo(nbt.getCompoundTag("BreedInfo"));
     }
 
+    @Nullable
     public ChocoboBreedInfo getBreedInfo()
     {
         return this.breedInfo;

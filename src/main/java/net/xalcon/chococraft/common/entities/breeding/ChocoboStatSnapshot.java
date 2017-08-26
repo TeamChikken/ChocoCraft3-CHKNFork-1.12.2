@@ -4,9 +4,11 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
+import net.xalcon.chococraft.common.entities.properties.ChocoboColor;
 
 public class ChocoboStatSnapshot
 {
+    public static final ChocoboStatSnapshot DEFAULT;
     public int level;
     public int generation;
     public float health;
@@ -17,7 +19,22 @@ public class ChocoboStatSnapshot
     public boolean canDive;
     public boolean canFly;
 
-    public ChocoboStatSnapshot() { }
+    static
+    {
+        DEFAULT = new ChocoboStatSnapshot();
+        DEFAULT.generation = 1;
+        DEFAULT.level = 1;
+        DEFAULT.health = 20;
+        DEFAULT.stamina = 10f;
+        DEFAULT.speed = 0.7f;
+
+        DEFAULT.canSprint = false;
+        DEFAULT.canGlide = false;
+        DEFAULT.canDive = false;
+        DEFAULT.canFly = false;
+    }
+
+    private ChocoboStatSnapshot() { }
 
     public ChocoboStatSnapshot(EntityChocobo chocobo)
     {

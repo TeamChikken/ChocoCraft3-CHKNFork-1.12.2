@@ -4,8 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ChocoboBreedInfo
 {
-    private ChocoboStatSnapshot mother;
-    private ChocoboStatSnapshot father;
+    private ChocoboStatSnapshot mother = ChocoboStatSnapshot.DEFAULT;
+    private ChocoboStatSnapshot father = ChocoboStatSnapshot.DEFAULT;
 
     public ChocoboStatSnapshot getMother()
     {
@@ -25,8 +25,10 @@ public class ChocoboBreedInfo
 
     public ChocoboBreedInfo(NBTTagCompound nbt)
     {
-        this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag("mother"));
-        this.father = new ChocoboStatSnapshot(nbt.getCompoundTag("father"));
+        if(nbt.hasKey("mother"))
+            this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag("mother"));
+        if(nbt.hasKey("father"))
+            this.father = new ChocoboStatSnapshot(nbt.getCompoundTag("father"));
     }
 
     public NBTTagCompound serialize()
