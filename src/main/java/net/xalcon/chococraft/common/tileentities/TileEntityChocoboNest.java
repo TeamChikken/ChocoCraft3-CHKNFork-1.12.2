@@ -14,9 +14,11 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
 import net.xalcon.chococraft.common.blocks.BlockStrawNest;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
@@ -77,11 +79,51 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         if(ticks > 1_000_000)
             ticks = 0;
 
+        boolean changed = false;
+
+        if(this.ticks % 5 == 0 && !this.getEggItemStack().isEmpty())
+        {
+            this.updateEgg();
+        }
+
         if(this.ticks % 200 == 100)
         {
-            boolean changed = this.updateSheltered();
+            changed = this.updateSheltered();
             changed |= this.updateOwner();
         }
+
+        if(changed)
+            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos));
+    }
+
+    private void updateEgg()
+    {
+        ItemStack egg = this.getEggItemStack();
+        if(!egg.hasTagCompound())
+           return;
+
+        NBTTagCompound nbt = egg.getOrCreateSubCompound("HatchingState");
+        int time = nbt.getInteger("Time");
+        time++;
+
+        if(this.isSheltered)
+            time++;
+
+        // TODO: Add a way to let the player control which chocobo is the owner of this nest, maybe even move the ownership info into the egg itself
+        /*if(this.ownerChocobo != null)
+        {
+            List<EntityChocobo> chocobos = this.world.getEntitiesWithinAABB(EntityChocobo.class, new AxisAlignedBB(this.pos).expand(6, 3, 6));
+            if(chocobos.stream().anyMatch(c -> c.getUniqueID().equals(this.ownerChocobo)))
+                time++;
+        }*/
+
+        nbt.setInteger("Time", ++time);
+
+        if(time < ChocoConfig.breeding.eggHatchTimeTicks)
+            return;
+
+        // egg is ready to hatch
+        
     }
 
     private boolean updateOwner()
