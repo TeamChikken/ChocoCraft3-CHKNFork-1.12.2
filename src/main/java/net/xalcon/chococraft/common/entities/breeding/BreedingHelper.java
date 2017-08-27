@@ -30,13 +30,13 @@ public class BreedingHelper
         chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
 
         float health = Math.round((mother.health + father.health) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
-        chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.max(health, ChocoConfig.breeding.maxHealth));
+        chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
 
         float speed = Math.round((mother.speed + father.speed) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
-        chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.max(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
+        chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
         float stamina = Math.round((mother.stamina + father.stamina) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
-        chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.max(stamina, ChocoConfig.breeding.maxStamina));
+        chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
 
         // TODO: Add a way to guarantee getting an ability
         float canSprintChance = calculateChance(0.05f, 0.15f, 0.4f, mother.canSprint, father.canSprint);
