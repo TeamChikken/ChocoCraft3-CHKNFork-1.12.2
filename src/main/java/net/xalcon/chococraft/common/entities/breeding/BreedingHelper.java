@@ -33,7 +33,7 @@ public class BreedingHelper
         chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.max(health, ChocoConfig.breeding.maxHealth));
 
         float speed = Math.round((mother.speed + father.speed) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
-        chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.max(speed, ChocoConfig.breeding.maxSpeed));
+        chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.max(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
         float stamina = Math.round((mother.stamina + father.stamina) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
         chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.max(stamina, ChocoConfig.breeding.maxStamina));
@@ -51,6 +51,8 @@ public class BreedingHelper
         float canFlyBaseChance = chocobo.canGlide() ? 0.001f : 0;
         float canFlyChance = calculateChance(canFlyBaseChance, 0.1f, 0.3f, mother.canFly, father.canFly);
         chocobo.setCanSprint(canFlyChance > world.rand.nextFloat());
+
+        chocobo.setGrowingAge(-24000);
 
         return chocobo;
     }

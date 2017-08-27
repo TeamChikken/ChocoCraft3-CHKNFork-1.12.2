@@ -92,8 +92,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
             TileEntity tile = worldIn.getTileEntity(pos);
             if(!(tile instanceof TileEntityChocoboEgg)) return;
 
-            NBTTagCompound nbt = stack.getSubCompound("BreedInfo");
-            ChocoboBreedInfo breedInfo = nbt != null ? new ChocoboBreedInfo(nbt) : new ChocoboBreedInfo(ChocoboStatSnapshot.DEFAULT, ChocoboStatSnapshot.DEFAULT);
+            ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(stack.getSubCompound("BreedInfo"));
 
             ((TileEntityChocoboEgg) tile).setBreedInfo(breedInfo);
         }

@@ -2,6 +2,8 @@ package net.xalcon.chococraft.common.entities.breeding;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nullable;
+
 public class ChocoboBreedInfo
 {
     private ChocoboStatSnapshot mother = ChocoboStatSnapshot.DEFAULT;
@@ -37,5 +39,10 @@ public class ChocoboBreedInfo
         nbt.setTag("mother", this.mother.serialize());
         nbt.setTag("father", this.father.serialize());
         return nbt;
+    }
+
+    public static ChocoboBreedInfo getFromNbtOrDefault(@Nullable NBTTagCompound nbt)
+    {
+        return nbt != null ? new ChocoboBreedInfo(nbt) : new ChocoboBreedInfo(ChocoboStatSnapshot.DEFAULT, ChocoboStatSnapshot.DEFAULT);
     }
 }

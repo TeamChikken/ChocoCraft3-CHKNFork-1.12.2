@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -22,11 +23,14 @@ import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
 import net.xalcon.chococraft.common.blocks.BlockStrawNest;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.xalcon.chococraft.common.entities.breeding.BreedingHelper;
+import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.xalcon.chococraft.common.init.ModBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class TileEntityChocoboNest extends TileEntity implements ITickable
@@ -83,12 +87,12 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
 
         if(this.ticks % 5 == 0 && !this.getEggItemStack().isEmpty())
         {
-            this.updateEgg();
+            changed = this.updateEgg();
         }
 
         if(this.ticks % 200 == 100)
         {
-            changed = this.updateSheltered();
+            changed |= this.updateSheltered();
             changed |= this.updateOwner();
         }
 
@@ -96,11 +100,11 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
             this.world.setBlockState(this.pos, this.world.getBlockState(this.pos));
     }
 
-    private void updateEgg()
+    private boolean updateEgg()
     {
         ItemStack egg = this.getEggItemStack();
         if(!egg.hasTagCompound())
-           return;
+           return false;
 
         NBTTagCompound nbt = egg.getOrCreateSubCompound("HatchingState");
         int time = nbt.getInteger("Time");
@@ -120,10 +124,28 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         nbt.setInteger("Time", ++time);
 
         if(time < ChocoConfig.breeding.eggHatchTimeTicks)
-            return;
+            return false;
 
         // egg is ready to hatch
-        
+        ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(egg.getSubCompound("BreedInfo"));
+        EntityChocobo baby = BreedingHelper.createChild(breedInfo, this.world);
+        baby.setLocationAndAngles(this.pos.getX() + 0.5, this.pos.getY() + 0.2, this.pos.getZ() + 0.5, 0.0F, 0.0F);
+        this.world.spawnEntity(baby);
+
+        Random random = baby.getRNG();
+        for (int i = 0; i < 7; ++i)
+        {
+            double d0 = random.nextGaussian() * 0.02D;
+            double d1 = random.nextGaussian() * 0.02D;
+            double d2 = random.nextGaussian() * 0.02D;
+            double d3 = random.nextDouble() * baby.width * 2.0D - baby.width;
+            double d4 = 0.5D + random.nextDouble() * baby.height;
+            double d5 = random.nextDouble() * baby.width * 2.0D - baby.width;
+            this.world.spawnParticle(EnumParticleTypes.HEART, baby.posX + d3, baby.posY + d4, baby.posZ + d5, d0, d1, d2);
+        }
+
+        this.setEggItemStack(ItemStack.EMPTY);
+        return true;
     }
 
     private boolean updateOwner()
