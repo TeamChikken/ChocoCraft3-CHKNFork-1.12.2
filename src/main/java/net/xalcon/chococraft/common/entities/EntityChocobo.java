@@ -41,6 +41,7 @@ import net.xalcon.chococraft.utils.WorldUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Optional;
 
 public class EntityChocobo extends EntityTameable
 {
@@ -533,6 +534,7 @@ public class EntityChocobo extends EntityTameable
 		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen)
 		{
 			this.setInLove(player);
+			return true;
 		}
 
 		if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
@@ -542,6 +544,16 @@ public class EntityChocobo extends EntityTameable
 			this.setSaddleType(heldItemStack);
 			this.consumeItemFromStack(player, heldItemStack);
 			return true;
+		}
+
+		if(this.isTamed() && !heldItemStack.isEmpty())
+		{
+			Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
+			if(color.isPresent())
+			{
+				this.consumeItemFromStack(player, heldItemStack);
+				this.setChocoboColor(color.get());
+			}
 		}
 
 		return super.processInteract(player, hand);
