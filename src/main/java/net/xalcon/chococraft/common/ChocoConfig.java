@@ -47,6 +47,10 @@ public class ChocoConfig
 
         @Config.RequiresMcRestart
         public int retrogenId = 1;
+
+        public boolean addAbilityFruitsToDungeonLoot = true;
+        @Config.RangeInt(min = 0)
+        public int abilityFruitDungeonLootWeight = 30;
     }
 
     public static class ChocoboConfig
