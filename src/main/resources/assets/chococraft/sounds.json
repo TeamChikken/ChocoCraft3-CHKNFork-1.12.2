@@ -1,0 +1,11 @@
+{
+    "entity.chocobo.kweh": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "name": "chococraft:entity/chocobo/kweh",
+                "stream": false
+            }
+        ]
+    }
+}

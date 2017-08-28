@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,8 +18,10 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -33,6 +36,7 @@ import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.xalcon.chococraft.common.entities.breeding.EntityChocoboAIMate;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
+import net.xalcon.chococraft.common.init.ModSounds;
 import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
 import net.xalcon.chococraft.common.inventory.SaddleItemStackHandler;
 import net.xalcon.chococraft.common.network.PacketManager;
@@ -598,4 +602,25 @@ public class EntityChocobo extends EntityTameable
 				((ContainerSaddleBag) player.openContainer).refreshSlots(this, player);
 		}
 	}
+
+    protected SoundEvent getAmbientSound()
+    {
+        return ModSounds.AMBIENT_SOUND;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    {
+        return ModSounds.AMBIENT_SOUND;
+    }
+
+    protected SoundEvent getDeathSound()
+    {
+        return ModSounds.AMBIENT_SOUND;
+    }
+
+    @Override
+    protected float getSoundVolume()
+    {
+        return .6f;
+    }
 }
