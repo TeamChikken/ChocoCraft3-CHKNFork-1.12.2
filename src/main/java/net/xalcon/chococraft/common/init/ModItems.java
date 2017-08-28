@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.chococraft.Chococraft;
+import net.xalcon.chococraft.common.items.ItemAbilityFruit;
 import net.xalcon.chococraft.common.items.ItemChocoboSaddle;
 import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
 import net.xalcon.chococraft.common.items.ItemGysahlGreenSeeds;
@@ -42,6 +43,9 @@ public class ModItems
 
 	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
 	public static ItemChocoboSpawnEgg chocoboSpawnEgg;
+
+	@GameRegistry.ObjectHolder("ability_fruit")
+	public static ItemAbilityFruit abilityFruit;
 
     @GameRegistry.ObjectHolder("gysahl_green_seeds")
     public static ItemGysahlGreenSeeds gysahlGreenSeeds;

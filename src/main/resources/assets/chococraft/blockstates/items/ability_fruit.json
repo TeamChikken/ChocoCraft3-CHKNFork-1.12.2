@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type":
+    {
+      "spike_fruit": { "textures": { "layer0": "chococraft:items/spike_fruit" } },
+      "aeroshroom": { "textures": { "layer0": "chococraft:items/aeroshroom" } },
+      "aqua_berry": { "textures": { "layer0": "chococraft:items/aqua_berry" } },
+      "dead_pepper": { "textures": { "layer0": "chococraft:items/dead_pepper" } }
+    }
+  }
+}
