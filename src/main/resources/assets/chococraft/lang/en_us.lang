@@ -20,6 +20,15 @@ item.chococraft.chocobo_spawn_egg.pink.name=Pink Chocobo Spawn Egg
 item.chococraft.chocobo_spawn_egg.red.name=Red Chocobo Spawn Egg
 item.chococraft.chocobo_spawn_egg.purple.name=Purple Chocobo Spawn Egg
 
+item.chococraft.ability_fruit.spike_fruit.name=Spike Fruit
+item.chococraft.ability_fruit.spike_fruit.tooltip=Teaches a chocobo the sprint ability
+item.chococraft.ability_fruit.aeroshroom.name=Aeroshroom
+item.chococraft.ability_fruit.aeroshroom.tooltip=Teaches a chocobo the glide ability
+item.chococraft.ability_fruit.aqua_berry.name=Aqua Berry
+item.chococraft.ability_fruit.aqua_berry.tooltip=Teaches a chocobo the dive ability
+item.chococraft.ability_fruit.dead_pepper.name=Dead Pepper
+item.chococraft.ability_fruit.dead_pepper.tooltip=Teaches a chocobo the flight ability
+
 item.chococraft.chocobo_egg.tooltip.invalid_egg=§cInvalid Egg
 item.chococraft.chocobo_egg.tooltip.mother_info=Mother: %s / %s / %s
 item.chococraft.chocobo_egg.tooltip.father_info=Father: %s / %s / %s

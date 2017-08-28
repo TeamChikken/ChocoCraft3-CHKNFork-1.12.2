@@ -1,6 +1,7 @@
 package net.xalcon.chococraft.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -117,7 +118,7 @@ public class ItemAbilityFruit extends Item implements IItemModelProvider
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(this.getUnlocalizedName(stack) + ".tooltip");
+        tooltip.add(I18n.format(this.getUnlocalizedName(stack) + ".tooltip"));
     }
 
     @Override
