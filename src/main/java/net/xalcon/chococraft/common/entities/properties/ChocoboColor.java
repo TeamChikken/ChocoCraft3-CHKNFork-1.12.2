@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreIngredient;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 
@@ -26,11 +25,6 @@ public enum ChocoboColor
     ChocoboColor(Ingredient colorIngredient)
     {
         this.colorIngredient = colorIngredient;
-    }
-
-    public boolean canItemApplyColor(ItemStack stack)
-    {
-        return this.colorIngredient.apply(stack);
     }
 
     public static ChocoboColor getRandomColor()

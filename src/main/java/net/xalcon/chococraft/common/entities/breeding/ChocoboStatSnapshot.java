@@ -4,11 +4,21 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
-import net.xalcon.chococraft.common.entities.properties.ChocoboColor;
 
+@SuppressWarnings("WeakerAccess")
 public class ChocoboStatSnapshot
 {
     public static final ChocoboStatSnapshot DEFAULT;
+    public static final String NBTKEY_LEVEL = "Level";
+    public static final String NBTKEY_GENERATION = "Generation";
+    public static final String NBTKEY_HEALTH = "Health";
+    public static final String NBTKEY_SPEED = "Speed";
+    public static final String NBTKEY_STAMINA = "Stamina";
+    public static final String NBTKEY_CAN_SPRINT = "CanSprint";
+    public static final String NBTKEY_CAN_GLIDE = "CanGlide";
+    public static final String NBTKEY_CAN_DIVE = "CanDive";
+    public static final String NBTKEY_CAN_FLY = "CanFly";
+
     public int level;
     public int generation;
     public float health;
@@ -52,31 +62,31 @@ public class ChocoboStatSnapshot
 
     public ChocoboStatSnapshot(NBTTagCompound nbt)
     {
-        this.level = nbt.getInteger("Level");
-        this.generation = nbt.getInteger("Generation");
-        this.health = nbt.getFloat("Health");
-        this.speed = nbt.getFloat("Speed");
-        this.stamina = nbt.getFloat("Stamina");
+        this.level = nbt.getInteger(NBTKEY_LEVEL);
+        this.generation = nbt.getInteger(NBTKEY_GENERATION);
+        this.health = nbt.getFloat(NBTKEY_HEALTH);
+        this.speed = nbt.getFloat(NBTKEY_SPEED);
+        this.stamina = nbt.getFloat(NBTKEY_STAMINA);
 
-        this.canSprint = nbt.getBoolean("CanSprint");
-        this.canGlide = nbt.getBoolean("CanGlide");
-        this.canDive = nbt.getBoolean("CanDive");
-        this.canFly = nbt.getBoolean("CanFly");
+        this.canSprint = nbt.getBoolean(NBTKEY_CAN_SPRINT);
+        this.canGlide = nbt.getBoolean(NBTKEY_CAN_GLIDE);
+        this.canDive = nbt.getBoolean(NBTKEY_CAN_DIVE);
+        this.canFly = nbt.getBoolean(NBTKEY_CAN_FLY);
     }
 
     public NBTTagCompound serialize()
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("Level", this.level);
-        nbt.setInteger("Generation", this.generation);
-        nbt.setFloat("Health", this.health);
-        nbt.setFloat("Speed", this.speed);
-        nbt.setFloat("Stamina", this.stamina);
+        nbt.setInteger(NBTKEY_LEVEL, this.level);
+        nbt.setInteger(NBTKEY_GENERATION, this.generation);
+        nbt.setFloat(NBTKEY_HEALTH, this.health);
+        nbt.setFloat(NBTKEY_SPEED, this.speed);
+        nbt.setFloat(NBTKEY_STAMINA, this.stamina);
 
-        nbt.setBoolean("CanFly", this.canFly);
-        nbt.setBoolean("CanGlide", this.canGlide);
-        nbt.setBoolean("CanSprint", this.canSprint);
-        nbt.setBoolean("CanDive", this.canDive);
+        nbt.setBoolean(NBTKEY_CAN_FLY, this.canFly);
+        nbt.setBoolean(NBTKEY_CAN_GLIDE, this.canGlide);
+        nbt.setBoolean(NBTKEY_CAN_SPRINT, this.canSprint);
+        nbt.setBoolean(NBTKEY_CAN_DIVE, this.canDive);
         return nbt;
     }
 }

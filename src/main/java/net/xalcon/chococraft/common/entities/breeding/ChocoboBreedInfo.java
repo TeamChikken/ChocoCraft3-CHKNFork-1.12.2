@@ -6,6 +6,9 @@ import javax.annotation.Nullable;
 
 public class ChocoboBreedInfo
 {
+    public final static String NBTKEY_MOTHER_STATSNAPSHOT = "mother";
+    public final static String NBTKEY_FATHER_STATSNAPSHOT = "father";
+
     private ChocoboStatSnapshot mother = ChocoboStatSnapshot.DEFAULT;
     private ChocoboStatSnapshot father = ChocoboStatSnapshot.DEFAULT;
 
@@ -27,17 +30,17 @@ public class ChocoboBreedInfo
 
     public ChocoboBreedInfo(NBTTagCompound nbt)
     {
-        if(nbt.hasKey("mother"))
-            this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag("mother"));
-        if(nbt.hasKey("father"))
-            this.father = new ChocoboStatSnapshot(nbt.getCompoundTag("father"));
+        if(nbt.hasKey(NBTKEY_MOTHER_STATSNAPSHOT))
+            this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_MOTHER_STATSNAPSHOT));
+        if(nbt.hasKey(NBTKEY_FATHER_STATSNAPSHOT))
+            this.father = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_FATHER_STATSNAPSHOT));
     }
 
     public NBTTagCompound serialize()
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setTag("mother", this.mother.serialize());
-        nbt.setTag("father", this.father.serialize());
+        nbt.setTag(NBTKEY_MOTHER_STATSNAPSHOT, this.mother.serialize());
+        nbt.setTag(NBTKEY_FATHER_STATSNAPSHOT, this.father.serialize());
         return nbt;
     }
 

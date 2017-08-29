@@ -10,7 +10,6 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,7 +31,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
 import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
 import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.xalcon.chococraft.common.entities.breeding.EntityChocoboAIMate;
 import net.xalcon.chococraft.common.entities.properties.*;
 import net.xalcon.chococraft.common.init.ModItems;
@@ -47,9 +45,23 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Optional;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityChocobo extends EntityTameable
 {
 	private static final ResourceLocation CHOCOBO_LOOTABLE = new ResourceLocation(Chococraft.MODID, "entities/chocobo");
+	public static final String NBTKEY_CHOCOBO_COLOR = "Color";
+	public static final String NBTKEY_CHOCOBO_IS_MALE = "Male";
+	public static final String NBTKEY_MOVEMENTTYPE = "MovementType";
+	public static final String NBTKEY_SADDLE_ITEM = "Saddle";
+	public static final String NBTKEY_INVENTORY = "Inventory";
+	public static final String NBTKEY_NEST_POSITION = "NestPos";
+	public static final String NBTKEY_CHOCOBO_LEVEL = "Level";
+	public static final String NBTKEY_CHOCOBO_GENERATION = "Generation";
+	public static final String NBTKEY_CHOCOBO_STAMINA = "Stamina";
+	public static final String NBTKEY_CHOCOBO_CAN_FLY = "CanFly";
+	public static final String NBTKEY_CHOCOBO_CAN_GLIDE = "CanGlide";
+	public static final String NBTKEY_CHOCOBO_CAN_SPRINT = "CanSprint";
+	public static final String NBTKEY_CHOCOBO_CAN_DIVE = "CanDive";
 
 	private static final byte CAN_SPRINT_BIT = 0b0001;
 	private static final byte CAN_DIVE_BIT = 0b0010;
@@ -148,50 +160,50 @@ public class EntityChocobo extends EntityTameable
 	public void readEntityFromNBT(NBTTagCompound nbt)
 	{
 		super.readEntityFromNBT(nbt);
-		this.setChocoboColor(ChocoboColor.values()[nbt.getByte("Color")]);
-		this.setMale(nbt.getBoolean("Male"));
-		this.setMovementType(MovementType.values()[nbt.getByte("MovementType")]);
-		this.saddleItemStackHandler.deserializeNBT(nbt.getCompoundTag("Saddle"));
+		this.setChocoboColor(ChocoboColor.values()[nbt.getByte(NBTKEY_CHOCOBO_COLOR)]);
+		this.setMale(nbt.getBoolean(NBTKEY_CHOCOBO_IS_MALE));
+		this.setMovementType(MovementType.values()[nbt.getByte(NBTKEY_MOVEMENTTYPE)]);
+		this.saddleItemStackHandler.deserializeNBT(nbt.getCompoundTag(NBTKEY_SADDLE_ITEM));
 
 		if (getSaddleType() != SaddleType.NONE)
-			this.chocoboInventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
+			this.chocoboInventory.deserializeNBT(nbt.getCompoundTag(NBTKEY_INVENTORY));
 
-		if(nbt.hasKey("NestPos"))
-		    this.nestPos = NBTUtil.getPosFromTag(nbt.getCompoundTag("NestPos"));
+		if(nbt.hasKey(NBTKEY_NEST_POSITION))
+		    this.nestPos = NBTUtil.getPosFromTag(nbt.getCompoundTag(NBTKEY_NEST_POSITION));
 
-		this.setLevel(nbt.getInteger("Level"));
-		this.setGeneration(nbt.getInteger("Generation"));
-		this.setStamina(nbt.getFloat("Stamina"));
+		this.setLevel(nbt.getInteger(NBTKEY_CHOCOBO_LEVEL));
+		this.setGeneration(nbt.getInteger(NBTKEY_CHOCOBO_GENERATION));
+		this.setStamina(nbt.getFloat(NBTKEY_CHOCOBO_STAMINA));
 
-		this.setCanFly(nbt.getBoolean("CanFly"));
-		this.setCanGlide(nbt.getBoolean("CanGlide"));
-		this.setCanSprint(nbt.getBoolean("CanSprint"));
-		this.setCanDive(nbt.getBoolean("CanDive"));
+		this.setCanFly(nbt.getBoolean(NBTKEY_CHOCOBO_CAN_FLY));
+		this.setCanGlide(nbt.getBoolean(NBTKEY_CHOCOBO_CAN_GLIDE));
+		this.setCanSprint(nbt.getBoolean(NBTKEY_CHOCOBO_CAN_SPRINT));
+		this.setCanDive(nbt.getBoolean(NBTKEY_CHOCOBO_CAN_DIVE));
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)
 	{
 		super.writeEntityToNBT(nbt);
-		nbt.setByte("Color", (byte) this.getChocoboColor().ordinal());
-		nbt.setBoolean("Male", this.isMale());
-		nbt.setByte("MovementType", (byte) this.getMovementType().ordinal());
-		nbt.setTag("Saddle", this.saddleItemStackHandler.serializeNBT());
+		nbt.setByte(NBTKEY_CHOCOBO_COLOR, (byte) this.getChocoboColor().ordinal());
+		nbt.setBoolean(NBTKEY_CHOCOBO_IS_MALE, this.isMale());
+		nbt.setByte(NBTKEY_MOVEMENTTYPE, (byte) this.getMovementType().ordinal());
+		nbt.setTag(NBTKEY_SADDLE_ITEM, this.saddleItemStackHandler.serializeNBT());
 
 		if (getSaddleType() != SaddleType.NONE)
-			nbt.setTag("Inventory", this.chocoboInventory.serializeNBT());
+			nbt.setTag(NBTKEY_INVENTORY, this.chocoboInventory.serializeNBT());
 
 		if(this.nestPos != null)
-		    nbt.setTag("NestPos", NBTUtil.createPosTag(this.nestPos));
+		    nbt.setTag(NBTKEY_NEST_POSITION, NBTUtil.createPosTag(this.nestPos));
 
-		nbt.setInteger("Level", this.getLevel());
-		nbt.setInteger("Generation", this.getGeneration());
-		nbt.setFloat("Stamina", this.getStamina());
+		nbt.setInteger(NBTKEY_CHOCOBO_LEVEL, this.getLevel());
+		nbt.setInteger(NBTKEY_CHOCOBO_GENERATION, this.getGeneration());
+		nbt.setFloat(NBTKEY_CHOCOBO_STAMINA, this.getStamina());
 
-		nbt.setBoolean("CanFly", this.canFly());
-		nbt.setBoolean("CanGlide", this.canGlide());
-		nbt.setBoolean("CanSprint", this.canSprint());
-		nbt.setBoolean("CanDive", this.canDive());
+		nbt.setBoolean(NBTKEY_CHOCOBO_CAN_FLY, this.canFly());
+		nbt.setBoolean(NBTKEY_CHOCOBO_CAN_GLIDE, this.canGlide());
+		nbt.setBoolean(NBTKEY_CHOCOBO_CAN_SPRINT, this.canSprint());
+		nbt.setBoolean(NBTKEY_CHOCOBO_CAN_DIVE, this.canDive());
 	}
 
 	public ChocoboColor getChocoboColor()

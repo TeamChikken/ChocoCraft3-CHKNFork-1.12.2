@@ -32,6 +32,10 @@ import java.util.List;
 @AttachedTileEntity(name = "chocobo_egg", tile = TileEntityChocoboEgg.class)
 public class BlockChocoboEgg extends Block implements IItemBlockProvider
 {
+    public final static String NBTKEY_HATCHINGSTATE_TIME = "Time";
+    public final static String NBTKEY_HATCHINGSTATE = "HatchingState";
+    public final static String NBTKEY_BREEDINFO = "BreedInfo";
+
     public final static AxisAlignedBB BOUNDS = new AxisAlignedBB(.25, 0, .25, .75, .75, .75);
 
     @SuppressWarnings("unused")
@@ -92,7 +96,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
             TileEntity tile = worldIn.getTileEntity(pos);
             if(!(tile instanceof TileEntityChocoboEgg)) return;
 
-            ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(stack.getSubCompound("BreedInfo"));
+            ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(stack.getSubCompound(NBTKEY_BREEDINFO));
 
             ((TileEntityChocoboEgg) tile).setBreedInfo(breedInfo);
         }
@@ -116,7 +120,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
                 Chococraft.log.error("Unable to create ItemStack for egg @ {}, the eggy has no breeding info attached");
                 return;
             }
-            itemStack.setTagInfo("BreedInfo", breedInfo.serialize());
+            itemStack.setTagInfo(NBTKEY_BREEDINFO, breedInfo.serialize());
             spawnAsEntity(worldIn, pos, itemStack);
             return;
         }
@@ -126,7 +130,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced)
     {
-        NBTTagCompound nbt = stack.getSubCompound("BreedInfo");
+        NBTTagCompound nbt = stack.getSubCompound(NBTKEY_BREEDINFO);
         if(nbt != null)
         {
             ChocoboBreedInfo info = new ChocoboBreedInfo(nbt);

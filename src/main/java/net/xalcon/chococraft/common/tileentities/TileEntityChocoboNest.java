@@ -15,7 +15,6 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.xalcon.chococraft.Chococraft;
@@ -49,6 +48,15 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         new CheckOffset(new Vec3i(1, 3, 0), false),
         new CheckOffset(new Vec3i(1, 3, 1), false),
     };
+
+    @SuppressWarnings("WeakerAccess")
+    public static final String NBTKEY_IS_SHELTERED = "IsSheltered";
+    @SuppressWarnings("WeakerAccess")
+    public static final String NBTKEY_TICKS = "Ticks";
+    @SuppressWarnings("WeakerAccess")
+    public static final String NBTKEY_OWNER_CHOCOBO = "Chocobo";
+    @SuppressWarnings("WeakerAccess")
+    public static final String NBTKEY_NEST_INVENTORY = "Inventory";
 
     private ItemStackHandler inventory = new ItemStackHandler(1)
     {
@@ -106,8 +114,8 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         if(!egg.hasTagCompound())
            return false;
 
-        NBTTagCompound nbt = egg.getOrCreateSubCompound("HatchingState");
-        int time = nbt.getInteger("Time");
+        NBTTagCompound nbt = egg.getOrCreateSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
+        int time = nbt.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
         time++;
 
         if(this.isSheltered)
@@ -121,13 +129,13 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
                 time++;
         }*/
 
-        nbt.setInteger("Time", ++time);
+        nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, ++time);
 
         if(time < ChocoConfig.breeding.eggHatchTimeTicks)
             return false;
 
         // egg is ready to hatch
-        ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(egg.getSubCompound("BreedInfo"));
+        ChocoboBreedInfo breedInfo = ChocoboBreedInfo.getFromNbtOrDefault(egg.getSubCompound(BlockChocoboEgg.NBTKEY_BREEDINFO));
         EntityChocobo baby = BreedingHelper.createChild(breedInfo, this.world);
         baby.setLocationAndAngles(this.pos.getX() + 0.5, this.pos.getY() + 0.2, this.pos.getZ() + 0.5, 0.0F, 0.0F);
         this.world.spawnEntity(baby);
@@ -215,21 +223,21 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        this.isSheltered = nbt.getBoolean("IsSheltered");
-        this.ticks = nbt.getInteger("Ticks");
-        if(nbt.hasKey("Chocobo"))
-            this.ownerChocobo = NBTUtil.getUUIDFromTag(nbt.getCompoundTag("Chocobo"));
-        this.inventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
+        this.isSheltered = nbt.getBoolean(NBTKEY_IS_SHELTERED);
+        this.ticks = nbt.getInteger(NBTKEY_TICKS);
+        if(nbt.hasKey(NBTKEY_OWNER_CHOCOBO))
+            this.ownerChocobo = NBTUtil.getUUIDFromTag(nbt.getCompoundTag(NBTKEY_OWNER_CHOCOBO));
+        this.inventory.deserializeNBT(nbt.getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setBoolean("IsSheltered", this.isSheltered);
-        nbt.setInteger("Ticks", this.ticks);
+        nbt.setBoolean(NBTKEY_IS_SHELTERED, this.isSheltered);
+        nbt.setInteger(NBTKEY_TICKS, this.ticks);
         if(this.ownerChocobo != null)
-            nbt.setTag("Chocobo", NBTUtil.createUUIDTag(this.ownerChocobo));
-        nbt.setTag("Inventory", this.inventory.serializeNBT());
+            nbt.setTag(NBTKEY_OWNER_CHOCOBO, NBTUtil.createUUIDTag(this.ownerChocobo));
+        nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return super.writeToNBT(nbt);
     }
 
@@ -238,21 +246,21 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setTag("Inventory", this.inventory.serializeNBT());
+        nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return new SPacketUpdateTileEntity(this.getPos(), 0, nbt);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
-        this.inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag("Inventory"));
+        this.inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
 
     @Override
     public NBTTagCompound getUpdateTag()
     {
         NBTTagCompound nbt = super.getUpdateTag();
-        nbt.setTag("Inventory", this.inventory.serializeNBT());
+        nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return nbt;
     }
 
@@ -260,7 +268,7 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     public void handleUpdateTag(NBTTagCompound nbt)
     {
         super.handleUpdateTag(nbt);
-        this.inventory.deserializeNBT(nbt.getCompoundTag("Inventory"));
+        this.inventory.deserializeNBT(nbt.getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
     //endregion
 
