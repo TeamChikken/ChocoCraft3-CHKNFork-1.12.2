@@ -1,5 +1,6 @@
 package net.xalcon.chococraft.common.entities.breeding;
 
+import akka.actor.dungeon.FaultHandling;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -32,13 +33,15 @@ public class BreedingHelper
         float health = Math.round((mother.health + father.health) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
 
-        float speed = Math.round((mother.speed + father.speed) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
+        float avgSpeed = (mother.speed + father.speed) / 2f;
+        float speed = Math.round(avgSpeed * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit)));
+        speed = MathHelper.clamp(speed, avgSpeed - ChocoConfig.breeding.maxSpeedGrowth, avgSpeed + ChocoConfig.breeding.maxSpeedGrowth);
+
         chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
         float stamina = Math.round((mother.stamina + father.stamina) / 2) * (traitBaseMod + (world.rand.nextFloat() * traitRngLimit));
         chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
 
-        // TODO: Add a way to guarantee getting an ability
         float canSprintChance = calculateChance(0.05f, 0.15f, 0.4f, mother.canSprint, father.canSprint);
         chocobo.setCanSprint(canSprintChance > world.rand.nextFloat());
 
