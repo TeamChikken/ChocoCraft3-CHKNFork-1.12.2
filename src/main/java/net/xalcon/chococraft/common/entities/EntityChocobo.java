@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,6 +46,7 @@ import net.xalcon.chococraft.utils.WorldUtils;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
 
 @SuppressWarnings("WeakerAccess")
 public class EntityChocobo extends EntityTameable
@@ -78,7 +81,11 @@ public class EntityChocobo extends EntityTameable
 	private final static DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
 	private final static DataParameter<Byte> PARAM_ABILITY_MASK = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BYTE);
 
-	public final ItemStackHandler chocoboInventory = new ItemStackHandler();
+    private static final UUID CHOCOBO_SPRINTING_BOOST_ID = UUID.fromString("03ba3167-393e-4362-92b8-909841047640");
+    private static final AttributeModifier CHOCOBO_SPRINTING_SPEED_BOOST = (new AttributeModifier(CHOCOBO_SPRINTING_BOOST_ID, "Chocobo sprinting speed boost", 2, 2)).setSaved(false);
+
+
+    public final ItemStackHandler chocoboInventory = new ItemStackHandler();
 	public final SaddleItemStackHandler saddleItemStackHandler = new SaddleItemStackHandler()
 	{
 		@Override
@@ -410,6 +417,11 @@ public class EntityChocobo extends EntityTameable
 					this.motionY *= 0.8f;
 				}
 
+				if(this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost))
+                {
+                    this.setSprinting(false);
+                }
+
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical, forward);
 			}
@@ -440,6 +452,23 @@ public class EntityChocobo extends EntityTameable
         if(!this.isInLove() || !otherAnimal.isInLove()) return false;
         EntityChocobo otherChocobo = (EntityChocobo) otherAnimal;
         return otherChocobo.isMale() != this.isMale();
+    }
+
+    @Override
+    public void setSprinting(boolean sprinting)
+    {
+        this.setFlag(3, sprinting);
+        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+
+        if (iattributeinstance.getModifier(CHOCOBO_SPRINTING_BOOST_ID) != null)
+        {
+            iattributeinstance.removeModifier(CHOCOBO_SPRINTING_SPEED_BOOST);
+        }
+
+        if (sprinting)
+        {
+            iattributeinstance.applyModifier(CHOCOBO_SPRINTING_SPEED_BOOST);
+        }
     }
 
     @Override
