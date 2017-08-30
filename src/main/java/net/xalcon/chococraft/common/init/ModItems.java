@@ -62,8 +62,16 @@ public class ModItems
 	public static ItemFood chocoboDrumStickRaw;
 
 	@GameRegistry.ObjectHolder("chocobo_drumstick_cooked")
-    @ItemFoodParameters(amount = 6, saturation = 8, isWolfFood = true)
+    @ItemFoodParameters(amount = 7, saturation = 8, isWolfFood = true)
 	public static ItemFood chocoboDrumStickCooked;
+
+	@GameRegistry.ObjectHolder("pickled_gysahl_raw")
+    @ItemFoodParameters(amount = 4, saturation = 2)
+	public static ItemFood pickledGysahlRaw;
+
+	@GameRegistry.ObjectHolder("pickled_gysahl_cooked")
+    @ItemFoodParameters(amount = 6, saturation = 4)
+	public static ItemFood pickledGysahlCooked;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
