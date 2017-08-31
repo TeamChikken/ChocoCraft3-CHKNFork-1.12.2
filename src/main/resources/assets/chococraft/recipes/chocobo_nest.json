@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "WHW"
+  ],
+  "key": {
+    "S": { "ore": "stickWood", "type": "forge:ore_dict" },
+    "W": { "ore": "cropWheat", "type": "forge:ore_dict" },
+    "H": { "item": "minecraft:hay_block" }
+  },
+  "result": {
+    "item": "chococraft:straw_nest",
+    "count": 1,
+    "data": 0
+  }
+}
