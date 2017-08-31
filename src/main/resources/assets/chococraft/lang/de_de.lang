@@ -10,6 +10,9 @@ item.chococraft.lovely_gysahl_green.name=Liebliches Gizarkraut
 item.chococraft.pickled_gysahl_raw.name=Rohes eingelegtes Gizarkraut
 item.chococraft.pickled_gysahl_cooked.name=Gebackenes eingelegtes Gizarkraut
 
+item.chococraft.chocopedia.name=Chocopedia
+item.chococraft.chocopedia.tooltip=Zeigt Statistiken zu einem Chocobo
+
 item.chococraft.chocobo_saddle.name=Chocobosattel
 item.chococraft.chocobo_drumstick_raw.name=Roher Chocoboschenkel
 item.chococraft.chocobo_drumstick_cooked.name=Gebratener Chocoboschenkel

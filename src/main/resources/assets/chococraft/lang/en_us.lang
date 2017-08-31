@@ -10,6 +10,9 @@ item.chococraft.lovely_gysahl_green.name=Lovely Gysahl Green
 item.chococraft.pickled_gysahl_raw.name=Raw Pickled Gysahl Green
 item.chococraft.pickled_gysahl_cooked.name=Baked Pickled Gysahl Green
 
+item.chococraft.chocopedia.name=Chocopedia
+item.chococraft.chocopedia.tooltip=Use on a chocobo to view its stats
+
 item.chococraft.chocobo_saddle.name=Chocobo Saddle
 item.chococraft.chocobo_drumstick_raw.name=Raw Chocobo Drumstick
 item.chococraft.chocobo_drumstick_cooked.name=Cooked Chocobo Drumstick
