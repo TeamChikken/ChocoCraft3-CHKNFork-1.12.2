@@ -11,10 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.items.ItemAbilityFruit;
-import net.xalcon.chococraft.common.items.ItemChocoboSaddle;
-import net.xalcon.chococraft.common.items.ItemChocoboSpawnEgg;
-import net.xalcon.chococraft.common.items.ItemGysahlGreenSeeds;
+import net.xalcon.chococraft.common.items.*;
 import net.xalcon.chococraft.utils.inject.ClassInjector;
 import net.xalcon.chococraft.utils.inject.InstanceFactoryMethod;
 import net.xalcon.chococraft.utils.registration.IItemModelProvider;
@@ -33,13 +30,6 @@ public class ModItems
 	@GameRegistry.ObjectHolder("chocobo_saddle")
     @ItemSetupParameters(stackSize = 4)
     public static ItemChocoboSaddle chocoboSaddle;
-
-    //@GameRegistry.ObjectHolder("chocobo_feather")
-    //public static Item chocoboFeather;
-
-    //@GameRegistry.ObjectHolder("chocobo_whistle")
-    //@ItemSetupParameters(stackSize = 1)
-    //public static Item chocoboWhistle;
 
 	@GameRegistry.ObjectHolder("chocobo_spawn_egg")
 	public static ItemChocoboSpawnEgg chocoboSpawnEgg;
@@ -72,6 +62,9 @@ public class ModItems
 	@GameRegistry.ObjectHolder("pickled_gysahl_cooked")
     @ItemFoodParameters(amount = 6, saturation = 4)
 	public static ItemFood pickledGysahlCooked;
+
+	@GameRegistry.ObjectHolder("chocopedia")
+	public static ItemChocopedia chocopedia;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)

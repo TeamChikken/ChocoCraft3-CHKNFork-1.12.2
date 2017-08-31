@@ -544,12 +544,15 @@ public class EntityChocobo extends EntityTameable
 	{
 		ItemStack heldItemStack = player.getHeldItem(hand);
 
+		if(heldItemStack.getItem() == ModItems.chocopedia)
+		{
+			Chococraft.proxy.openChocoboInfoGui(this);
+		}
+
 		if (this.isTamed() && player.isSneaking())
 		{
-			/*if (player instanceof EntityPlayerMP)
-				this.displayChocoboInventory((EntityPlayerMP) player);*/
-			if(this.world.isRemote)
-				Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboInfo(this));
+			if (player instanceof EntityPlayerMP)
+				this.displayChocoboInventory((EntityPlayerMP) player);
 			return true;
 		}
 

@@ -15,4 +15,5 @@ import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
 
 public class CommonProxy
 {
+    public void openChocoboInfoGui(EntityChocobo chocobo) { /* NOP */ }
 }
