@@ -12,6 +12,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +20,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -481,9 +483,24 @@ public class EntityChocobo extends EntityTameable
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
 
-		// Wing rotations, control packet, client side
-		if (this.getEntityWorld().isRemote)
+		if(!this.getEntityWorld().isRemote)
+        {
+            if(this.canDive() && this.ticksExisted % 60 == 0)
+            {
+                this.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
+                if(this.isBeingRidden())
+                {
+                    Entity controller = this.getControllingPassenger();
+                    if(controller instanceof EntityPlayer)
+                    {
+                        ((EntityPlayer) controller).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
+                    }
+                }
+            }
+        }
+        else
 		{
+            // Wing rotations, control packet, client side
 			// Client side
 			this.destPos += (double) (this.onGround ? -1 : 4) * 0.3D;
 			this.destPos = MathHelper.clamp(destPos, 0f, 1f);
