@@ -388,7 +388,7 @@ public class EntityChocobo extends EntityTameable
 
 				if (this.isInWater())
 				{
-					if (!this.canDive())
+					if (this.canDive())
 					{
 						if (rider.isSneaking())
 						{
@@ -401,7 +401,8 @@ public class EntityChocobo extends EntityTameable
 						{
 							this.motionY = .5f;
 						}
-					} else
+					}
+					else
 					{
 						if (rider.isJumping)
 						{

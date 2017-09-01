@@ -1,3 +1,6 @@
+# Version 0.9.1 - beta
+- fix chocobos not able to dive when having the dive ability
+
 # Version 0.9.0 - beta
 - Breeding chocobos with a lovely gysahl green will no longer directly spawn a baby chocobo. Instead, the mother chocobo will place an egg on the ground.
   To hatch this egg, it needs to be picked up and placed in a Chocobo Nest.
