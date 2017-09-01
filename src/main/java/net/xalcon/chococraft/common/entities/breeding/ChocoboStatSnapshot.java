@@ -2,6 +2,7 @@ package net.xalcon.chococraft.common.entities.breeding;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.xalcon.chococraft.common.ChocoConfig;
 import net.xalcon.chococraft.common.entities.EntityChocobo;
 import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
 
@@ -34,9 +35,9 @@ public class ChocoboStatSnapshot
         DEFAULT = new ChocoboStatSnapshot();
         DEFAULT.generation = 1;
         DEFAULT.level = 1;
-        DEFAULT.health = 20;
-        DEFAULT.stamina = 10f;
-        DEFAULT.speed = 0.7f;
+        DEFAULT.health = ChocoConfig.chocobo.defaultHealth;
+        DEFAULT.stamina = ChocoConfig.chocobo.defaultStamina;
+        DEFAULT.speed = ChocoConfig.chocobo.defaultSpeed / 100f;
 
         DEFAULT.canSprint = false;
         DEFAULT.canGlide = false;

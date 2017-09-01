@@ -126,7 +126,9 @@ public class EntityChocobo extends EntityTameable
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getAttributeMap().registerAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(10.0D);
+		this.getAttributeMap().registerAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(ChocoConfig.chocobo.defaultStamina);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(ChocoConfig.chocobo.defaultSpeed / 100f);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(ChocoConfig.chocobo.defaultHealth);
 	}
 
 	@Override
@@ -139,7 +141,7 @@ public class EntityChocobo extends EntityTameable
 		this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
 
 		this.dataManager.register(PARAM_LEVEL, 1);
-		this.dataManager.register(PARAM_STAMINA, 10f);
+		this.dataManager.register(PARAM_STAMINA, (float)ChocoConfig.chocobo.defaultStamina);
 		this.dataManager.register(PARAM_GENERATION, 0);
 		this.dataManager.register(PARAM_ABILITY_MASK, (byte)0);
 	}

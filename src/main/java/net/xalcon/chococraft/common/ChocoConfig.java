@@ -68,6 +68,13 @@ public class ChocoConfig
         public float jumpStaminaCost = 0.00f;
         @Config.RangeDouble(min = 0)
         public float staminaRegenRate = 0.025f;
+
+        @Config.RangeInt(min = 0)
+        public int defaultStamina = 10;
+        @Config.RangeInt(min = 0)
+        public int defaultSpeed = 30;
+        @Config.RangeInt(min = 0)
+        public int defaultHealth = 20;
     }
 
     public static class BreedingConfig
