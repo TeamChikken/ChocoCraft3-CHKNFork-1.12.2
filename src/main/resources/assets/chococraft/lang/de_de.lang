@@ -39,6 +39,7 @@ item.chococraft.chocobo_egg.tooltip.invalid_egg=§cFehlerhaftes Ei
 item.chococraft.chocobo_egg.tooltip.mother_info=Mutter: %s / %s / %s
 item.chococraft.chocobo_egg.tooltip.father_info=Vater: %s / %s / %s
 
+chococraft.entity_chocobo.heal_fail=§cGesundheit voll
 chococraft.entity_chocobo.tame_fail=§cZähmung fehlgeschlagen
 chococraft.entity_chocobo.tame_success=§aZähmung erfolgreich
 chococraft.entity_chocobo.saddle_applied=Chocobo gesattelt
