@@ -599,6 +599,18 @@ public class EntityChocobo extends EntityTameable
 			}
 			return true;
 		}
+		
+		if(this.isTamed() && heldItemStack.getItem() == ModItems.gysahlGreen)
+		{
+			{
+				if(getHealth() != getMaxHealth()) {
+					this.consumeItemFromStack(player, player.inventory.getCurrentItem());
+					heal(5);
+				} else {
+					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.heal_fail"), true);
+				}
+			}
+		}
 
 		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen)
 		{
