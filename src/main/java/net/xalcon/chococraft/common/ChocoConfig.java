@@ -80,15 +80,13 @@ public class ChocoConfig
     public static class BreedingConfig
     {
         @Config.RangeInt(min = 0)
-        public int maxHealth = 100;
+        public int maxHealth = 40;
         @Config.RangeInt(min = 0)
-        public int maxSpeed = 120;
+        public int maxSpeed = 45;
         @Config.RangeInt(min = 0)
-        public float maxStamina;
+        public float maxStamina = 30;
         @Config.RangeInt(min = 0)
         public int eggHatchTimeTicks = 24000;
-        @Config.RangeDouble(min = 0)
-        public float maxSpeedGrowth = 0.06777f;
     }
 
     @SubscribeEvent
