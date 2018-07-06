@@ -6,6 +6,7 @@
 # Version 0.9.2 - beta
 - Adjusted stat and trait chances.
 - Fixed gaining fly from breeding.
+- Fixed gaining glide from breeding.
 - Added ability to heal tamed chocobos with gysahl greens.
 - Added colors for newly born chocobos depending on abilities/traits.
 - Removed now unused config option.
