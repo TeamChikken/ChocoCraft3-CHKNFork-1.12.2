@@ -1,3 +1,15 @@
+# Todo
+- Add follow by whistle.
+- Add gysahl lovely by farming and make consumeable.
+- Make purple actually purple.
+
+# Version 0.9.2 - beta
+- Adjusted stat and trait chances.
+- Fixed gaining fly from breeding.
+- Added ability to heal tamed chocobos with gysahl greens.
+- Added colors for newly born chocobos depending on abilities/traits.
+- Removed now unused config option.
+
 # Version 0.9.1 - beta
 - fix chocobos not able to dive when having the dive ability
 
