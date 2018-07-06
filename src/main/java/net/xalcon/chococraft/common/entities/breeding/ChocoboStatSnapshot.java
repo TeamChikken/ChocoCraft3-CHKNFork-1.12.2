@@ -56,7 +56,7 @@ public class ChocoboStatSnapshot
         this.stamina = (float) chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getBaseValue();
 
         this.canSprint = chocobo.canSprint();
-        this.canGlide = chocobo.canDive();
+        this.canGlide = chocobo.canGlide();
         this.canDive = chocobo.canDive();
         this.canFly = chocobo.canFly();
     }
