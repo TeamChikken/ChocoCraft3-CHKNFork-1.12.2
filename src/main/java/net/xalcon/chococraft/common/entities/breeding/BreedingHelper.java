@@ -15,43 +15,65 @@ public class BreedingHelper
     {
         return new ChocoboBreedInfo(new ChocoboStatSnapshot(mother), new ChocoboStatSnapshot(father));
     }
-
+    
     public static EntityChocobo createChild(ChocoboBreedInfo breedInfo, World world)
     {
         EntityChocobo chocobo = new EntityChocobo(world);
         float traitBaseMod = 0.8f;
         float traitRngLimit = 0.5f;
-        float randomZeroToOne = (float)Math.random();
 
         ChocoboStatSnapshot mother = breedInfo.getMother();
         ChocoboStatSnapshot father = breedInfo.getFather();
 
-        // Bred chocobos always start at level 1
         chocobo.setLevel(1);
-        chocobo.setChocoboColor(ChocoboColor.getRandomColor());
         chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
-//Health
+//Stats
         float health = Math.round((mother.health + father.health) / 2) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
-//Speed
+
         float speed = ((mother.speed + father.speed) / 2f) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
-//Stamina
+
         float stamina = Math.round((mother.stamina + father.stamina) / 2) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
         chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
 //Traits
+        float canFlyChance = calculateChance(0.005f, 0.15f, 0.35f, mother.canFly, father.canFly);
+        float canflychancerandom = (float)Math.random();
+        chocobo.setCanFly(canFlyChance > canflychancerandom);
+        
+        float canDiveChance = calculateChance(0.01f, 0.20f, 0.40f, mother.canDive, father.canDive);
+        float candivechancerandom = (float)Math.random();
+        chocobo.setCanDive(canDiveChance > candivechancerandom);
+        
+        float canGlideChance = calculateChance(0.01f, 0.20f, 0.45f, mother.canGlide, father.canGlide);
+        float canglidechancerandom = (float)Math.random();
+        chocobo.setCanGlide(canGlideChance > canglidechancerandom);
+        
         float canSprintChance = calculateChance(0.03f, 0.25f, 0.5f, mother.canSprint, father.canSprint);
-        chocobo.setCanSprint(canSprintChance > (float)Math.random());
-
-        float canGlideChance = calculateChance(0.01f, 0.2f, 0.45f, mother.canGlide, father.canGlide);
-        chocobo.setCanGlide(canGlideChance > (float)Math.random());
-
-        float canDiveChance = calculateChance(0.01f, 0.2f, 0.45f, mother.canDive, father.canDive);
-        chocobo.setCanSprint(canDiveChance > (float)Math.random());
-
-        float canFlyChance = calculateChance(0.005f, 0.15f, 0.4f, mother.canFly, father.canFly);
-        chocobo.setCanFly(canFlyChance > (float)Math.random());
-
+        float cansprintchancerandom = (float)Math.random();
+        chocobo.setCanSprint(canSprintChance > cansprintchancerandom);
+// color
+        if (canFlyChance > canflychancerandom)
+    	{
+    	chocobo.setChocoboColor(ChocoboColor.GOLD);
+    	} 
+        	else if (canDiveChance > candivechancerandom)
+        	{
+    		chocobo.setChocoboColor(ChocoboColor.BLUE);
+        	}
+        		else if (canGlideChance > canglidechancerandom)
+        		{
+        		chocobo.setChocoboColor(ChocoboColor.WHITE);
+        		}
+        			else if (canSprintChance > cansprintchancerandom)
+        			{
+        				chocobo.setChocoboColor(ChocoboColor.GREEN);
+        			}
+        				else
+        				{
+        					chocobo.setChocoboColor(ChocoboColor.YELLOW);
+        				}
+//
         chocobo.setGrowingAge(-24000);
 
         return chocobo;
