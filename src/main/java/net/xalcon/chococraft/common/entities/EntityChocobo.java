@@ -614,6 +614,7 @@ public class EntityChocobo extends EntityTameable
 
 		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen)
 		{
+			this.consumeItemFromStack(player, player.inventory.getCurrentItem());
 			this.setInLove(player);
 			return true;
 		}
