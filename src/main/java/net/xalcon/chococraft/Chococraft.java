@@ -1,5 +1,8 @@
 package net.xalcon.chococraft;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
@@ -7,8 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -23,8 +24,7 @@ import net.xalcon.chococraft.common.entities.properties.EntityDataSerializers;
 import net.xalcon.chococraft.common.init.ModItems;
 import net.xalcon.chococraft.common.network.PacketManager;
 import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.xalcon.chococraft.utils.Log4jFilter;
 
 @Mod(modid = Chococraft.MODID, version = Chococraft.VERSION, acceptedMinecraftVersions = Chococraft.MC_VERSION)
 public class Chococraft
@@ -61,6 +61,7 @@ public class Chococraft
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ChococraftGuiHandler());
         EntityDataSerializers.init();
         PacketManager.init();
+        Log4jFilter.init();
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
 
