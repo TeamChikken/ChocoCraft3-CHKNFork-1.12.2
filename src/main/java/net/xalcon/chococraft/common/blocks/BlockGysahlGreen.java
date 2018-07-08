@@ -25,12 +25,18 @@ public class BlockGysahlGreen extends BlockCrops
 	{
 		return ModItems.gysahlGreenSeeds;
 	}
-
+	
+/// Gysahl farm drop chance
 	@Override
 	protected Item getCrop()
 	{
-		return ModItems.gysahlGreen;
+		float gysahlchance = (float)Math.random();
+		if (0.15f > gysahlchance)
+			return ModItems.lovelyGysahlGreen;
+		else
+			return ModItems.gysahlGreen;
 	}
+///
 
 	@Override
 	protected BlockStateContainer createBlockState()
