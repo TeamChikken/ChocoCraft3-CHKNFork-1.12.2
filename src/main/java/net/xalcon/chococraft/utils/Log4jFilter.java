@@ -15,7 +15,7 @@ public class Log4jFilter implements Filter
     public Filter.Result filter(LogEvent event)
     {
         Message m = event.getMessage();
-        if (m.toString().contains("moved wrongly") || m.getFormattedMessage().contains("moved wrongly")) {
+        if (m.toString().contains("Chocobo moved wrongly") || m.getFormattedMessage().contains("Chocobo moved wrongly")) {
             return Filter.Result.DENY;
         }
         return null;
