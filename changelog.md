@@ -1,11 +1,16 @@
 # Todo
 - Add follow by whistle.
-- Add gysahl lovely by farming and make consumeable.
 - Make purple actually purple.
-- Fix https://github.com/Xalcon/ChocoCraft3/issues/13
-- Check https://github.com/Xalcon/ChocoCraft3/issues/28
-- maybe fix? https://github.com/Xalcon/ChocoCraft3/issues/18
+- Update Chococraft 3 mc and forge version.
 
+# Version 0.9.3 - beta
+- Adjusted lovely gysahl to be consumable.
+- Fixed the last world gen interference by swapping "world.rand" with "Math.random()" method.
+- Fixed "chocobo moved wrongly" console spam by adding Log4jFilter, Thanks to MattCzyr!
+- Added chance for lovely gysahl farming drop.
+- Removed lovely gysahl crafting recipe.
+- Removed misc_ideas.
+- Removed breeding_ideas.
 
 # Version 0.9.2 - beta
 - Adjusted stat and trait chances.
