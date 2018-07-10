@@ -18,7 +18,8 @@
       "gold": { "textures": { "layer0": "chococraft:items/spawn_egg_gold" } },
       "pink": { "textures": { "layer0": "chococraft:items/spawn_egg_pink" } },
       "red": { "textures": { "layer0": "chococraft:items/spawn_egg_red" } },
-      "purple": { "textures": { "layer0": "chococraft:items/spawn_egg_purple" } }
+      "purple": { "textures": { "layer0": "chococraft:items/spawn_egg_purple" } },
+      "flame": { "textures": { "layer0": "chococraft:items/spawn_egg_flame" } }
     }
   }
 }
