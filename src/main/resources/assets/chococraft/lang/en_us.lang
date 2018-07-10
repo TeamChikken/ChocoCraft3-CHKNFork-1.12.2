@@ -25,6 +25,7 @@ item.chococraft.chocobo_spawn_egg.gold.name=Golden Chocobo Spawn Egg
 item.chococraft.chocobo_spawn_egg.pink.name=Pink Chocobo Spawn Egg
 item.chococraft.chocobo_spawn_egg.red.name=Red Chocobo Spawn Egg
 item.chococraft.chocobo_spawn_egg.purple.name=Purple Chocobo Spawn Egg
+item.chococraft.chocobo_spawn_egg.flame.name=Flame Chocobo Spawn Egg
 
 item.chococraft.ability_fruit.spike_fruit.name=Spike Fruit
 item.chococraft.ability_fruit.spike_fruit.tooltip=Teaches a chocobo the sprint ability
