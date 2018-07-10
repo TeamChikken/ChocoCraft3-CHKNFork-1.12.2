@@ -4,6 +4,7 @@
 
 # Version 0.9.4 - beta
 - Fixed flame chocobo not rare, whoopsies.
+- Adjusted time it takes for chicobo to hatch, matches sunup to sundown in ticks.
 
 # Version 0.9.3 - beta
 - Refractored file structure.
