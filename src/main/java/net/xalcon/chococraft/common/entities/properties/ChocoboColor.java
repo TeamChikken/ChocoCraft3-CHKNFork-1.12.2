@@ -17,7 +17,8 @@ public enum ChocoboColor
     GOLD(new OreIngredient("ingotGold")),
     PINK(new OreIngredient("dyePink")),
     RED(new OreIngredient("dyeRed")),
-    PURPLE(new OreIngredient("dyePurple"));
+    PURPLE(new OreIngredient("dyePurple")),
+	FLAME(new OreIngredient(""));
 
     private static Random rand = new Random();
     private Ingredient colorIngredient;
