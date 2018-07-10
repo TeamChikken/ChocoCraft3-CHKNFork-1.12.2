@@ -2,6 +2,9 @@
 - Add follow by whistle.
 - Update Chococraft 3 mc and forge version. (once I know how =D)
 
+# Version 0.9.5 - beta
+- Fixed female-happy eggs, maybe you'll actually get a male this time.
+
 # Version 0.9.4 - beta
 - Fixed flame chocobo not rare, whoopsies.
 - Adjusted time it takes for chicobo to hatch, matches sunup to sundown in ticks.
