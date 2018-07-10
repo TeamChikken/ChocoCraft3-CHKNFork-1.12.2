@@ -86,7 +86,7 @@ public class ChocoConfig
         @Config.RangeInt(min = 0)
         public float maxStamina = 30;
         @Config.RangeInt(min = 0)
-        public int eggHatchTimeTicks = 24000;
+        public int eggHatchTimeTicks = 14000;
     }
 
     @SubscribeEvent
