@@ -53,7 +53,11 @@ public class BreedingHelper
         float cansprintchancerandom = (float)Math.random();
         chocobo.setCanSprint(canSprintChance > cansprintchancerandom);
 // color
-        if (canFlyChance > canflychancerandom)
+     if (.50f > (float)Math.random())
+     {
+     chocobo.setChocoboColor(ChocoboColor.FLAME);
+     }
+     	else if (canFlyChance > canflychancerandom)
     	{
     	chocobo.setChocoboColor(ChocoboColor.GOLD);
     	} 
