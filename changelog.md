@@ -2,6 +2,9 @@
 - Add follow by whistle.
 - Update Chococraft 3 mc and forge version. (once I know how =D)
 
+# Version 0.9.4 - beta
+- Fixed flame chocobo not rare, whoopsies.
+
 # Version 0.9.3 - beta
 - Refractored file structure.
 - Adjusted lovely gysahl to be consumable.
