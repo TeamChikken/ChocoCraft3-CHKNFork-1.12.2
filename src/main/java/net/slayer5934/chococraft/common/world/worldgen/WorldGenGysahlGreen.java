@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.world.worldgen;
+package net.slayer5934.chococraft.common.world.worldgen;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -6,8 +6,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.init.ModBlocks;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.init.ModBlocks;
 
 import java.util.Random;
 

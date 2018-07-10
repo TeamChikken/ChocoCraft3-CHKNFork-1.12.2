@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils.registration;
+package net.slayer5934.chococraft.utils.registration;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

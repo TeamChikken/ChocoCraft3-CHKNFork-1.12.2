@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.items;
+package net.slayer5934.chococraft.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.chococraft.common.entities.properties.SaddleType;
-import net.xalcon.chococraft.utils.registration.IItemModelProvider;
+import net.slayer5934.chococraft.common.entities.properties.SaddleType;
+import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
 
 public class ItemChocoboSaddle extends Item implements IItemModelProvider
 {

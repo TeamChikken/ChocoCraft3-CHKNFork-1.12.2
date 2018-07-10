@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils;
+package net.slayer5934.chococraft.utils;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

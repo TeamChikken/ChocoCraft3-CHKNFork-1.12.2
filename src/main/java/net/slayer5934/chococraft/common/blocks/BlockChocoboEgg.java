@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.blocks;
+package net.slayer5934.chococraft.common.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -18,13 +18,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
-import net.xalcon.chococraft.common.entities.breeding.ChocoboStatSnapshot;
-import net.xalcon.chococraft.common.init.ModBlocks;
-import net.xalcon.chococraft.common.tileentities.TileEntityChocoboEgg;
-import net.xalcon.chococraft.utils.inject.AttachedTileEntity;
-import net.xalcon.chococraft.utils.registration.IItemBlockProvider;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.entities.breeding.ChocoboBreedInfo;
+import net.slayer5934.chococraft.common.entities.breeding.ChocoboStatSnapshot;
+import net.slayer5934.chococraft.common.init.ModBlocks;
+import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboEgg;
+import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
+import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;

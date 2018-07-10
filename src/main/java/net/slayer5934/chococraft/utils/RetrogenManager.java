@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils;
+package net.slayer5934.chococraft.utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.ChunkPos;
@@ -8,7 +8,7 @@ import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.xalcon.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.ChocoConfig;
 
 import java.util.HashMap;
 import java.util.HashSet;

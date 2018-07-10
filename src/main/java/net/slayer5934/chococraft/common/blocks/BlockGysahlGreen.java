@@ -1,11 +1,11 @@
-package net.xalcon.chococraft.common.blocks;
+package net.slayer5934.chococraft.common.blocks;
 
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.xalcon.chococraft.common.init.ModItems;
+import net.slayer5934.chococraft.common.init.ModItems;
 
 public class BlockGysahlGreen extends BlockCrops
 {

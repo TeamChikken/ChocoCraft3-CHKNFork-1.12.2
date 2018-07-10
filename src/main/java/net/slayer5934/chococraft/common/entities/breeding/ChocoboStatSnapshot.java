@@ -1,10 +1,10 @@
-package net.xalcon.chococraft.common.entities.breeding;
+package net.slayer5934.chococraft.common.entities.breeding;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
 
 @SuppressWarnings("WeakerAccess")
 public class ChocoboStatSnapshot

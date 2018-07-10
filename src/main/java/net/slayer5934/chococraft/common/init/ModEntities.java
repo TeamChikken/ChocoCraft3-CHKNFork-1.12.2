@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.init;
+package net.slayer5934.chococraft.common.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.client.renderer.entities.EntityRendererChocobo;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.client.renderer.entities.EntityRendererChocobo;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class ModEntities

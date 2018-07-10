@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities;
+package net.slayer5934.chococraft.common.entities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -32,18 +32,18 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.entities.breeding.EntityChocoboAIMate;
-import net.xalcon.chococraft.common.entities.properties.*;
-import net.xalcon.chococraft.common.init.ModItems;
-import net.xalcon.chococraft.common.init.ModSounds;
-import net.xalcon.chococraft.common.inventory.ContainerSaddleBag;
-import net.xalcon.chococraft.common.inventory.SaddleItemStackHandler;
-import net.xalcon.chococraft.common.network.PacketManager;
-import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
-import net.xalcon.chococraft.utils.WorldUtils;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.client.gui.GuiChocoboInfo;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.entities.breeding.EntityChocoboAIMate;
+import net.slayer5934.chococraft.common.entities.properties.*;
+import net.slayer5934.chococraft.common.init.ModItems;
+import net.slayer5934.chococraft.common.init.ModSounds;
+import net.slayer5934.chococraft.common.inventory.ContainerSaddleBag;
+import net.slayer5934.chococraft.common.inventory.SaddleItemStackHandler;
+import net.slayer5934.chococraft.common.network.PacketManager;
+import net.slayer5934.chococraft.common.network.packets.PacketOpenChocoboGui;
+import net.slayer5934.chococraft.utils.WorldUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;

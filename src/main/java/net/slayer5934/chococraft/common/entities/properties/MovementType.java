@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities.properties;
+package net.slayer5934.chococraft.common.entities.properties;
 
 public enum MovementType
 {

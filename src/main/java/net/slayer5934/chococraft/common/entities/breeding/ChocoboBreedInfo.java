@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities.breeding;
+package net.slayer5934.chococraft.common.entities.breeding;
 
 import net.minecraft.nbt.NBTTagCompound;
 

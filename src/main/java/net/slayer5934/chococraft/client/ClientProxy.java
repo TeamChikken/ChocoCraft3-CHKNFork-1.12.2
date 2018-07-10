@@ -1,9 +1,9 @@
-package net.xalcon.chococraft.client;
+package net.slayer5934.chococraft.client;
 
 import net.minecraft.client.Minecraft;
-import net.xalcon.chococraft.client.gui.GuiChocoboInfo;
-import net.xalcon.chococraft.common.CommonProxy;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.client.gui.GuiChocoboInfo;
+import net.slayer5934.chococraft.common.CommonProxy;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @SuppressWarnings("ALL")
 public class ClientProxy extends CommonProxy

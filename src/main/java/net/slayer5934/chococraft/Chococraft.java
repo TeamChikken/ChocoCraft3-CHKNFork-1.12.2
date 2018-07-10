@@ -1,4 +1,4 @@
-package net.xalcon.chococraft;
+package net.slayer5934.chococraft;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,16 +15,16 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.ChococraftGuiHandler;
-import net.xalcon.chococraft.common.CommonProxy;
-import net.xalcon.chococraft.common.commands.CommandChocobo;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.common.entities.properties.EntityDataSerializers;
-import net.xalcon.chococraft.common.init.ModItems;
-import net.xalcon.chococraft.common.network.PacketManager;
-import net.xalcon.chococraft.common.world.worldgen.WorldGenGysahlGreen;
-import net.xalcon.chococraft.utils.Log4jFilter;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.ChococraftGuiHandler;
+import net.slayer5934.chococraft.common.CommonProxy;
+import net.slayer5934.chococraft.common.commands.CommandChocobo;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.properties.EntityDataSerializers;
+import net.slayer5934.chococraft.common.init.ModItems;
+import net.slayer5934.chococraft.common.network.PacketManager;
+import net.slayer5934.chococraft.common.world.worldgen.WorldGenGysahlGreen;
+import net.slayer5934.chococraft.utils.Log4jFilter;
 
 @Mod(modid = Chococraft.MODID, version = Chococraft.VERSION, acceptedMinecraftVersions = Chococraft.MC_VERSION)
 public class Chococraft
@@ -37,7 +37,7 @@ public class Chococraft
 
     public final static Logger log = LogManager.getLogger(MODID);
 
-    @SidedProxy(clientSide = "net.xalcon.chococraft.client.ClientProxy", serverSide = "net.xalcon.chococraft.common.CommonProxy")
+    @SidedProxy(clientSide = "net.slayer5934.chococraft.client.ClientProxy", serverSide = "net.slayer5934.chococraft.common.CommonProxy")
     public static CommonProxy proxy;
 
     public static final CreativeTabs creativeTab = new CreativeTabs(MODID)

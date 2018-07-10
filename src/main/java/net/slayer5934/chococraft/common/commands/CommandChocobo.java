@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.commands;
+package net.slayer5934.chococraft.common.commands;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -9,9 +9,10 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
+
 import org.apache.logging.log4j.util.BiConsumer;
 
 import java.util.HashMap;

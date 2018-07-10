@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.init;
+package net.slayer5934.chococraft.common.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -7,14 +7,14 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
-import net.xalcon.chococraft.common.blocks.BlockGysahlGreen;
-import net.xalcon.chococraft.common.blocks.BlockStrawNest;
-import net.xalcon.chococraft.utils.inject.AttachedTileEntity;
-import net.xalcon.chococraft.utils.inject.ClassInjector;
-import net.xalcon.chococraft.utils.registration.IItemBlockProvider;
-import net.xalcon.chococraft.utils.registration.IItemModelProvider;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.blocks.BlockChocoboEgg;
+import net.slayer5934.chococraft.common.blocks.BlockGysahlGreen;
+import net.slayer5934.chococraft.common.blocks.BlockStrawNest;
+import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
+import net.slayer5934.chococraft.utils.inject.ClassInjector;
+import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
+import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.entities.properties;
+package net.slayer5934.chococraft.common.entities.properties;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

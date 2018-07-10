@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.handler;
+package net.slayer5934.chococraft.common.handler;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
@@ -12,10 +12,10 @@ import net.minecraft.world.storage.loot.functions.SetMetadata;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.init.ModItems;
-import net.xalcon.chococraft.common.items.ItemAbilityFruit;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.init.ModItems;
+import net.slayer5934.chococraft.common.items.ItemAbilityFruit;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class LootTableEventHandler

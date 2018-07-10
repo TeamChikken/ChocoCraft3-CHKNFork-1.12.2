@@ -1,10 +1,10 @@
-package net.xalcon.chococraft.common.network;
+package net.slayer5934.chococraft.common.network;
 
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.network.packets.PacketChocoboSprinting;
-import net.xalcon.chococraft.common.network.packets.PacketOpenChocoboGui;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.network.packets.PacketChocoboSprinting;
+import net.slayer5934.chococraft.common.network.packets.PacketOpenChocoboGui;
 
 public class PacketManager
 {

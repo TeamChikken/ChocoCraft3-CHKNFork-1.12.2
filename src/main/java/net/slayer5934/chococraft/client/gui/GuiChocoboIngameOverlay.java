@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.client.gui;
+package net.slayer5934.chococraft.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -9,8 +9,8 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID, value = Side.CLIENT)
 public class GuiChocoboIngameOverlay

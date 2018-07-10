@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.inventory;
+package net.slayer5934.chococraft.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -6,7 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
+import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
 
 import javax.annotation.Nonnull;
 

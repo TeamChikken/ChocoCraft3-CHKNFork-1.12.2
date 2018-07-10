@@ -1,13 +1,13 @@
-package net.xalcon.chococraft.common;
+package net.slayer5934.chococraft.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.xalcon.chococraft.client.gui.GuiChocoboNest;
-import net.xalcon.chococraft.common.inventory.ContainerNest;
-import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
-import net.xalcon.chococraft.utils.WorldUtils;
+import net.slayer5934.chococraft.client.gui.GuiChocoboNest;
+import net.slayer5934.chococraft.common.inventory.ContainerNest;
+import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
+import net.slayer5934.chococraft.utils.WorldUtils;
 
 import javax.annotation.Nullable;
 

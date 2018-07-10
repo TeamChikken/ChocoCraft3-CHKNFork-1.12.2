@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.inventory;
+package net.slayer5934.chococraft.common.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

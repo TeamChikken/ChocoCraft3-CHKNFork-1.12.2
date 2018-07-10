@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.items;
+package net.slayer5934.chococraft.common.items;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
@@ -13,8 +13,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.utils.registration.IItemModelProvider;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;

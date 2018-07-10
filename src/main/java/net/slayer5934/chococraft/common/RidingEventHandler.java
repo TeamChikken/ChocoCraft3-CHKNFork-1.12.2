@@ -1,10 +1,10 @@
-package net.xalcon.chococraft.common;
+package net.slayer5934.chococraft.common;
 
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class RidingEventHandler

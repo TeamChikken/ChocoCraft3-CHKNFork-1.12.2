@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.init;
+package net.slayer5934.chococraft.common.init;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -10,11 +10,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.items.*;
-import net.xalcon.chococraft.utils.inject.ClassInjector;
-import net.xalcon.chococraft.utils.inject.InstanceFactoryMethod;
-import net.xalcon.chococraft.utils.registration.IItemModelProvider;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.items.*;
+import net.slayer5934.chococraft.utils.inject.ClassInjector;
+import net.slayer5934.chococraft.utils.inject.InstanceFactoryMethod;
+import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

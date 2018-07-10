@@ -1,11 +1,11 @@
-package net.xalcon.chococraft.client.gui;
+package net.slayer5934.chococraft.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.inventory.ContainerNest;
-import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.inventory.ContainerNest;
+import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
 
 public class GuiChocoboNest extends GuiContainer
 {

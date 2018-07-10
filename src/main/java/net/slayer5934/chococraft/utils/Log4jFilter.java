@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils;
+package net.slayer5934.chococraft.utils;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

@@ -1,11 +1,11 @@
-package net.xalcon.chococraft.common.init;
+package net.slayer5934.chococraft.common.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.xalcon.chococraft.Chococraft;
+import net.slayer5934.chococraft.Chococraft;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
 public class ModSounds

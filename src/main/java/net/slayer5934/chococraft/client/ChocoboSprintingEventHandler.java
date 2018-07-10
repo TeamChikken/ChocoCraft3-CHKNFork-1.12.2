@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.client;
+package net.slayer5934.chococraft.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -6,9 +6,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.network.PacketManager;
-import net.xalcon.chococraft.common.network.packets.PacketChocoboSprinting;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.network.PacketManager;
+import net.slayer5934.chococraft.common.network.packets.PacketChocoboSprinting;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID, value = Side.CLIENT)
 public class ChocoboSprintingEventHandler

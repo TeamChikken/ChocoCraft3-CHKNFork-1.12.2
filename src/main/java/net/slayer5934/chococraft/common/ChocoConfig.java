@@ -1,11 +1,11 @@
-package net.xalcon.chococraft.common;
+package net.slayer5934.chococraft.common;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.xalcon.chococraft.Chococraft;
+import net.slayer5934.chococraft.Chococraft;
 
 //@Config(modid = Chococraft.MODID)
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)

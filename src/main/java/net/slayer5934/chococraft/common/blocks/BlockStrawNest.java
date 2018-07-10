@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.blocks;
+package net.slayer5934.chococraft.common.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,13 +19,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.ChococraftGuiHandler;
-import net.xalcon.chococraft.common.init.ModBlocks;
-import net.xalcon.chococraft.common.tileentities.TileEntityChocoboNest;
-import net.xalcon.chococraft.utils.WorldUtils;
-import net.xalcon.chococraft.utils.inject.AttachedTileEntity;
-import net.xalcon.chococraft.utils.registration.IItemBlockProvider;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.ChococraftGuiHandler;
+import net.slayer5934.chococraft.common.init.ModBlocks;
+import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
+import net.slayer5934.chococraft.utils.WorldUtils;
+import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
+import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
 
 import javax.annotation.Nullable;
 

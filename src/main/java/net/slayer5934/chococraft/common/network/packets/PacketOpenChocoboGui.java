@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.network.packets;
+package net.slayer5934.chococraft.common.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.client.gui.GuiChocoboInventory;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.client.gui.GuiChocoboInventory;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 import javax.annotation.Nullable;
 

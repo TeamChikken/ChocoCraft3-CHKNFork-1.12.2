@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.tileentities;
+package net.slayer5934.chococraft.common.tileentities;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -17,14 +17,14 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.ChocoConfig;
-import net.xalcon.chococraft.common.blocks.BlockChocoboEgg;
-import net.xalcon.chococraft.common.blocks.BlockStrawNest;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.common.entities.breeding.BreedingHelper;
-import net.xalcon.chococraft.common.entities.breeding.ChocoboBreedInfo;
-import net.xalcon.chococraft.common.init.ModBlocks;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.blocks.BlockChocoboEgg;
+import net.slayer5934.chococraft.common.blocks.BlockStrawNest;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.breeding.BreedingHelper;
+import net.slayer5934.chococraft.common.entities.breeding.ChocoboBreedInfo;
+import net.slayer5934.chococraft.common.init.ModBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

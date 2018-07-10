@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.crafting;
+package net.slayer5934.chococraft.common.crafting;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

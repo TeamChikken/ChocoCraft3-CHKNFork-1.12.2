@@ -1,9 +1,9 @@
-package net.xalcon.chococraft.common.inventory;
+package net.slayer5934.chococraft.common.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.xalcon.chococraft.common.init.ModItems;
+import net.slayer5934.chococraft.common.init.ModItems;
 
 import javax.annotation.Nonnull;
 

@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils.inject;
+package net.slayer5934.chococraft.utils.inject;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

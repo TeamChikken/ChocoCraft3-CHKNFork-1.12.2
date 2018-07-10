@@ -1,10 +1,10 @@
-package net.xalcon.chococraft.client.models.entities;
+package net.slayer5934.chococraft.client.models.entities;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 public class ModelChocobo extends ModelBase
 {

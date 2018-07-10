@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils.registration;
+package net.slayer5934.chococraft.utils.registration;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

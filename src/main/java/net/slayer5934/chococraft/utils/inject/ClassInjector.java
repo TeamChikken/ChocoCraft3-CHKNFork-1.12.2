@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.utils.inject;
+package net.slayer5934.chococraft.utils.inject;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;

@@ -1,4 +1,4 @@
-package net.xalcon.chococraft.common.init;
+package net.slayer5934.chococraft.common.init;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

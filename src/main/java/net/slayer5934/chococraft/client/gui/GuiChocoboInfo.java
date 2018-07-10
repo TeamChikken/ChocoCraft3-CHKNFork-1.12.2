@@ -1,12 +1,12 @@
-package net.xalcon.chococraft.client.gui;
+package net.slayer5934.chococraft.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
-import net.xalcon.chococraft.Chococraft;
-import net.xalcon.chococraft.common.entities.EntityChocobo;
-import net.xalcon.chococraft.common.entities.properties.ChocoboAttributes;
+import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
 
 public class GuiChocoboInfo extends GuiScreen
 {
