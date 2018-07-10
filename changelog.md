@@ -1,12 +1,15 @@
 # Todo
 - Add follow by whistle.
-- Make purple actually purple.
 - Update Chococraft 3 mc and forge version.
+- Last-changed:
 
 # Version 0.9.3 - beta
 - Adjusted lovely gysahl to be consumable.
 - Fixed the last world gen interference by swapping "world.rand" with "Math.random()" method.
 - Fixed "chocobo moved wrongly" console spam by adding Log4jFilter, Thanks to MattCzyr!
+- Fixed purple chocobo not purple. Thanks to MikaPikaaa for textures.
+- Fixed green female chocobo being a damn zombie. Thanks to MikaPikaaa for textures.
+- Added rare flame class to make use of scrapped textures.
 - Added chance for lovely gysahl farming drop.
 - Removed lovely gysahl crafting recipe.
 - Removed misc_ideas.
