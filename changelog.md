@@ -1,9 +1,9 @@
 # Todo
 - Add follow by whistle.
-- Update Chococraft 3 mc and forge version.
-- Last-changed: Test
+- Update Chococraft 3 mc and forge version. (once I know how =D)
 
 # Version 0.9.3 - beta
+- Refractored file structure.
 - Adjusted lovely gysahl to be consumable.
 - Fixed the last world gen interference by swapping "world.rand" with "Math.random()" method.
 - Fixed "chocobo moved wrongly" console spam by adding Log4jFilter, Thanks to MattCzyr!
