@@ -52,6 +52,10 @@ public class BreedingHelper
         float canSprintChance = calculateChance(0.03f, 0.25f, 0.5f, mother.canSprint, father.canSprint);
         float cansprintchancerandom = (float)Math.random();
         chocobo.setCanSprint(canSprintChance > cansprintchancerandom);
+        
+        //is it a boy or a girl =D? HOW CAN YOU EVEN FORGET THIS, IM ASHAMED XALCON! ;p
+        chocobo.setMale(.50f > (float)Math.random());
+        
 // color
      if (.02f > (float)Math.random())
      {
