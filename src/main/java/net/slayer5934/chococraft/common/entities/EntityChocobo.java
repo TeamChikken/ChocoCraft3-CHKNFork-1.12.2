@@ -342,9 +342,10 @@ public class EntityChocobo extends EntityTameable
 	@Override
 	public void travel(float strafe, float vertical, float forward)
 	{
-		EntityPlayer rider = (EntityPlayer) this.getControllingPassenger();
-		if (rider != null)
+		if (this.getControllingPassenger() instanceof EntityPlayer)
 		{
+			EntityPlayer rider = (EntityPlayer) this.getControllingPassenger();
+			
 			this.prevRotationYaw = rider.rotationYaw;
 			this.rotationYaw = rider.rotationYaw;
 			this.rotationPitch = rider.rotationPitch * 0.5F;
