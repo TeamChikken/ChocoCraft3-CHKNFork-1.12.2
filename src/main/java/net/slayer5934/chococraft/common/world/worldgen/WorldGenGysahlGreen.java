@@ -18,7 +18,15 @@ public class WorldGenGysahlGreen implements IWorldGenerator
     {
         if(!world.provider.isSurfaceWorld() || !world.provider.hasSkyLight())
             return;
-
+        
+        if(ChocoConfig.world.gysahlGreensSpawnOnlyInOverworld)
+        {
+        	if (world.provider.getDimension() != 0)
+        	{
+        		return;
+        	}
+        }
+        	
         if(random.nextFloat() > ChocoConfig.world.gysahlGreenSpawnChance)
             return;
 

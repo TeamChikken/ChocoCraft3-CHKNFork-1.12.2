@@ -32,6 +32,8 @@ public class ChocoConfig
 
         @Config.RangeDouble(min = 0, max = 1)
         public double gysahlGreenSpawnChance = 0.1;
+        
+        public boolean gysahlGreensSpawnOnlyInOverworld = true;
 
         @Config.RangeInt(min = 0)
         @Config.RequiresMcRestart
