@@ -1,5 +1,7 @@
 package net.slayer5934.chococraft.common.inventory;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -7,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
-
-import javax.annotation.Nonnull;
 
 public class ContainerNest extends Container
 {

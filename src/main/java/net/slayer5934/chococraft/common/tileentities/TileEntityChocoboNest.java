@@ -1,5 +1,12 @@
 package net.slayer5934.chococraft.common.tileentities;
 
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,12 +32,6 @@ import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.common.entities.breeding.BreedingHelper;
 import net.slayer5934.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.slayer5934.chococraft.common.init.ModBlocks;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class TileEntityChocoboNest extends TileEntity implements ITickable
 {

@@ -1,5 +1,10 @@
 package net.slayer5934.chococraft.common.commands;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.logging.log4j.util.BiConsumer;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -12,11 +17,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
-
-import org.apache.logging.log4j.util.BiConsumer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommandChocobo extends CommandBase
 {

@@ -1,8 +1,6 @@
 package net.slayer5934.chococraft.common.entities.breeding;
 
-import akka.actor.dungeon.FaultHandling;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.slayer5934.chococraft.common.ChocoConfig;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;

@@ -1,11 +1,11 @@
 package net.slayer5934.chococraft.common.inventory;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.slayer5934.chococraft.common.init.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class SlotChocoboSaddle extends SlotItemHandler
 {

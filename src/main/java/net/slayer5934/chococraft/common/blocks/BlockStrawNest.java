@@ -1,5 +1,7 @@
 package net.slayer5934.chococraft.common.blocks;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -21,13 +23,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.common.ChococraftGuiHandler;
-import net.slayer5934.chococraft.common.init.ModBlocks;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
 import net.slayer5934.chococraft.utils.WorldUtils;
 import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
 import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
-
-import javax.annotation.Nullable;
 
 @AttachedTileEntity(name = "chocobo_nest", tile = TileEntityChocoboNest.class)
 public class BlockStrawNest extends Block implements IItemBlockProvider

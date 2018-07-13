@@ -1,11 +1,20 @@
 package net.slayer5934.chococraft.common.entities;
 
-import net.minecraft.client.Minecraft;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -33,10 +42,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.slayer5934.chococraft.Chococraft;
-import net.slayer5934.chococraft.client.gui.GuiChocoboInfo;
 import net.slayer5934.chococraft.common.ChocoConfig;
 import net.slayer5934.chococraft.common.entities.breeding.EntityChocoboAIMate;
-import net.slayer5934.chococraft.common.entities.properties.*;
+import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
+import net.slayer5934.chococraft.common.entities.properties.ChocoboColor;
+import net.slayer5934.chococraft.common.entities.properties.EntityDataSerializers;
+import net.slayer5934.chococraft.common.entities.properties.MovementType;
+import net.slayer5934.chococraft.common.entities.properties.SaddleType;
 import net.slayer5934.chococraft.common.init.ModItems;
 import net.slayer5934.chococraft.common.init.ModSounds;
 import net.slayer5934.chococraft.common.inventory.ContainerSaddleBag;
@@ -44,11 +56,6 @@ import net.slayer5934.chococraft.common.inventory.SaddleItemStackHandler;
 import net.slayer5934.chococraft.common.network.PacketManager;
 import net.slayer5934.chococraft.common.network.packets.PacketOpenChocoboGui;
 import net.slayer5934.chococraft.utils.WorldUtils;
-
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.UUID;
 
 @SuppressWarnings("WeakerAccess")
 public class EntityChocobo extends EntityTameable

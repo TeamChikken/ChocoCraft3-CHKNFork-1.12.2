@@ -1,8 +1,11 @@
 package net.slayer5934.chococraft.common.entities.breeding;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -11,9 +14,6 @@ import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.common.init.ModBlocks;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboEgg;
 import net.slayer5934.chococraft.utils.WorldUtils;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class EntityChocoboAIMate extends EntityAIBase
 {

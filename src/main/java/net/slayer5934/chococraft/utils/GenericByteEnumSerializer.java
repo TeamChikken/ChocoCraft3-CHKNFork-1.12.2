@@ -1,10 +1,10 @@
 package net.slayer5934.chococraft.utils;
 
+import java.io.IOException;
+
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializer;
-
-import java.io.IOException;
 
 public class GenericByteEnumSerializer<E extends Enum<E>> implements DataSerializer<E>
 {

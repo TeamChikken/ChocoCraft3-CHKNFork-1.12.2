@@ -1,5 +1,7 @@
 package net.slayer5934.chococraft.common;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -8,8 +10,6 @@ import net.slayer5934.chococraft.client.gui.GuiChocoboNest;
 import net.slayer5934.chococraft.common.inventory.ContainerNest;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
 import net.slayer5934.chococraft.utils.WorldUtils;
-
-import javax.annotation.Nullable;
 
 public class ChococraftGuiHandler implements IGuiHandler
 {

@@ -1,5 +1,11 @@
 package net.slayer5934.chococraft.common.init;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -11,16 +17,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.slayer5934.chococraft.Chococraft;
-import net.slayer5934.chococraft.common.items.*;
+import net.slayer5934.chococraft.common.items.ItemAbilityFruit;
+import net.slayer5934.chococraft.common.items.ItemChocoboSaddle;
+import net.slayer5934.chococraft.common.items.ItemChocoboSpawnEgg;
+import net.slayer5934.chococraft.common.items.ItemChocopedia;
+import net.slayer5934.chococraft.common.items.ItemGysahlGreenSeeds;
 import net.slayer5934.chococraft.utils.inject.ClassInjector;
 import net.slayer5934.chococraft.utils.inject.InstanceFactoryMethod;
 import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.reflect.Field;
 
 @SuppressWarnings("unused")
 @GameRegistry.ObjectHolder(Chococraft.MODID)

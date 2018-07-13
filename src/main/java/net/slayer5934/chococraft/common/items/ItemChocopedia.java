@@ -1,14 +1,15 @@
 package net.slayer5934.chococraft.common.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemChocopedia extends Item implements IItemModelProvider
 {

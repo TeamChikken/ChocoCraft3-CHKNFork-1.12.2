@@ -1,8 +1,8 @@
 package net.slayer5934.chococraft.common.entities.breeding;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import javax.annotation.Nullable;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ChocoboBreedInfo
 {

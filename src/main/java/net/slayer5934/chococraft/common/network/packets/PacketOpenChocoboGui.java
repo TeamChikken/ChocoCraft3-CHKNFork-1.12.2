@@ -1,5 +1,7 @@
 package net.slayer5934.chococraft.common.network.packets;
 
+import javax.annotation.Nullable;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -14,8 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.client.gui.GuiChocoboInventory;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
-
-import javax.annotation.Nullable;
 
 public class PacketOpenChocoboGui implements IMessage
 {

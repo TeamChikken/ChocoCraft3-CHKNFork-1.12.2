@@ -1,5 +1,7 @@
 package net.slayer5934.chococraft.common.init;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -15,8 +17,6 @@ import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
 import net.slayer5934.chococraft.utils.inject.ClassInjector;
 import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
 import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
-
-import java.lang.reflect.Field;
 
 @SuppressWarnings("unused")
 @GameRegistry.ObjectHolder(Chococraft.MODID)

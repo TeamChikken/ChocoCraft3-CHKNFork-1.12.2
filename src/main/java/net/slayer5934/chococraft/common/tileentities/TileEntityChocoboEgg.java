@@ -1,11 +1,10 @@
 package net.slayer5934.chococraft.common.tileentities;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.slayer5934.chococraft.common.blocks.BlockChocoboEgg;
 import net.slayer5934.chococraft.common.entities.breeding.ChocoboBreedInfo;
-
-import javax.annotation.Nullable;
 
 public class TileEntityChocoboEgg extends TileEntity
 {

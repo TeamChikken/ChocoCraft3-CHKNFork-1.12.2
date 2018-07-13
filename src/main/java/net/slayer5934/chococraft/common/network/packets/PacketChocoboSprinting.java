@@ -1,18 +1,15 @@
 package net.slayer5934.chococraft.common.network.packets;
 
+import javax.annotation.Nullable;
+
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
-
-import javax.annotation.Nullable;
 
 public class PacketChocoboSprinting implements IMessage
 {

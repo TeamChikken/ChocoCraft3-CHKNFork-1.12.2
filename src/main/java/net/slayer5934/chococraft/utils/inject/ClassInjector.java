@@ -1,11 +1,12 @@
 package net.slayer5934.chococraft.utils.inject;
 
-import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+
+import javax.annotation.Nullable;
 
 public class ClassInjector
 {

@@ -2,6 +2,11 @@
 - Add follow by whistle.
 - Update Chococraft 3 mc and forge version. (once I know how =D)
 
+# Version 0.9.6 - beta
+- Fixed curse_id pointing to old chococraft thread.
+- Fixed incompatibility with primitive mobs. (and probably others)
+- Added config option for only generating gysahl greens in overworld.
+
 # Version 0.9.5 - beta
 - Fixed female-happy eggs, maybe you'll actually get a male this time.
 

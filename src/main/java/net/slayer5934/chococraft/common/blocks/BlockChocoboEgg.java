@@ -1,5 +1,9 @@
 package net.slayer5934.chococraft.common.blocks;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -25,9 +29,6 @@ import net.slayer5934.chococraft.common.init.ModBlocks;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboEgg;
 import net.slayer5934.chococraft.utils.inject.AttachedTileEntity;
 import net.slayer5934.chococraft.utils.registration.IItemBlockProvider;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 @AttachedTileEntity(name = "chocobo_egg", tile = TileEntityChocoboEgg.class)
 public class BlockChocoboEgg extends Block implements IItemBlockProvider

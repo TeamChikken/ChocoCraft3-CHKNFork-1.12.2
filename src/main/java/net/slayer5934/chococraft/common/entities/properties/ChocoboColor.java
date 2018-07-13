@@ -1,11 +1,11 @@
 package net.slayer5934.chococraft.common.entities.properties;
 
+import java.util.Optional;
+import java.util.Random;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreIngredient;
-
-import java.util.Optional;
-import java.util.Random;
 
 public enum ChocoboColor
 {
