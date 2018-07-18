@@ -71,6 +71,12 @@ public class Chococraft
                 ChocoConfig.world.chocoboPackSizeMax,
                 EnumCreatureType.CREATURE,
                 BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
+        EntityRegistry.addSpawn(EntityChocobo.class,
+                ChocoConfig.world.chocoboSpawnWeight,
+                ChocoConfig.world.chocoboPackSizeMin,
+                ChocoConfig.world.chocoboPackSizeMax,
+                EnumCreatureType.CREATURE,
+                BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS).toArray(new Biome[0]));
     }
 
     @Mod.EventHandler @SuppressWarnings("unused")
