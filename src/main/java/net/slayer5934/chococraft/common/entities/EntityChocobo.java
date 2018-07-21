@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -56,6 +58,9 @@ import net.slayer5934.chococraft.common.inventory.SaddleItemStackHandler;
 import net.slayer5934.chococraft.common.network.PacketManager;
 import net.slayer5934.chococraft.common.network.packets.PacketOpenChocoboGui;
 import net.slayer5934.chococraft.utils.WorldUtils;
+
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.client.renderer.entity.RenderHorse;
 
 @SuppressWarnings("WeakerAccess")
 public class EntityChocobo extends EntityTameable
@@ -354,8 +359,9 @@ public class EntityChocobo extends EntityTameable
 			EntityPlayer rider = (EntityPlayer) this.getControllingPassenger();
 			
 			this.prevRotationYaw = rider.rotationYaw;
+			this.prevRotationPitch = rider.rotationPitch;
 			this.rotationYaw = rider.rotationYaw;
-			this.rotationPitch = rider.rotationPitch * 0.5F;
+			this.rotationPitch = rider.rotationPitch;
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 			this.rotationYawHead = this.rotationYaw;
 			this.renderYawOffset = this.rotationYaw;
@@ -444,11 +450,13 @@ public class EntityChocobo extends EntityTameable
 			super.travel(strafe, vertical, forward);
 		}
 	}
-
+	
 	@Override
-	public boolean shouldRiderFaceForward(EntityPlayer player)
-	{
-		return true;
+	public void updatePassenger(Entity passenger) {
+	    super.updatePassenger(passenger);
+	    if (passenger instanceof EntityLiving && this.getControllingPassenger() == passenger) {
+	        this.renderYawOffset = ((EntityLivingBase) passenger).renderYawOffset;
+	    }
 	}
 
 	@Nullable
@@ -488,6 +496,8 @@ public class EntityChocobo extends EntityTameable
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
+		
+		this.setRotation(this.rotationYaw, this.rotationPitch);
 
 		this.regenerateStamina();
 

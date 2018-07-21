@@ -5,14 +5,14 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.slayer5934.chococraft.Chococraft;
-import net.slayer5934.chococraft.client.models.entities.ModelChocobo;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
+import net.slayer5934.chococraft.client.models.entities.ModelAdultChocobo;
 
 public class EntityRendererChocobo extends RenderLiving<EntityChocobo>
 {
     public EntityRendererChocobo(RenderManager renderManager)
     {
-        super(renderManager, new ModelChocobo(), 1.0f);
+        super(renderManager, new ModelAdultChocobo(), 1.0f);
     }
 
     @Override
