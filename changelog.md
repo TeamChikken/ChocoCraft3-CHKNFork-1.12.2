@@ -1,11 +1,17 @@
 # Todo
 - Add follow by whistle.
 - Update Chococraft 3 mc and forge version. (once I know how =D)
+- Fix localized creative tab.
 
 # Version 0.9.6 - beta
 - Fixed curse_id pointing to old chococraft thread.
 - Fixed incompatibility with primitive mobs. (and probably others)
-- Added config option for only generating gysahl greens in overworld.
+- Fixed chocobo not facing right direction for other players. Thanks to Paul Fulham for the fix.
+- Fixed chocobo not centered for new models. Thanks to Paul Fulham for the fix.
+- Added config option for only generating gysahl greens in overworld. (Enabled by default.)
+- Added chocobos to hills spawn list, because lets be honest they are hard to find with any biome mod.
+- Added new chocobo models, credit to Kraehe for textures/models. (Report any issues with these, might animations I have to work on.)
+- Removed unused imports.
 
 # Version 0.9.5 - beta
 - Fixed female-happy eggs, maybe you'll actually get a male this time.
