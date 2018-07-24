@@ -11,6 +11,7 @@
 - Added config option for only generating gysahl greens in overworld. (Enabled by default.)
 - Added chocobos to hills spawn list, because lets be honest they are hard to find with any biome mod.
 - Added new chocobo models, credit to Kraehe for textures/models. (Report any issues with these, might animations I have to work on.)
+- Added a new animation for running/sprinting/flying forward, chocobo will lean its head.
 - Removed unused imports.
 
 # Version 0.9.5 - beta
