@@ -3,6 +3,9 @@
 - Update Chococraft 3 mc and forge version. (once I know how =D)
 - Fix localized creative tab.
 
+# Version 0.9.7 - beta
+- 
+
 # Version 0.9.6 - beta
 - Fixed curse_id pointing to old chococraft thread.
 - Fixed incompatibility with primitive mobs. (and probably others)
