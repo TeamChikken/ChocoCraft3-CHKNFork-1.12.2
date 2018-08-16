@@ -1,3 +1,5 @@
+itemGroup.chococraft=ChocoCraft 3
+
 tile.chococraft.gysahl_green.name=Gysahl Green
 tile.chococraft.chocobo_egg.name=Chocobo Egg
 tile.chococraft.straw_nest.name=Chocobo Nest
@@ -13,6 +15,7 @@ item.chococraft.pickled_gysahl_cooked.name=Baked Pickled Gysahl Green
 item.chococraft.chocopedia.name=Chocopedia
 item.chococraft.chocopedia.tooltip=Use on a chocobo to view its stats
 
+item.chococraft.chocobo_whistle.name=Chocobo Whistle
 item.chococraft.chocobo_saddle.name=Chocobo Saddle
 item.chococraft.chocobo_drumstick_raw.name=Raw Chocobo Drumstick
 item.chococraft.chocobo_drumstick_cooked.name=Cooked Chocobo Drumstick
