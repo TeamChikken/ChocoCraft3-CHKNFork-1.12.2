@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITempt;
@@ -58,9 +59,6 @@ import net.slayer5934.chococraft.common.inventory.SaddleItemStackHandler;
 import net.slayer5934.chococraft.common.network.PacketManager;
 import net.slayer5934.chococraft.common.network.packets.PacketOpenChocoboGui;
 import net.slayer5934.chococraft.utils.WorldUtils;
-
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.client.renderer.entity.RenderHorse;
 
 @SuppressWarnings("WeakerAccess")
 public class EntityChocobo extends EntityTameable
@@ -124,8 +122,6 @@ public class EntityChocobo extends EntityTameable
 	@Override
 	protected void initEntityAI()
 	{
-		// TODO: Does this still exist? ((PathNavigateGround) this.getNavigator()).set(true);
-		// TODO: implement follow movement type AI
 		this.tasks.addTask(2, new EntityChocoboAIMate(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.6D));
 		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, Collections.singleton(ModItems.gysahlGreen)));
@@ -133,6 +129,9 @@ public class EntityChocobo extends EntityTameable
 		this.tasks.addTask(8, new EntityAILookIdle(this));
 		this.tasks.addTask(1, new EntityAISwimming(this));
 	}
+	
+	private final EntityAIFollowOwner follow = new EntityAIFollowOwner(this, 2.0D, 3.0F, 10.0F);
+	public float followingmrhuman = 2;
 
 	@Override
 	protected void applyEntityAttributes()
@@ -626,6 +625,21 @@ public class EntityChocobo extends EntityTameable
 					heal(5);
 				} else {
 					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.heal_fail"), true);
+				}
+			}
+		}
+		
+		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle)
+		{
+			{
+				if(this.followingmrhuman == 2) {
+					this.tasks.addTask(2, this.follow);
+					followingmrhuman = 1;
+					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_followcmd"), true);
+				} else if(this.followingmrhuman == 1){
+					this.tasks.removeTask(this.follow);
+					followingmrhuman = 2;
+					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_wandercmd"), true);
 				}
 			}
 		}

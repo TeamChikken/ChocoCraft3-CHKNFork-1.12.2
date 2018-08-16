@@ -47,6 +47,9 @@ public class ModItems
     @GameRegistry.ObjectHolder("gysahl_green")
     @ItemFoodParameters(amount = 1, saturation = 1)
     public static ItemFood gysahlGreen;
+    
+    @GameRegistry.ObjectHolder("chocobo_whistle")
+    public static Item chocoboWhistle;
 
     @GameRegistry.ObjectHolder("lovely_gysahl_green")
     public static Item lovelyGysahlGreen;

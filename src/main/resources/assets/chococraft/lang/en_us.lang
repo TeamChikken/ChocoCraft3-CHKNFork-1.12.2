@@ -47,6 +47,8 @@ chococraft.entity_chocobo.heal_fail=§cHealth full
 chococraft.entity_chocobo.tame_fail=§cTame failed
 chococraft.entity_chocobo.tame_success=§aTame succeeded
 chococraft.entity_chocobo.saddle_applied=Saddle applied
+chococraft.entity_chocobo.chocobo_followcmd=Follow
+chococraft.entity_chocobo.chocobo_wandercmd=Wander
 
 chococraft.general.world=World
 chococraft.general.world.gysahlgreenspawnweight=Gysahl Green Spawn Weight
