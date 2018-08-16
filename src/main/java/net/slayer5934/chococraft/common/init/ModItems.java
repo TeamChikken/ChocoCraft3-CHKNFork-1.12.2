@@ -55,19 +55,19 @@ public class ModItems
     public static Item lovelyGysahlGreen;
 
 	@GameRegistry.ObjectHolder("chocobo_drumstick_raw")
-    @ItemFoodParameters(amount = 2, saturation = 2, isWolfFood = true)
+    @ItemFoodParameters(amount = 2, saturation = 1, isWolfFood = true)
 	public static ItemFood chocoboDrumStickRaw;
 
 	@GameRegistry.ObjectHolder("chocobo_drumstick_cooked")
-    @ItemFoodParameters(amount = 7, saturation = 8, isWolfFood = true)
+    @ItemFoodParameters(amount = 4, saturation = 1, isWolfFood = true)
 	public static ItemFood chocoboDrumStickCooked;
 
 	@GameRegistry.ObjectHolder("pickled_gysahl_raw")
-    @ItemFoodParameters(amount = 4, saturation = 2)
+    @ItemFoodParameters(amount = 1, saturation = 1)
 	public static ItemFood pickledGysahlRaw;
 
 	@GameRegistry.ObjectHolder("pickled_gysahl_cooked")
-    @ItemFoodParameters(amount = 6, saturation = 4)
+    @ItemFoodParameters(amount = 3, saturation = 1)
 	public static ItemFood pickledGysahlCooked;
 
 	@GameRegistry.ObjectHolder("chocopedia")
