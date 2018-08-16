@@ -587,7 +587,7 @@ public class EntityChocobo extends EntityTameable
 			return true;
 		}
 
-		if (this.isTamed() && player.isSneaking())
+		if (this.isTamed() && player.isSneaking() && !this.isChild())
 		{
 			if (player instanceof EntityPlayerMP)
 				this.displayChocoboInventory((EntityPlayerMP) player);
@@ -596,7 +596,7 @@ public class EntityChocobo extends EntityTameable
 
 		if (this.getEntityWorld().isRemote) return true;
 
-		if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking())
+		if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking() && !this.isChild())
 		{
 			player.startRiding(this);
 			return true;
@@ -629,7 +629,7 @@ public class EntityChocobo extends EntityTameable
 			}
 		}
 		
-		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle)
+		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle && !this.isChild())
 		{
 			{
 				if(this.followingmrhuman == 2) {
@@ -644,14 +644,14 @@ public class EntityChocobo extends EntityTameable
 			}
 		}
 
-		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen)
+		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen && !this.isChild())
 		{
 			this.consumeItemFromStack(player, player.inventory.getCurrentItem());
 			this.setInLove(player);
 			return true;
 		}
 
-		if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled())
+		if (heldItemStack.getItem() == ModItems.chocoboSaddle && this.isTamed() && !this.isSaddled() && !this.isChild())
 		{
 			player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.saddle_applied"), true);
 			this.saddleItemStackHandler.setStackInSlot(0, heldItemStack.copy().splitStack(1));
