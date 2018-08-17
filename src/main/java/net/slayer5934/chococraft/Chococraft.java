@@ -1,5 +1,8 @@
 package net.slayer5934.chococraft;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -64,19 +67,15 @@ public class Chococraft
         Log4jFilter.init();
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
+        
+    	// Attempt at biome spawn fix, as well as being less cluttery.
+    	Set<Biome> MrBiomes = new HashSet<>();
 
-        EntityRegistry.addSpawn(EntityChocobo.class,
-                ChocoConfig.world.chocoboSpawnWeight,
-                ChocoConfig.world.chocoboPackSizeMin,
-                ChocoConfig.world.chocoboPackSizeMax,
-                EnumCreatureType.CREATURE,
-                BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS).toArray(new Biome[0]));
-        EntityRegistry.addSpawn(EntityChocobo.class,
-                ChocoConfig.world.chocoboSpawnWeight,
-                ChocoConfig.world.chocoboPackSizeMin,
-                ChocoConfig.world.chocoboPackSizeMax,
-                EnumCreatureType.CREATURE,
-                BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS).toArray(new Biome[0]));
+    	MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
+    	MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
+
+    	EntityRegistry.addSpawn(EntityChocobo.class, ChocoConfig.world.chocoboSpawnWeight, ChocoConfig.world.chocoboPackSizeMin, ChocoConfig.world.chocoboPackSizeMax, EnumCreatureType.CREATURE, MrBiomes.toArray(new Biome[MrBiomes.size()]));
+        //
     }
 
     @Mod.EventHandler @SuppressWarnings("unused")
