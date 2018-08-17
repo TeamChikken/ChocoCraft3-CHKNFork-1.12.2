@@ -7,7 +7,7 @@
   ],
   "key": {
     "L": { "ore": "leather", "type": "forge:ore_dict" },
-    "F": { "ore": "feather", "type": "forge:ore_dict" },
+    "F": { "item": "chococraft:chocobo_feather" },
     "S": { "ore": "string", "type": "forge:ore_dict" },
     "N": { "ore": "nuggetIron", "type": "forge:ore_dict" }
   },
