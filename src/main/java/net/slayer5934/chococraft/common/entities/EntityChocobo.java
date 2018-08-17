@@ -733,4 +733,10 @@ public class EntityChocobo extends EntityTameable
     {
         return .6f;
     }
+    
+    @Override
+    public int getTalkInterval()
+    {
+        return 500;
+    }
 }
