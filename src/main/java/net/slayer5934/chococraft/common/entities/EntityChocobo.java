@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -490,6 +489,19 @@ public class EntityChocobo extends EntityTameable
             iattributeinstance.applyModifier(CHOCOBO_SPRINTING_SPEED_BOOST);
         }
     }
+    
+    public void dropFeather()
+	{
+    	if (!this.isChild())
+    	{
+    		if(!this.getEntityWorld().isRemote)
+    		{
+    		this.entityDropItem(new ItemStack(ModItems.chocoboFeather, 1), 0.0F);
+    		}
+    	}
+	}
+    
+    public int TimeSinceFeatherChance = 0;
 
     @Override
 	public void onLivingUpdate()
@@ -502,6 +514,18 @@ public class EntityChocobo extends EntityTameable
 
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
+		
+	    if(this.TimeSinceFeatherChance == 6000)
+		{
+	    	this.TimeSinceFeatherChance = 0;
+	    	
+	    	if ((float)Math.random() > .25)
+			{
+				this.dropFeather();
+			}
+		}
+	    
+	    this.TimeSinceFeatherChance++;
 
 		if(!this.getEntityWorld().isRemote)
         {

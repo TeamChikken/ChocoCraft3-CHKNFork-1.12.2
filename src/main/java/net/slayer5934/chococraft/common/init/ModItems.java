@@ -50,6 +50,9 @@ public class ModItems
     
     @GameRegistry.ObjectHolder("chocobo_whistle")
     public static Item chocoboWhistle;
+    
+    @GameRegistry.ObjectHolder("chocobo_feather")
+    public static Item chocoboFeather;
 
     @GameRegistry.ObjectHolder("lovely_gysahl_green")
     public static Item lovelyGysahlGreen;
