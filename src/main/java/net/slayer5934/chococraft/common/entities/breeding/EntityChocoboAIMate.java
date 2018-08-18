@@ -68,7 +68,7 @@ public class EntityChocoboAIMate extends EntityAIBase
         this.chocobo.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
         ++this.spawnBabyDelay;
 
-        if (this.spawnBabyDelay >= 60 && this.chocobo.getDistanceSqToEntity(this.targetMate) < 9.0D)
+        if (this.spawnBabyDelay >= 60 && this.chocobo.getDistanceSq(this.targetMate) < 9.0D)
         {
             this.spawnEgg();
         }
@@ -83,10 +83,10 @@ public class EntityChocoboAIMate extends EntityAIBase
 
         for (EntityChocobo entry : list)
         {
-            if (this.chocobo.canMateWith(entry) && this.chocobo.getDistanceSqToEntity(entry) < dist)
+            if (this.chocobo.canMateWith(entry) && this.chocobo.getDistanceSq(entry) < dist)
             {
                 closestMate = entry;
-                dist = this.chocobo.getDistanceSqToEntity(entry);
+                dist = this.chocobo.getDistanceSq(entry);
             }
         }
 
