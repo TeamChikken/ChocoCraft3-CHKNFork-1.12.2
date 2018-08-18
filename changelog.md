@@ -1,10 +1,17 @@
 # Todo
-- Add follow by whistle.
 - Update Chococraft 3 mc and forge version. (once I know how =D)
-- Fix localized creative tab.
+- Add onto chocobo whistle for stay ai?
 
 # Version 0.9.7 - beta
-- 
+- Updated Forge Version and MCP Mappings. -mallrat208
+- Added the chocobo whistle for getting your chocobo to follow you.
+- Added chocobo feathers.
+- Adjusted recipies to include chocobo feathers.
+- Adjusted chocobo spawning code.
+- Fixed food saturation. https://github.com/Slayer5934/ChocoCraft3SLY/issues/15
+- Fixed localization for creative tab.
+- Fixed Chocobo WAA HEE WOOOOOO spam.
+- Removed the ability to ride and interact with baby chocobos.
 
 # Version 0.9.6 - beta
 - Fixed curse_id pointing to old chococraft thread.
