@@ -5,6 +5,9 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.slayer5934.chococraft.Chococraft;
+import net.slayer5934.chococraft.client.renderer.layers.LayerCollar;
+import net.slayer5934.chococraft.client.renderer.layers.LayerPlumage;
+import net.slayer5934.chococraft.client.renderer.layers.LayerSaddle;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.client.models.entities.ModelAdultChocobo;
 
@@ -13,6 +16,10 @@ public class EntityRendererChocobo extends RenderLiving<EntityChocobo>
     public EntityRendererChocobo(RenderManager renderManager)
     {
         super(renderManager, new ModelAdultChocobo(), 1.0f);
+        
+        this.addLayer(new LayerCollar<>(this));
+        this.addLayer(new LayerPlumage<>(this));
+        this.addLayer(new LayerSaddle<>(this));
     }
 
     @Override
@@ -34,21 +41,7 @@ public class EntityRendererChocobo extends RenderLiving<EntityChocobo>
     protected ResourceLocation getEntityTexture(EntityChocobo entityChocobo)
     {
         String type = entityChocobo.isChild() ? "chicobos" : "chocobos";
-        String path = "textures/entities/" + type + "/" + (entityChocobo.isTamed() ? "tamed" : "untamed") + "/";
-        switch (entityChocobo.getSaddleType())
-        {
-            case SADDLE:
-                path += "saddled/";
-                break;
-            case SADDLE_BAGS:
-                path += "saddle_bagged/";
-                break;
-            case PACK:
-                path += "pack_bagged/";
-                break;
-        }
-        if(!entityChocobo.isChild())
-            path += (entityChocobo.isMale() ? "male" : "female") + "/";
+        String path = "textures/entities/" + type + "/";
         path += entityChocobo.getChocoboColor().name().toLowerCase() + "chocobo.png";
         return new ResourceLocation(Chococraft.MODID, path);
     }
