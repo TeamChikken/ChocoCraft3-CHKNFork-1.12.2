@@ -515,11 +515,11 @@ public class EntityChocobo extends EntityTameable
 		this.stepHeight = 1f;
 		this.fallDistance = 0f;
 		
-	    if(this.TimeSinceFeatherChance == 6000)
+	    if(this.TimeSinceFeatherChance == 3000)
 		{
 	    	this.TimeSinceFeatherChance = 0;
 	    	
-	    	if ((float)Math.random() > .25)
+	    	if ((float)Math.random() < .25)
 			{
 				this.dropFeather();
 			}
@@ -761,6 +761,6 @@ public class EntityChocobo extends EntityTameable
     @Override
     public int getTalkInterval()
     {
-        return 500;
+        return (24 * (int)(Math.random()*100));
     }
 }
