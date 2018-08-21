@@ -1,17 +1,18 @@
 # Todo
-- Update Chococraft 3 mc and forge version. (once I know how =D)
 - Add onto chocobo whistle for stay ai?
 
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208
-- Added the chocobo whistle for getting your chocobo to follow you.
-- Added chocobo feathers.
+- Added the chocobo whistle for getting your chocobo to follow you. (right click them with the whistle)
+- Added chocobo feathers. (they drop from chocobos)
+- Adjusted the way textures/rendering works for chocobos, this saves lots of space and shortens loading times. -mallrat208
 - Adjusted recipies to include chocobo feathers.
 - Adjusted chocobo spawning code.
-- Fixed food saturation. https://github.com/Slayer5934/ChocoCraft3SLY/issues/15
+- Fixed serious bug when logging off riding a chocobo, you can log off riding one without worry now. -mallrat208
+- Fixed overpowered food saturation.
 - Fixed localization for creative tab.
 - Fixed Chocobo WAA HEE WOOOOOO spam.
-- Removed the ability to ride and interact with baby chocobos.
+- Fixed an issue that allowed riding baby chocobos.
 
 # Version 0.9.6 - beta
 - Fixed curse_id pointing to old chococraft thread.
