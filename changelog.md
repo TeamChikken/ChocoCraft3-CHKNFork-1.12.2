@@ -1,6 +1,12 @@
 # Todo
 - Add onto chocobo whistle for stay ai?
 
+# Version 0.9.8 - beta
+- Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits.
+- Added tooltips for buttons specifying how much exp is needed to unlock abilities.
+- Added configuration options for the ability unlock buttons to change exp needed.
+- Updated the client and common proxies to account for player interaction.
+
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208
 - Added the chocobo whistle for getting your chocobo to follow you. (right click them with the whistle)
