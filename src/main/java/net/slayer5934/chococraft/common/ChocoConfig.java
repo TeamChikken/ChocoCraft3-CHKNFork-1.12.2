@@ -77,6 +77,15 @@ public class ChocoConfig
         public int defaultSpeed = 30;
         @Config.RangeInt(min = 0)
         public int defaultHealth = 20;
+        
+        @Config.RangeInt(min = 1)
+        public int ExpCostSprint = 1500;
+        @Config.RangeInt(min = 1)
+        public int ExpCostGlide = 1500;
+        @Config.RangeInt(min = 1)
+        public int ExpCostDive = 1000;
+        @Config.RangeInt(min = 1)
+        public int ExpCostFly = 2000;
     }
 
     public static class BreedingConfig
