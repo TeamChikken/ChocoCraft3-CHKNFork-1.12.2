@@ -607,7 +607,7 @@ public class EntityChocobo extends EntityTameable
 
 		if(heldItemStack.getItem() == ModItems.chocopedia)
 		{
-			Chococraft.proxy.openChocoboInfoGui(this);
+			Chococraft.proxy.openChocoboInfoGui(this, player);
 			return true;
 		}
 

@@ -1,6 +1,7 @@
 package net.slayer5934.chococraft.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.slayer5934.chococraft.client.gui.GuiChocoboInfo;
 import net.slayer5934.chococraft.common.CommonProxy;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
@@ -9,9 +10,9 @@ import net.slayer5934.chococraft.common.entities.EntityChocobo;
 public class ClientProxy extends CommonProxy
 {
     @Override
-    public void openChocoboInfoGui(EntityChocobo chocobo)
+    public void openChocoboInfoGui(EntityChocobo chocobo, EntityPlayer player)
     {
-        super.openChocoboInfoGui(chocobo);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboInfo(chocobo));
+        super.openChocoboInfoGui(chocobo, player);
+        Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboInfo(chocobo, player));
     }
 }
