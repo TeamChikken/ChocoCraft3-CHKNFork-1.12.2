@@ -39,10 +39,10 @@ public class GuiChocoboInfo extends GuiScreen
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
         
-        this.buttonList.add(new GuiButton( 1, this.guiLeft+180, this.guiTop+1, 80, 20, "Unlock Sprint"));
-        this.buttonList.add(new GuiButton( 2, this.guiLeft+180, this.guiTop+23, 80, 20, "Unlock Glide"));
-        this.buttonList.add(new GuiButton( 3, this.guiLeft+180, this.guiTop+45, 80, 20, "Unlock Dive"));
-        this.buttonList.add(new GuiButton( 4, this.guiLeft+180, this.guiTop+67, 80, 20, "Unlock Fly"));
+        this.buttonList.add(new GuiButton( 1, this.guiLeft+180, this.guiTop+1, 80, 20, I18n.format("gui.chocoinfo.button.sprint")));
+        this.buttonList.add(new GuiButton( 2, this.guiLeft+180, this.guiTop+23, 80, 20, I18n.format("gui.chocoinfo.button.glide")));
+        this.buttonList.add(new GuiButton( 3, this.guiLeft+180, this.guiTop+45, 80, 20, I18n.format("gui.chocoinfo.button.dive")));
+        this.buttonList.add(new GuiButton( 4, this.guiLeft+180, this.guiTop+67, 80, 20, I18n.format("gui.chocoinfo.button.fly")));
         // without this button a weird highlight effect happens to the main gui... dont ask me why, i dont understand it :[
        this.buttonList.add(new GuiButton( 0, this.guiLeft+180, this.guiTop+80, 0, 0, ""));
     }

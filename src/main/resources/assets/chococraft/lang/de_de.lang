@@ -72,3 +72,9 @@ cmd.chococraft.chocobo.can_not_glide=Kann gleiten: §cfalse
 cmd.chococraft.chocobo.can_glide=Kann gleiten: §atrue
 cmd.chococraft.chocobo.can_not_fly=Kann fliegen: §cfalse
 cmd.chococraft.chocobo.can_fly=Kann fliegen: §atrue
+
+gui.chocoinfo.button.ability=Derzeit haben Sie %s von %s Erfahrung, um freizuschalten %s.
+gui.chocoinfo.button.sprint=Sprinten
+gui.chocoinfo.button.glide=Gleiten
+gui.chocoinfo.button.dive=Tauchen
+gui.chocoinfo.button.fly=Fliegen
