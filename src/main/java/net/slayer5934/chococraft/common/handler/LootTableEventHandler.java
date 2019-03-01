@@ -1,7 +1,6 @@
 package net.slayer5934.chococraft.common.handler;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
@@ -26,21 +25,19 @@ public class LootTableEventHandler
     public static void onLootTableLoad(LootTableLoadEvent event)
     {
         if(!ChocoConfig.world.addAbilityFruitsToDungeonLoot) return;
-
+        
         ResourceLocation lootTable = event.getName();
         if(!lootTable.getResourcePath().startsWith("chests/")) return;
 
         LootPool pool = event.getTable().getPool("main");
-        //noinspection ConstantConditions : getPool() can return null, stfu intellij
-        if(pool == null)
+        
+        if(pool!=null)
         {
-            pool = new LootPool(new LootEntry[0], NO_CONDITION, new RandomValueRange(5, 10), new RandomValueRange(0), "main");
-            event.getTable().addPool(pool);
+            LootFunction damage = new SetMetadata(NO_CONDITION, new RandomValueRange(0, ItemAbilityFruit.AbilityFruitType.values().length - 1));
+            LootFunction amount = new SetCount(NO_CONDITION, new RandomValueRange(1, 1));
+            LootFunction[] functions = new LootFunction[] { damage, amount };
+    
+            pool.addEntry(new LootEntryItem(ModItems.abilityFruit, ChocoConfig.world.abilityFruitDungeonLootWeight, 1, functions, NO_CONDITION, Chococraft.MODID+":ability_fruits"));
         }
-
-        LootFunction damage = new SetMetadata(NO_CONDITION, new RandomValueRange(0, ItemAbilityFruit.AbilityFruitType.values().length - 1));
-        LootFunction amount = new SetCount(NO_CONDITION, new RandomValueRange(1, 1));
-        LootFunction[] functions = new LootFunction[] { damage, amount };
-        pool.addEntry(new LootEntryItem(ModItems.abilityFruit, ChocoConfig.world.abilityFruitDungeonLootWeight, 1, functions, NO_CONDITION, Chococraft.MODID+":ability_fruits"));
     }
 }

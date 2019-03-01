@@ -19,9 +19,13 @@ public final class ExperienceHandler {
         return (int) (getExperienceForLevels(player.experienceLevel) + player.experience * player.xpBarCap());
     }
 
-    public static void removeExperience (EntityPlayer player, int amount) {
-
-        addExperience(player, -amount);
+    public static boolean removeExperience (EntityPlayer player, int amount) {
+        if(getExperience(player) >= amount)
+        {
+            addExperience(player, -amount);
+            return true;
+        }
+        return false;
     }
 
     public static void addExperience (EntityPlayer player, int amount) {

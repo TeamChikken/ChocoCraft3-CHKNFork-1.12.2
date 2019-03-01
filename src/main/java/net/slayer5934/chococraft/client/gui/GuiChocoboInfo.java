@@ -3,6 +3,7 @@ package net.slayer5934.chococraft.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +12,8 @@ import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
 import net.slayer5934.chococraft.common.handler.ExperienceHandler;
 import net.slayer5934.chococraft.common.ChocoConfig;
+import net.slayer5934.chococraft.common.network.PacketManager;
+import net.slayer5934.chococraft.common.network.packets.PacketUpgradeChocobo;
 
 public class GuiChocoboInfo extends GuiScreen
 {
@@ -18,11 +21,6 @@ public class GuiChocoboInfo extends GuiScreen
     
     private final EntityChocobo chocobo;
     private final EntityPlayer player;
-    
-    private int sprint = ChocoConfig.chocobo.ExpCostSprint;
-    private int glide = ChocoConfig.chocobo.ExpCostGlide;
-    private int dive = ChocoConfig.chocobo.ExpCostDive;
-    private int fly = ChocoConfig.chocobo.ExpCostFly;
 
     private int xSize = 176;
     private int ySize = 89;
@@ -38,68 +36,53 @@ public class GuiChocoboInfo extends GuiScreen
     @Override
     public void initGui()
     {
-        super.initGui();
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
         
-        this.buttonList.add(new GuiButton( 1, this.guiLeft+180, this.guiTop+01, 80, 20, "Unlock Sprint"));
+        this.buttonList.add(new GuiButton( 1, this.guiLeft+180, this.guiTop+1, 80, 20, "Unlock Sprint"));
         this.buttonList.add(new GuiButton( 2, this.guiLeft+180, this.guiTop+23, 80, 20, "Unlock Glide"));
         this.buttonList.add(new GuiButton( 3, this.guiLeft+180, this.guiTop+45, 80, 20, "Unlock Dive"));
         this.buttonList.add(new GuiButton( 4, this.guiLeft+180, this.guiTop+67, 80, 20, "Unlock Fly"));
         // without this button a weird highlight effect happens to the main gui... dont ask me why, i dont understand it :[
-        this.buttonList.add(new GuiButton( 0, this.guiLeft+180, this.guiTop+80, 0, 0, ""));
-        
+       this.buttonList.add(new GuiButton( 0, this.guiLeft+180, this.guiTop+80, 0, 0, ""));
     }
-   	// if the user clicks the buttonzzz
+    
+   	/*
+   		SKILL ID Numbers
+   		1	-	SPRINT
+   		2	-	GLIDE
+   		3	-	DIVE
+   		4	-	FLY
+   	 */
     @Override
     protected void actionPerformed(GuiButton b)
     {
-    	 if(b.id == 1)
-    	 {
-    		 if (sprint <= ExperienceHandler.getExperience(this.player))
-    		 {
-    		 ExperienceHandler.removeExperience(this.player, sprint);
-    		 chocobo.setCanSprint(true);
-    		 }
-    	 }
-    	 
-    	 if(b.id == 2)
-    	 {
-    		 if (glide <= ExperienceHandler.getExperience(this.player))
-    		 {
-    		 ExperienceHandler.removeExperience(this.player, glide);
-    		 chocobo.setCanGlide(true);
-    		 }
-    	 }
-    	 
-    	 if(b.id == 3)
-    	 {
-    		 if (dive <= ExperienceHandler.getExperience(this.player))
-    		 {
-    		 ExperienceHandler.removeExperience(this.player, dive);
-    		 chocobo.setCanDive(true);
-    		 }
-    	 }
-    	 
-    	 if(b.id == 4)
-    	 {
-    		 if (fly <= ExperienceHandler.getExperience(this.player))
-    		 {
-    		 ExperienceHandler.removeExperience(this.player, fly);
-    		 chocobo.setCanFly(true);
-    		 }
-    	 }
+		switch(b.id)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				{
+					PacketUpgradeChocobo packet = new PacketUpgradeChocobo(chocobo, b.id);
+					PacketManager.INSTANCE.sendToServer(packet);
+				}
+			default:
+					break;
+					
+		}
     }
-    //
+    
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-    	this.drawDefaultBackground();
+		this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.mc.getTextureManager().bindTexture(TEXTURE);
         
         GlStateManager.pushMatrix();
         GlStateManager.translate(this.guiLeft, this.guiTop, 0);
+        
         this.drawTexturedModalRect(0, 0, 0, 0, this.xSize, this.ySize);
 
         String name = this.chocobo.getDisplayName().getUnformattedText();
@@ -114,57 +97,35 @@ public class GuiChocoboInfo extends GuiScreen
         this.drawAbilityInfo();
         //interact with the buttons after generated and under everything else, otherwise it screws up..
         this.interceptButtons();
-        //
+        
         GlStateManager.popMatrix();
     }
     
     private void interceptButtons()
     {
         for (int i = 0; i < buttonList.size(); i++) {
-            if (buttonList.get(i) instanceof GuiButton) {
+            if (buttonList.get(i)!=null) {
             	
-                    GuiButton btn = (GuiButton) buttonList.get(i);
-                    
-                    // button initialization checks
-                    if (i==0) {
-                        if (sprint > ExperienceHandler.getExperience(this.player) || this.chocobo.canSprint())
-                        	btn.enabled = false;
-                        }
-                    if (i==1) {
-                        if (glide > ExperienceHandler.getExperience(this.player) || this.chocobo.canGlide())
-                        	btn.enabled = false;
-                        }
-                    if (i==2) {
-                        if (dive > ExperienceHandler.getExperience(this.player) || this.chocobo.canDive())
-                        	btn.enabled = false;
-                        }
-                    if (i==3) {
-                        if (fly > ExperienceHandler.getExperience(this.player) || this.chocobo.canFly())
-                        	btn.enabled = false;
-                        }
-                    //
-                    // button mouse over tooltips
-                    if (btn.isMouseOver() && i==0 && !chocobo.canSprint()) {
-                        String tooltip = ("You currently have " + ExperienceHandler.getExperience(this.player) + " out of " + sprint + " experience needed to unlock Sprint.");
-                        int width = this.fontRenderer.getStringWidth(tooltip);
-                        this.fontRenderer.drawStringWithShadow(tooltip, 88 - (width / 2), 93, -1);
-                        }
-                    if (btn.isMouseOver() && i==1 && !chocobo.canGlide()) {
-                        String tooltip = ("You currently have " + ExperienceHandler.getExperience(this.player) + " out of " + glide + " experience needed to unlock Glide.");
-                        int width = this.fontRenderer.getStringWidth(tooltip);
-                        this.fontRenderer.drawStringWithShadow(tooltip, 88 - (width / 2), 93, -1);
-                        }
-                    if (btn.isMouseOver() && i==2 && !chocobo.canDive()) {
-                        String tooltip = ("You currently have " + ExperienceHandler.getExperience(this.player) + " out of " + dive + " experience needed to unlock Dive.");
-                        int width = this.fontRenderer.getStringWidth(tooltip);
-                        this.fontRenderer.drawStringWithShadow(tooltip, 88 - (width / 2), 93, -1);
-                        }
-                    if (btn.isMouseOver() && i==3 && !chocobo.canFly()) {
-                        String tooltip = ("You currently have " + ExperienceHandler.getExperience(this.player) + " out of " + fly + " experience needed to unlock Fly.");
-                        int width = this.fontRenderer.getStringWidth(tooltip);
-                        this.fontRenderer.drawStringWithShadow(tooltip, 88 - (width / 2), 93, -1);
-                        }
-                    //
+				GuiButton btn = buttonList.get(i);
+				
+				if (i==0 && (ChocoConfig.chocobo.ExpCostSprint > ExperienceHandler.getExperience(this.player) || this.chocobo.canSprint()))
+					btn.enabled=false;
+				
+				if (i==1 && (ChocoConfig.chocobo.ExpCostGlide > ExperienceHandler.getExperience(this.player) || this.chocobo.canGlide()))
+					btn.enabled=false;
+				
+				if (i==2 && (ChocoConfig.chocobo.ExpCostDive > ExperienceHandler.getExperience(this.player) || this.chocobo.canDive()))
+					btn.enabled=false;
+				
+				if (i==3 && (ChocoConfig.chocobo.ExpCostFly > ExperienceHandler.getExperience(this.player) || this.chocobo.canFly()))
+					btn.enabled = false;
+     
+				if (btn.isMouseOver() && !canUseAbility(i))
+				{
+					String tooltip = I18n.format("gui.chocoinfo.button.ability",ExperienceHandler.getExperience(player), getAbilityXPCost(i), I18n.format(getAbilityFromButton(i)));
+					int width = this.fontRenderer.getStringWidth(tooltip);
+					this.fontRenderer.drawString(tooltip, 88 - (width / 2), 93, -1, true);
+				}
             }
         }
     }
@@ -210,4 +171,56 @@ public class GuiChocoboInfo extends GuiScreen
         if(!this.chocobo.canFly())
             this.drawTexturedModalRect(134, 54, 176, 32, 16, 16);
     }
+    
+    private boolean canUseAbility(int i)
+	{
+		switch(i)
+		{
+			case 0:
+				return chocobo.canSprint();
+			case 1:
+				return chocobo.canGlide();
+			case 2:
+				return chocobo.canDive();
+			case 3:
+				return chocobo.canFly();
+		}
+		
+		return false;
+	}
+	
+	private String getAbilityFromButton(int i)
+	{
+		String key = "gui.chocoinfo.button.";
+		switch(i)
+		{
+			case 0:
+				return key + "sprint";
+			case 1:
+				return key + "glide";
+			case 2:
+				return key + "dive";
+			case 3:
+				return key + "fly";
+			default:
+				return key + "";
+		}
+	}
+	
+	private int getAbilityXPCost(int i)
+	{
+		switch(i)
+		{
+			case 0:
+				return ChocoConfig.chocobo.ExpCostSprint;
+			case 1:
+				return ChocoConfig.chocobo.ExpCostGlide;
+			case 2:
+				return ChocoConfig.chocobo.ExpCostDive;
+			case 3:
+				return ChocoConfig.chocobo.ExpCostFly;
+			default:
+				return 0;
+		}
+	}
 }
