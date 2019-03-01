@@ -73,7 +73,7 @@ cmd.chococraft.chocobo.can_glide=Can Glide: §atrue
 cmd.chococraft.chocobo.can_not_fly=Can Fly: §cfalse
 cmd.chococraft.chocobo.can_fly=Can Fly: §atrue
 
-gui.chocoinfo.button.ability=You currently have %s out of %s experience needed to unlock %s.
+gui.chocoinfo.button.ability=You currently have %s out of %s experience needed to %s.
 gui.chocoinfo.button.sprint=Unlock Sprint
 gui.chocoinfo.button.glide=Unlock Glide
 gui.chocoinfo.button.dive=Unlock Dive
