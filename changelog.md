@@ -2,10 +2,15 @@
 - Add onto chocobo whistle for stay ai?
 
 # Version 0.9.8 - beta
-- Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits.
+- Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits. - Thanks to mallrat208 for helping me make these!
 - Added tooltips for buttons specifying how much exp is needed to unlock abilities.
+- Added translations for the new buttons and tooltips. - Thanks to mallrat208 for the reminder! Because I forgot... ,-,
 - Added configuration options for the ability unlock buttons to change exp needed.
+- Added Chocobo whistle sounds.
+- Added a stay mode for the Chocobo whistle.
 - Updated the client and common proxies to account for player interaction.
+- Fixed the Chocobo fruit dungeon loot weight. - Thanks to mallrat208 for fixing this!
+- Fixed a localization for the tooltips :P. - Thanks to mallrat208 for letting me know I'm blind!
 
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208

@@ -656,14 +656,22 @@ public class EntityChocobo extends EntityTameable
 		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle && !this.isChild())
 		{
 			{
-				if(this.followingmrhuman == 2) {
-					this.tasks.addTask(2, this.follow);
+				if(this.followingmrhuman == 3) {
+					this.playSound(ModSounds.WHISTLE_SOUND_FOLLOW, 1.0F, 1.0F);
+					this.setNoAI(false);
+					this.tasks.addTask(0, this.follow);
 					followingmrhuman = 1;
 					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_followcmd"), true);
 				} else if(this.followingmrhuman == 1){
+					this.playSound(ModSounds.WHISTLE_SOUND_WANDER, 1.0F, 1.0F);
 					this.tasks.removeTask(this.follow);
 					followingmrhuman = 2;
 					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_wandercmd"), true);
+				} else if(this.followingmrhuman == 2){
+					this.playSound(ModSounds.WHISTLE_SOUND_STAY, 1.0F, 1.0F);
+					this.setNoAI(true);
+					followingmrhuman = 3;
+					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_staycmd"), true);
 				}
 			}
 		}

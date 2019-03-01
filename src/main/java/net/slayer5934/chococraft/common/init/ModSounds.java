@@ -11,11 +11,17 @@ import net.slayer5934.chococraft.Chococraft;
 public class ModSounds
 {
     public final static SoundEvent AMBIENT_SOUND = createSoundEvent("entity.chocobo.kweh");
+    public final static SoundEvent WHISTLE_SOUND_FOLLOW = createSoundEvent("entity.chocobo.kwehwhistlefollow");
+    public final static SoundEvent WHISTLE_SOUND_STAY = createSoundEvent("entity.chocobo.kwehwhistlestay");
+    public final static SoundEvent WHISTLE_SOUND_WANDER = createSoundEvent("entity.chocobo.kwehwhistlewander");
 
     @SubscribeEvent
     public static void onRegisterSound(RegistryEvent.Register<SoundEvent> event)
     {
         event.getRegistry().register(AMBIENT_SOUND);
+        event.getRegistry().register(WHISTLE_SOUND_FOLLOW);
+        event.getRegistry().register(WHISTLE_SOUND_STAY);
+        event.getRegistry().register(WHISTLE_SOUND_WANDER);
     }
 
     private static SoundEvent createSoundEvent(String id)
