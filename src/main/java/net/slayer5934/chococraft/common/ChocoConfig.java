@@ -52,7 +52,7 @@ public class ChocoConfig
 
         public boolean addAbilityFruitsToDungeonLoot = true;
         @Config.RangeInt(min = 0)
-        public int abilityFruitDungeonLootWeight = 30;
+        public int abilityFruitDungeonLootWeight = 5;
     }
 
     public static class ChocoboConfig
