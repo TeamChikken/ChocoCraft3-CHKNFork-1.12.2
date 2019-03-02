@@ -9,8 +9,10 @@
 - Added Chocobo whistle sounds.
 - Added a stay mode for the Chocobo whistle.
 - Updated the client and common proxies to account for player interaction.
+- Updated the Chocobo sounds to avoid possible copyright issues from SquareEnix in the future.
 - Fixed the Chocobo fruit dungeon loot weight. - Thanks to mallrat208 for fixing this!
 - Fixed a localization for the tooltips :P. - Thanks to mallrat208 for letting me know I'm blind!
+- Fixed crash with Reskillable and maybe other mods by adding some null checks.
 
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208

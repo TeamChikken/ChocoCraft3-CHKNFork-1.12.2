@@ -21,7 +21,9 @@ public class TileEntityChocoboEgg extends TileEntity
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setTag(NBTKEY_BREEDINFO, this.breedInfo.serialize());
+    	if (this.breedInfo != null) {
+    		nbt.setTag(NBTKEY_BREEDINFO, this.breedInfo.serialize());
+    		}
         return super.writeToNBT(nbt);
     }
 
@@ -29,7 +31,9 @@ public class TileEntityChocoboEgg extends TileEntity
     public NBTTagCompound getUpdateTag()
     {
         NBTTagCompound nbt = super.getUpdateTag();
-        nbt.setTag(NBTKEY_BREEDINFO, this.breedInfo.serialize());
+        if (this.breedInfo != null) {
+        	nbt.setTag(NBTKEY_BREEDINFO, this.breedInfo.serialize());
+        	}
         return nbt;
     }
 

@@ -121,7 +121,9 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
                 Chococraft.log.error("Unable to create ItemStack for egg @ {}, the eggy has no breeding info attached");
                 return;
             }
-            itemStack.setTagInfo(NBTKEY_BREEDINFO, breedInfo.serialize());
+            if (breedInfo != null) {
+                itemStack.setTagInfo(NBTKEY_BREEDINFO, breedInfo.serialize());
+            	}
             spawnAsEntity(worldIn, pos, itemStack);
             return;
         }
