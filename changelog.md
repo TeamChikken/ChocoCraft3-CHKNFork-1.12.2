@@ -8,8 +8,10 @@
 - Added configuration options for the ability unlock buttons to change exp needed.
 - Added Chocobo whistle sounds.
 - Added a stay mode for the Chocobo whistle.
+- Added configuration options to adjust possible stat gain / loss.
 - Updated the client and common proxies to account for player interaction.
 - Updated the Chocobo sounds to avoid possible copyright issues from SquareEnix in the future.
+- Updated the config values to be a bit more balanced.
 - Fixed the Chocobo fruit dungeon loot weight. - Thanks to mallrat208 for fixing this!
 - Fixed a localization for the tooltips :P. - Thanks to mallrat208 for letting me know I'm blind!
 - Fixed crash with Reskillable and maybe other mods by adding some null checks.

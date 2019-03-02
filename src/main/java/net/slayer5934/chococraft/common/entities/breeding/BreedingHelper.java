@@ -17,8 +17,6 @@ public class BreedingHelper
     public static EntityChocobo createChild(ChocoboBreedInfo breedInfo, World world)
     {
         EntityChocobo chocobo = new EntityChocobo(world);
-        float traitBaseMod = 0.8f;
-        float traitRngLimit = 0.5f;
 
         ChocoboStatSnapshot mother = breedInfo.getMother();
         ChocoboStatSnapshot father = breedInfo.getFather();
@@ -26,13 +24,13 @@ public class BreedingHelper
         chocobo.setLevel(1);
         chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
 //Stats
-        float health = Math.round((mother.health + father.health) / 2) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
+        float health = Math.round(((mother.health + father.health) / 2) * (ChocoConfig.breeding.poslossHealth + ((float)Math.random() * ChocoConfig.breeding.posgainHealth)));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
 
-        float speed = ((mother.speed + father.speed) / 2f) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
+        float speed = ((mother.speed + father.speed) / 2f) * (ChocoConfig.breeding.poslossSpeed + ((float)Math.random() * ChocoConfig.breeding.posgainSpeed));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
-        float stamina = Math.round((mother.stamina + father.stamina) / 2) * (traitBaseMod + ((float)Math.random() * traitRngLimit));
+        float stamina = Math.round((mother.stamina + father.stamina) / 2) * (ChocoConfig.breeding.poslossStamina + ((float)Math.random() * ChocoConfig.breeding.posgainStamina));
         chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
 //Traits
         float canFlyChance = calculateChance(0.005f, 0.15f, 0.35f, mother.canFly, father.canFly);
