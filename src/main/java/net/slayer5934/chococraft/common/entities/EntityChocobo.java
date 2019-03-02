@@ -484,7 +484,7 @@ public class EntityChocobo extends EntityTameable
             iattributeinstance.removeModifier(CHOCOBO_SPRINTING_SPEED_BOOST);
         }
 
-        if (sprinting)
+        if (sprinting && this.canSprint())
         {
             iattributeinstance.applyModifier(CHOCOBO_SPRINTING_SPEED_BOOST);
         }
