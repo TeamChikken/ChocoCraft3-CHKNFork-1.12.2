@@ -15,6 +15,7 @@
 - Fixed the Chocobo fruit dungeon loot weight. - Thanks to mallrat208 for fixing this!
 - Fixed a localization for the tooltips :P. - Thanks to mallrat208 for letting me know I'm blind!
 - Fixed crash with Reskillable and maybe other mods by adding some null checks.
+- Fixed sprinting not actually needing the sprint ability, also now correctly uses stamina, which also fixed a visual glitch.
 
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208

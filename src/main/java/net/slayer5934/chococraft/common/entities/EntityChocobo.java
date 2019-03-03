@@ -581,7 +581,7 @@ public class EntityChocobo extends EntityTameable
 	{
 		// ... yes, we also allow regeneration while in lava :P
 		// this effectivly limits regeneration to only work while on the ground
-		if(!this.onGround && !this.isInWater() && !this.isInLava())
+		if(!this.onGround && !this.isInWater() && !this.isInLava()  && !this.isSprinting())
 			return;
 
 		float regen = ChocoConfig.chocobo.staminaRegenRate;
