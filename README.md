@@ -8,9 +8,6 @@ The source code of this mod, which is located under `src/main/java`, is licensed
 
 ![https://licensebuttons.net/l/by-sa/3.0/88x31.png](https://licensebuttons.net/l/by-sa/3.0/88x31.png)
 The assets in this mod are licensed under [**CC-BY-SA 4.0**](https://creativecommons.org/licenses/by-sa/4.0/)
-with one exception:
-The chocobo "kweh" sound, located under `src/main/resources/assets/chococraft/sounds/entities/chocobo/chocobo.ogg` is
-was taken from Final Fantasy 7 and is property of [SquareEnix CO., LTD](http://www.square-enix.com/)
 
 # Setting up a development workspace
 1. Ensure that `Java` (found [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)), `Git` (found [here](http://git-scm.com/)) are installed correctly on your system.
