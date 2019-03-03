@@ -5,8 +5,8 @@
 - Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits. - Thanks to mallrat208 for helping me make these!
 - Added tooltips for buttons specifying how much exp is needed to unlock abilities along with translations for them.
 - Added configuration options for the ability unlock buttons to change exp needed.
-- Added Chocobo whistle sounds.
-- Added a stay mode for the Chocobo whistle.
+- Added Chocobo whistle sounds for each mode.
+- Added a stay mode for the Chocobo whistle and translation for it.
 - Added configuration options to adjust possible stat gain / loss for breeding.
 - Added more features to the dive ability, your Chocobo can now walk normally under water, also there's cool particle effects. (No you can't abuse this with sprint =D)
 - Updated the client and common proxies to account for player interaction.

@@ -50,6 +50,7 @@ chococraft.entity_chocobo.tame_success=§aZähmung erfolgreich
 chococraft.entity_chocobo.saddle_applied=Chocobo gesattelt
 chococraft.entity_chocobo.chocobo_followcmd=Folgen
 chococraft.entity_chocobo.chocobo_wandercmd=Schlendern
+chococraft.entity_chocobo.chocobo_staycmd=Bleibe
 
 chococraft.general.world=Welt
 chococraft.general.world.gysahlgreenspawnweight=Gizarkraut Spawnanteil
