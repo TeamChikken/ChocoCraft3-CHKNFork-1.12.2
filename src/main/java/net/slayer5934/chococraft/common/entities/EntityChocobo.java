@@ -413,6 +413,9 @@ public class EntityChocobo extends EntityTameable
 						{
 							this.motionY = .5f;
 						}
+						
+						this.inWater = false;
+						this.setSprinting(false);
 					}
 					else
 					{

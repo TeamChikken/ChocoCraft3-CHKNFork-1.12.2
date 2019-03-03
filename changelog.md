@@ -8,6 +8,7 @@
 - Added Chocobo whistle sounds.
 - Added a stay mode for the Chocobo whistle.
 - Added configuration options to adjust possible stat gain / loss for breeding.
+- Added more features to the dive ability, your Chocobo can now walk normally under water, also there's cool particle effects. (No you can't abuse this with sprint =D)
 - Updated the client and common proxies to account for player interaction.
 - Updated the Chocobo sound to avoid possible copyright issues from SquareEnix in the future.
 - Updated the config values to be a bit more balanced.
