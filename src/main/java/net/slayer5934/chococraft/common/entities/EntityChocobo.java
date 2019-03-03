@@ -93,7 +93,7 @@ public class EntityChocobo extends EntityTameable
 	private final static DataParameter<Byte> PARAM_ABILITY_MASK = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BYTE);
 
     private static final UUID CHOCOBO_SPRINTING_BOOST_ID = UUID.fromString("03ba3167-393e-4362-92b8-909841047640");
-    private static final AttributeModifier CHOCOBO_SPRINTING_SPEED_BOOST = (new AttributeModifier(CHOCOBO_SPRINTING_BOOST_ID, "Chocobo sprinting speed boost", 2, 2)).setSaved(false);
+    private static final AttributeModifier CHOCOBO_SPRINTING_SPEED_BOOST = (new AttributeModifier(CHOCOBO_SPRINTING_BOOST_ID, "Chocobo sprinting speed boost", 1, 1)).setSaved(false);
 
 
     public final ItemStackHandler chocoboInventory = new ItemStackHandler();
@@ -588,7 +588,7 @@ public class EntityChocobo extends EntityTameable
 
 		// half the amount of regeneration while moving
 		if(this.motionX != 0 || this.motionZ != 0)
-			regen *= 0.5;
+			regen *= 0.85;
 
 		// TODO: implement regen bonus (another IAttribute?)
 		this.useStamina(-regen);

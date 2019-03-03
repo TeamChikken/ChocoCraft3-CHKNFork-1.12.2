@@ -3,19 +3,19 @@
 
 # Version 0.9.8 - beta
 - Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits. - Thanks to mallrat208 for helping me make these!
-- Added tooltips for buttons specifying how much exp is needed to unlock abilities.
-- Added translations for the new buttons and tooltips. - Thanks to mallrat208 for the reminder! Because I forgot... ,-,
+- Added tooltips for buttons specifying how much exp is needed to unlock abilities along with translations for them.
 - Added configuration options for the ability unlock buttons to change exp needed.
 - Added Chocobo whistle sounds.
 - Added a stay mode for the Chocobo whistle.
-- Added configuration options to adjust possible stat gain / loss.
+- Added configuration options to adjust possible stat gain / loss for breeding.
 - Updated the client and common proxies to account for player interaction.
-- Updated the Chocobo sounds to avoid possible copyright issues from SquareEnix in the future.
+- Updated the Chocobo sound to avoid possible copyright issues from SquareEnix in the future.
 - Updated the config values to be a bit more balanced.
+- Updated the stamina regen value while moving to be more lenient.
+- Updated the sprint attribute speed to be more balanced.
 - Fixed the Chocobo fruit dungeon loot weight. - Thanks to mallrat208 for fixing this!
-- Fixed a localization for the tooltips :P. - Thanks to mallrat208 for letting me know I'm blind!
 - Fixed crash with Reskillable and maybe other mods by adding some null checks.
-- Fixed sprinting not actually needing the sprint ability, also now correctly uses stamina, which also fixed a visual glitch.
+- Fixed sprinting not actually needing the sprint ability, also now correctly uses stamina.
 
 # Version 0.9.7 - beta
 - Updated Forge Version and MCP Mappings. -mallrat208

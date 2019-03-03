@@ -63,9 +63,9 @@ public class ChocoConfig
         public double tameChance = 0.15;
 
         @Config.RangeDouble(min = 0)
-        public float sprintStaminaCost = 0.01f;
+        public float sprintStaminaCost = 0.08f;
         @Config.RangeDouble(min = 0)
-        public float glideStaminaCost = 0.00f;
+        public float glideStaminaCost = 0.01f;
         @Config.Comment("This float controls the amount of stamina consumed per tick by each ability.")
         @Config.RangeDouble(min = 0)
         public float flyStaminaCost = 0.05f;
@@ -100,7 +100,7 @@ public class ChocoConfig
         @Config.RangeInt(min = 0)
         public int maxHealth = 50;
         @Config.RangeInt(min = 0)
-        public int maxSpeed = 35;
+        public int maxSpeed = 40;
         @Config.RangeInt(min = 0)
         public float maxStamina = 25;
         
