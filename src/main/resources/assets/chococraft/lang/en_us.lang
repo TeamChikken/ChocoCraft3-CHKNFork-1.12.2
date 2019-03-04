@@ -79,3 +79,9 @@ gui.chocoinfo.button.sprint=Unlock Sprint
 gui.chocoinfo.button.glide=Unlock Glide
 gui.chocoinfo.button.dive=Unlock Dive
 gui.chocoinfo.button.fly=Unlock Fly
+
+gui.choconest=Chocobo Nest
+
+gui.chocobook.title=Chocopedia page 
+gui.chocobook.page1=Hello welcome to chococraft today i will show you how to make chocobo poop.
+gui.chocobook.page2=This is page 2 of the book, idiot.

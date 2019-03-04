@@ -79,3 +79,9 @@ gui.chocoinfo.button.sprint=Sprinten
 gui.chocoinfo.button.glide=Gleiten
 gui.chocoinfo.button.dive=Tauchen
 gui.chocoinfo.button.fly=Fliegen
+
+gui.choconest=Chocobo Nest
+
+gui.chocobook.title=Chocopedia Seite 
+gui.chocobook.page1=Hallo Willkommen bei Chococraft heute werde ich Ihnen zeigen, wie man Chocobo Poop macht.
+gui.chocobook.page2=Dies ist Seite 2 des Buches, Idiot.

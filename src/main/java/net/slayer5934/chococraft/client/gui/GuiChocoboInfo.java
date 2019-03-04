@@ -139,21 +139,21 @@ public class GuiChocoboInfo extends GuiScreen
     {
         String value = String.valueOf((int) this.chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue());
         int width = this.fontRenderer.getStringWidth(value);
-        this.fontRenderer.drawStringWithShadow(value, 70 - (width / 2), 30, -1);
+        this.fontRenderer.drawStringWithShadow(value, 70 - (width / 2), 36, -1);
     }
 
     private void drawSpeedInfo()
     {
         String value = String.valueOf((int) Math.round(this.chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() * 100));
         int width = this.fontRenderer.getStringWidth(value);
-        this.fontRenderer.drawStringWithShadow(value, 106 - (width / 2), 30, -1);
+        this.fontRenderer.drawStringWithShadow(value, 106 - (width / 2), 36, -1);
     }
 
     private void drawStaminaInfo()
     {
         String value = String.valueOf((int) this.chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getBaseValue());
         int width = this.fontRenderer.getStringWidth(value);
-        this.fontRenderer.drawStringWithShadow(value, 143 - (width / 2), 30, -1);
+        this.fontRenderer.drawStringWithShadow(value, 142 - (width / 2), 36, -1);
     }
 
     private void drawAbilityInfo()

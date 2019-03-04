@@ -1,6 +1,7 @@
 package net.slayer5934.chococraft.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.slayer5934.chococraft.Chococraft;
@@ -40,7 +41,8 @@ public class GuiChocoboNest extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRenderer.drawString(this.tile.getDisplayName().getUnformattedText(), 8, 6, 0x404040);
-        this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 0x404040);
+        String name = I18n.format("gui.choconest");
+        int nameLength = this.fontRenderer.getStringWidth(name);
+        this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
     }
 }
