@@ -735,8 +735,11 @@ public class EntityChocobo extends EntityTameable
 			// TODO: Handle resizing. ItemStackHandler#setSize() clears the internal inventory!
 			for (int i = 0; i < this.chocoboInventory.getSlots(); i++)
 			{
+				if(!this.isDead) 
+				{
 				ItemStack stack = this.chocoboInventory.extractItem(i, Integer.MAX_VALUE, false);
 				InventoryHelper.spawnItemStack(this.getEntityWorld(), this.posX, this.posY + .5, this.posZ, stack);
+				}
 			}
 		}
 		this.chocoboInventory.setSize(newType.getInventorySize());
@@ -747,6 +750,21 @@ public class EntityChocobo extends EntityTameable
 				((ContainerSaddleBag) player.openContainer).refreshSlots(this, player);
 		}
 	}
+	
+    @Override
+    protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
+    {
+        super.dropLoot(wasRecentlyHit, lootingModifier, source);
+        
+        if(this.chocoboInventory!=null && this.isSaddled())
+        {
+            for(int i = this.chocoboInventory.getSlots()-1;i >=0; i--)
+            {
+                if(!this.chocoboInventory.getStackInSlot(i).isEmpty())
+                    this.entityDropItem(this.chocoboInventory.getStackInSlot(i),0.0f);
+            }
+        }
+    }
 
     protected SoundEvent getAmbientSound()
     {
