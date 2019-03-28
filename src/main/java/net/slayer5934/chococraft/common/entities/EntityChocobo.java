@@ -373,8 +373,18 @@ public class EntityChocobo extends EntityTameable
 
 			if (this.onGround)
 				this.isChocoboJumping = false;
-
-			this.jumpMovementFactor = .1f;
+			
+			if (this.canGlide() || this.canFly())
+				{
+				this.jumpMovementFactor = .07f;
+				}
+			else
+				{
+				if ((rider.isInWater()) || (!this.canGlide() && !this.canFly()))
+					{
+					this.jumpMovementFactor = .05f;
+					}
+				}
 
 			if (this.canPassengerSteer())
 			{
@@ -434,7 +444,7 @@ public class EntityChocobo extends EntityTameable
 
 				if (!this.onGround && !this.isInWater() && !rider.isSneaking() && this.motionY < 0 && this.canGlide() && this.useStamina(ChocoConfig.chocobo.glideStaminaCost))
 				{
-					this.motionY *= 0.8f;
+					this.motionY *= 0.65f;
 				}
 
 				if(this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost))
