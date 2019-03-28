@@ -390,12 +390,14 @@ public class EntityChocobo extends EntityTameable
 			{
 				if (rider.isJumping)
 				{
-					if (this.canFly() && !rider.isInWater() && this.useStamina(ChocoConfig.chocobo.flyStaminaCost))
+					if (rider.isSprinting() && this.canFly() && !rider.isInWater() && this.useStamina(ChocoConfig.chocobo.flyStaminaCost))
 					{
 						// flight logic
 						this.motionY += this.onGround ? .5f : .1f;
 						if (motionY > 0.5f)
 							this.motionY = 0.5f;
+						
+						this.setSprinting(false);
 					}
 					else
 					{
@@ -447,12 +449,7 @@ public class EntityChocobo extends EntityTameable
 					this.motionY *= 0.65f;
 				}
 
-				if(this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost))
-                {
-                    this.setSprinting(false);
-                }
-				
-				if(this.isSprinting() && !this.canSprint() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost))
+				if((this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)) || (this.isSprinting() && !this.canSprint() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)))
                 {
                     this.setSprinting(false);
                 }
