@@ -374,7 +374,7 @@ public class EntityChocobo extends EntityTameable
 			if (this.onGround)
 				this.isChocoboJumping = false;
 			
-			if (this.canGlide() || this.canFly())
+			if ((this.canGlide() || this.canFly()) && (!rider.isInWater()))
 				{
 				this.jumpMovementFactor = .07f;
 				}
