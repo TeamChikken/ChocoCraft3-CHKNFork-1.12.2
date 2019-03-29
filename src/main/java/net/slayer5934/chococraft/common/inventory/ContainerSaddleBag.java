@@ -80,6 +80,40 @@ public class ContainerSaddleBag extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        return ItemStack.EMPTY;
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < 15)
+            {
+                if (!this.mergeItemStack(itemstack1, 15, this.inventorySlots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, 15, false))
+            {
+                return ItemStack.EMPTY;
+            }
+            else
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
     }
 }
