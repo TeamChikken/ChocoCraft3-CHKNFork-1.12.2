@@ -10,7 +10,9 @@ import net.slayer5934.chococraft.common.inventory.ContainerSaddleBag;
 
 public class GuiChocoboInventory extends GuiContainer
 {
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_inventory.png");
+    private static final ResourceLocation INV_TEXTURE_NULL = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_inventory_null.png");
+    private static final ResourceLocation INV_TEXTURE_SMALL = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_inventory_small.png");
+    private static final ResourceLocation INV_TEXTURE_LARGE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_inventory_large.png");
 
     private EntityChocobo chocobo;
     private EntityPlayer player;
@@ -36,7 +38,18 @@ public class GuiChocoboInventory extends GuiContainer
     {
         this.drawDefaultBackground();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(GUI_TEXTURE);
+        switch(chocobo.getSaddleType())
+        {
+        	default:
+        		this.mc.getTextureManager().bindTexture(INV_TEXTURE_NULL);
+        		break;
+            case SADDLE_BAGS:
+                this.mc.getTextureManager().bindTexture(INV_TEXTURE_SMALL);
+                break;
+            case PACK:
+            	this.mc.getTextureManager().bindTexture(INV_TEXTURE_LARGE);
+                break;
+        }
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
