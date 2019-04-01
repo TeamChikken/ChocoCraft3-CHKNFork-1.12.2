@@ -53,4 +53,13 @@ public class ItemChocoboSaddle extends Item implements IItemModelProvider
             return SaddleType.NONE;
         return SaddleType.getFromMeta(stack.getMetadata());
     }
+    
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        int meta = stack.getMetadata();
+        if(meta >= 0 && meta < SaddleType.values().length)
+            return super.getUnlocalizedName(stack) + "." + SaddleType.values()[meta].name().toLowerCase();
+        return super.getUnlocalizedName(stack);
+    }
 }
