@@ -44,9 +44,9 @@ public class GuiChocoboBook extends GuiScreen
     {
 		switch(b.id)
 		{
-			case 1: this.currentpage = (this.currentpage <= 1 ? 1 : this.currentpage-1);
+			case 1: this.currentpage = (this.currentpage <= 1 ? 6 : this.currentpage-1);
 			break;	
-			case 2: this.currentpage = this.currentpage+1;
+			case 2: this.currentpage = (this.currentpage >= 6 ? 1 : this.currentpage+1);
             break;	
 		}
     }
@@ -68,24 +68,14 @@ public class GuiChocoboBook extends GuiScreen
         this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
         
         this.mc.getTextureManager().bindTexture(TEXTURE);
-        switch(currentpage)
-		{
-			case 1: this.renderpage1();
-			break;	
-			case 2: this.renderpage2();
-            break;	
-		}
+        this.renderpage();
         
         GlStateManager.popMatrix();
     }
 
-    private void renderpage1()
+    private void renderpage()
     {
-        this.fontRenderer.drawSplitString(I18n.format("gui.chocobook.page1"), 5, 20, 120, 0);
+        this.fontRenderer.drawSplitString(I18n.format("gui.chocobook.page" + (currentpage)), 5, 20, 120, 0);
     }
     
-    private void renderpage2()
-    {
-        this.fontRenderer.drawSplitString(I18n.format("gui.chocobook.page2"), 5, 20, 120, 0);
-    }
 }
