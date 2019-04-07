@@ -2,7 +2,7 @@ package net.slayer5934.chococraft.common.entities.properties;
 
 public enum SaddleType
 {
-    SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(true, 6 * 9, 2), NONE(true, 0, 3);
+	NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(true, 6 * 9, 2);
 
     private boolean isRidingSaddle;
     private int inventorySize;

@@ -17,9 +17,11 @@ item.chococraft.chocopedia.tooltip=Zeigt Statistiken zu einem Chocobo
 
 item.chococraft.chocobo_feather.name=Chocobo Feder
 item.chococraft.chocobo_whistle.name=Chocobo Pfeifton
-item.chococraft.chocobo_saddle.saddle.name=Chocobo Sattel
-item.chococraft.chocobo_saddle.saddle_bags.name=Chocobo Satteltaschen
-item.chococraft.chocobo_saddle.pack.name=Chocobo Sattelpackung
+
+item.chococraft.chocobo_saddle.none.name=Chocobo Sattel
+item.chococraft.chocobo_saddle.saddle.name=Chocobo Satteltaschen
+item.chococraft.chocobo_saddle.saddle_bags.name=Chocobo Sattelpackung
+
 item.chococraft.chocobo_drumstick_raw.name=Roher Chocoboschenkel
 item.chococraft.chocobo_drumstick_cooked.name=Gebratener Chocoboschenkel
 item.chococraft.chocobo_spawn_egg.yellow.name=Gelbes Chocobo Spawn-Ei

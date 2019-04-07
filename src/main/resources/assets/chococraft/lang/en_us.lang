@@ -17,9 +17,11 @@ item.chococraft.chocopedia.tooltip=Use on a chocobo to view its stats
 
 item.chococraft.chocobo_feather.name=Chocobo Feather
 item.chococraft.chocobo_whistle.name=Chocobo Whistle
-item.chococraft.chocobo_saddle.saddle.name=Chocobo Saddle
-item.chococraft.chocobo_saddle.saddle_bags.name=Chocobo Saddle Bags
-item.chococraft.chocobo_saddle.pack.name=Chocobo Saddle Pack
+
+item.chococraft.chocobo_saddle.none.name=Chocobo Saddle
+item.chococraft.chocobo_saddle.saddle.name=Chocobo Saddle Bags
+item.chococraft.chocobo_saddle.saddle_bags.name=Chocobo Saddle Pack
+
 item.chococraft.chocobo_drumstick_raw.name=Raw Chocobo Drumstick
 item.chococraft.chocobo_drumstick_cooked.name=Cooked Chocobo Drumstick
 item.chococraft.chocobo_spawn_egg.yellow.name=Yellow Chocobo Spawn Egg
