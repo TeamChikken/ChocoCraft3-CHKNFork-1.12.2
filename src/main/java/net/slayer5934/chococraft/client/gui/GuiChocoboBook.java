@@ -44,9 +44,9 @@ public class GuiChocoboBook extends GuiScreen
     {
 		switch(b.id)
 		{
-			case 1: this.currentpage = (this.currentpage <= 1 ? 6 : this.currentpage-1);
+			case 1: this.currentpage = (this.currentpage <= 1 ? 7 : this.currentpage-1);
 			break;	
-			case 2: this.currentpage = (this.currentpage >= 6 ? 1 : this.currentpage+1);
+			case 2: this.currentpage = (this.currentpage >= 7 ? 1 : this.currentpage+1);
             break;	
 		}
     }
