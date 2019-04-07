@@ -53,7 +53,7 @@ public class ChocoConfig
         public boolean addAbilityFruitsToDungeonLoot = true;
         @Config.Comment("This number controls the weight ability fruit has compared to other items in a loot table.")
         @Config.RangeInt(min = 0)
-        public int abilityFruitDungeonLootWeight = 5;
+        public int abilityFruitDungeonLootWeight = 1;
     }
 
     public static class ChocoboConfig
