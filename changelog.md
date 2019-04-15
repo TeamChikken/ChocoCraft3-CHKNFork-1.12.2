@@ -6,7 +6,7 @@
 - Added Chocobo whistle sounds for each mode.
 - Added a stay mode for the Chocobo whistle and translation for it.
 - Added configuration options to adjust possible stat gain / loss for breeding.
-- Added more features to the dive ability, your Chocobo can now walk normally under water, also there's cool particle effects. (No you can't abuse this with sprint =D)
+- Added more features to the dive ability, your Chocobo can now walk normally under water. (No you can't abuse this with sprint =D)
 - Added some in-air and in-water movement factors, while in air you will be faster if glide or fly is unlocked.
 - Added text and translations for the different Chocobo saddles.
 - Added saddle pack and saddle bags recipes.
