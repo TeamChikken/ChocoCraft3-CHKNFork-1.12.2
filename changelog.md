@@ -24,7 +24,7 @@
 - Fixed sprinting not actually needing the sprint ability.
 - Fixed Chocobo not dropping inventory when killed.
 - Fixed fly taking stamina under water.
-- Fixed sprint taking stamina when not unlocked.
+- Fixed sprint taking stamina when not unlocked or not appropriate.
 - Fixed Chocobo upgrade packet not being scheduled serverside.
 - Fixed spam jumping being faster than walking and equal to sprinting.
 

@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
+
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -348,6 +350,31 @@ public class EntityChocobo extends EntityTameable
 	{
 		return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
 	}
+	
+	@Override
+	public boolean handleWaterMovement()
+    {
+        if (this.getRidingEntity() instanceof EntityChocobo)
+        {
+            this.inWater = false;
+        }
+        else if (this.world.handleMaterialAcceleration(this.getEntityBoundingBox().grow(0.0D, -0.4000000059604645D, 0.0D).shrink(0.001D), Material.WATER, this))
+        {
+            if (!this.inWater && !this.firstUpdate)
+            {
+            }
+
+            this.fallDistance = 0.0F;
+            this.inWater = true;
+            this.extinguish();
+        }
+        else
+        {
+            this.inWater = false;
+        }
+
+        return this.inWater;
+    }
 
 	@Override
 	public void travel(float strafe, float vertical, float forward)
@@ -410,7 +437,7 @@ public class EntityChocobo extends EntityTameable
 					}
 				}
 
-				if (this.isInWater())
+				if (rider.isInWater())
 				{
 					if (this.canDive())
 					{
@@ -433,7 +460,7 @@ public class EntityChocobo extends EntityTameable
 					{
 						if (rider.isJumping)
 						{
-							this.motionY = .2f;
+							this.motionY = .5f;
 						}
 						else if (this.motionY < 0)
 						{
@@ -449,8 +476,9 @@ public class EntityChocobo extends EntityTameable
 					this.motionY *= 0.65f;
 				}
 
-				if((this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)) || (this.isSprinting() && !this.canSprint() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)))
-                {
+				if((this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)) || (this.isSprinting() && this.isInWater() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)) || (this.isSprinting() && !this.canSprint() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)))
+				//if((this.isSprinting() && !this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)) || (this.isSprinting() && !this.canSprint() && this.useStamina(ChocoConfig.chocobo.sprintStaminaCost)))
+				{
                     this.setSprinting(false);
                 }
 
