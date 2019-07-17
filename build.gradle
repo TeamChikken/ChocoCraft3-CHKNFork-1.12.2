@@ -5,6 +5,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath 'com.wynprice.cursemaven:CurseMaven:1.1.0'		
 	}
 }
 
@@ -44,10 +45,13 @@ minecraft {
 
 repositories {
 	maven { url 'http://dvs1.progwml6.com/files/maven' } // JEI
+    maven { url = "https://minecraft.curseforge.com/api/maven" }	
 }
 
 dependencies {
 	deobfCompile "mezz.jei:jei_1.12:4.7.5.85:api"
+    deobfProvided "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
+    deobfProvided "baubles:Baubles:1.12:1.5.2"	
 	runtime "mezz.jei:jei_1.12:4.7.5.85"
 }
 
