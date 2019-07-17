@@ -25,7 +25,10 @@ public class ChococraftThaumcraft {
 		event.register.registerObjectTag(new ItemStack(ModItems.pickledGysahlRaw), new AspectList().add(Aspect.PLANT, 3).add(Aspect.CRAFT, 3));
 		event.register.registerObjectTag(new ItemStack(ModItems.pickledGysahlCooked), new AspectList().add(Aspect.PLANT, 5).add(Aspect.CRAFT, 5));
 		
-		event.register.registerObjectTag(new ItemStack(ModItems.abilityFruit), new AspectList().add(Aspect.PLANT, 15).add(Aspect.MAGIC, 15).add(Aspect.DESIRE, 15));
+		event.register.registerObjectTag(new ItemStack(ModItems.abilityFruit, 1, 0), new AspectList().add(Aspect.PLANT, 15).add(Aspect.MAGIC, 15).add(Aspect.DESIRE, 15));
+		event.register.registerObjectTag(new ItemStack(ModItems.abilityFruit, 1, 1), new AspectList().add(Aspect.PLANT, 15).add(Aspect.MAGIC, 15).add(Aspect.DESIRE, 15));
+		event.register.registerObjectTag(new ItemStack(ModItems.abilityFruit, 1, 2), new AspectList().add(Aspect.PLANT, 15).add(Aspect.MAGIC, 15).add(Aspect.DESIRE, 15));
+		event.register.registerObjectTag(new ItemStack(ModItems.abilityFruit, 1, 3), new AspectList().add(Aspect.PLANT, 15).add(Aspect.MAGIC, 15).add(Aspect.DESIRE, 15));
 		
 		event.register.registerObjectTag(new ItemStack(ModBlocks.chocoboEgg), new AspectList().add(Aspect.LIFE, 10).add(Aspect.PROTECT, 10));
 		
