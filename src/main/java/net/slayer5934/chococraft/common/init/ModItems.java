@@ -89,7 +89,7 @@ public class ModItems
 			Item item = ClassInjector.createFromField(field);
 			String internalName = objHolder.value();
 			item.setRegistryName(internalName);
-			item.setUnlocalizedName(Chococraft.MODID + "." + internalName);
+			item.setTranslationKey(Chococraft.MODID + "." + internalName);
 			item.setCreativeTab(Chococraft.creativeTab);
             ItemSetupParameters parameters = field.getAnnotation(ItemSetupParameters.class);
             if(parameters != null)

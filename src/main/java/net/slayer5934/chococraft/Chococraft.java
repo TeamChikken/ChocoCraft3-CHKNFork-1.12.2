@@ -3,6 +3,9 @@ package net.slayer5934.chococraft;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
+import net.slayer5934.chococraft.common.integration.ChococraftThaumcraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,12 +62,13 @@ public class Chococraft
     }
 
     @Mod.EventHandler @SuppressWarnings("unused")
-    public static void onPreInit(FMLPreInitializationEvent event)
+    public static void preInit(FMLPreInitializationEvent event)
     {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ChococraftGuiHandler());
         EntityDataSerializers.init();
         PacketManager.init();
         Log4jFilter.init();
+        if (Loader.isModLoaded("thaumcraft")) MinecraftForge.EVENT_BUS.register(new ChococraftThaumcraft());
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
         

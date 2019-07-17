@@ -45,7 +45,7 @@ public class ModBlocks
 			Block block = ClassInjector.createFromField(field);
 			String internalName = objHolder.value();
 			block.setRegistryName(internalName);
-			block.setUnlocalizedName(Chococraft.MODID + "." + internalName);
+			block.setTranslationKey(Chococraft.MODID + "." + internalName);
 			block.setCreativeTab(Chococraft.creativeTab);
 
 			event.getRegistry().register(block);
@@ -72,7 +72,7 @@ public class ModBlocks
             String internalName = objHolder.value();
             Item item = ((IItemBlockProvider)block).createItemBlock();
             item.setRegistryName(internalName);
-            block.setUnlocalizedName(Chococraft.MODID + "." + internalName);
+            block.setTranslationKey(Chococraft.MODID + "." + internalName);
             block.setCreativeTab(Chococraft.creativeTab);
 
             event.getRegistry().register(item);

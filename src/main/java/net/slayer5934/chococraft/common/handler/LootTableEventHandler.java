@@ -27,7 +27,7 @@ public class LootTableEventHandler
         if(!ChocoConfig.world.addAbilityFruitsToDungeonLoot) return;
         
         ResourceLocation lootTable = event.getName();
-        if(!lootTable.getResourcePath().startsWith("chests/")) return;
+        if(!lootTable.getPath().startsWith("chests/")) return;
 
         LootPool pool = event.getTable().getPool("main");
         

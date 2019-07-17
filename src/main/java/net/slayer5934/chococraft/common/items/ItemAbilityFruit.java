@@ -92,7 +92,7 @@ public class ItemAbilityFruit extends Item implements IItemModelProvider
         assert rl != null;
 
         // this registers a "blockstate" for our item, which allows different models depending on the variant
-        ResourceLocation loc = new ResourceLocation(rl.getResourceDomain(), "items/" + rl.getResourcePath());
+        ResourceLocation loc = new ResourceLocation(rl.getNamespace(), "items/" + rl.getNamespace());
         for(AbilityFruitType type : AbilityFruitType.values())
         {
             ModelLoader.setCustomModelResourceLocation(this, type.getMeta(), new ModelResourceLocation(loc, "type=" + type.getName()));
@@ -121,10 +121,10 @@ public class ItemAbilityFruit extends Item implements IItemModelProvider
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(I18n.format(this.getUnlocalizedName(stack) + ".tooltip"));
     }
-
+    
     @Override
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName(stack) +  "." + AbilityFruitType.getFromMeta(stack.getMetadata()).getName();
+        return super.getTranslationKey(stack) +  "." + AbilityFruitType.getFromMeta(stack.getMetadata()).getName();
     }
 }
