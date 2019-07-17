@@ -81,18 +81,18 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider
         assert rl != null;
 
         // this registers a "blockstate" for our item, which allows different models depending on the variant
-        ResourceLocation loc = new ResourceLocation(rl.getResourceDomain(), "items/" + rl.getResourcePath());
+        ResourceLocation loc = new ResourceLocation(rl.getNamespace(), "items/" + rl.getPath());
         for(ChocoboColor color : ChocoboColor.values())
             ModelLoader.setCustomModelResourceLocation(this, color.ordinal(), new ModelResourceLocation(loc, "type=" + color.name().toLowerCase()));
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack)
+    public String getTranslationKey(ItemStack stack)
     {
         int meta = stack.getMetadata();
         if(meta >= 0 && meta < ChocoboColor.values().length)
-            return super.getUnlocalizedName(stack) + "." + ChocoboColor.values()[meta].name().toLowerCase();
-        return super.getUnlocalizedName(stack);
+            return super.getTranslationKey(stack) + "." + ChocoboColor.values()[meta].name().toLowerCase();
+        return super.getTranslationKey(stack);
     }
 
     private double getYOffset(World world, BlockPos pos)

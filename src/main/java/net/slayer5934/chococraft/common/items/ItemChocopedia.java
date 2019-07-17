@@ -31,7 +31,7 @@ public class ItemChocopedia extends Item implements IItemModelProvider
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(I18n.format(this.getUnlocalizedName(stack) + ".tooltip"));
+        tooltip.add(I18n.format(this.getTranslationKey(stack) + ".tooltip"));
     }
     
 }

@@ -49,7 +49,7 @@ public class Chococraft
     public static final CreativeTabs creativeTab = new CreativeTabs(MODID)
     {
         @Override
-        public ItemStack getTabIconItem()
+        public ItemStack createIcon()
         {
             return new ItemStack(ModItems.gysahlGreen);
         }
