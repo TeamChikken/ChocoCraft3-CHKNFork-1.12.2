@@ -7,84 +7,74 @@ import net.slayer5934.chococraft.common.entities.EntityChocobo;
 import net.slayer5934.chococraft.common.entities.properties.ChocoboAttributes;
 import net.slayer5934.chococraft.common.entities.properties.ChocoboColor;
 
-public class BreedingHelper
-{
-    public static ChocoboBreedInfo getBreedInfo(EntityChocobo mother, EntityChocobo father)
-    {
-        return new ChocoboBreedInfo(new ChocoboStatSnapshot(mother), new ChocoboStatSnapshot(father));
-    }
-    
-    public static EntityChocobo createChild(ChocoboBreedInfo breedInfo, World world)
-    {
-        EntityChocobo chocobo = new EntityChocobo(world);
+public class BreedingHelper {
+	public static ChocoboBreedInfo getBreedInfo(EntityChocobo mother, EntityChocobo father) {
+		return new ChocoboBreedInfo(new ChocoboStatSnapshot(mother), new ChocoboStatSnapshot(father));
+	}
 
-        ChocoboStatSnapshot mother = breedInfo.getMother();
-        ChocoboStatSnapshot father = breedInfo.getFather();
+	public static EntityChocobo createChild(ChocoboBreedInfo breedInfo, World world) {
+		EntityChocobo chocobo = new EntityChocobo(world);
 
-        chocobo.setLevel(1);
-        chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
-//Stats
-        float health = Math.round(((mother.health + father.health) / 2) * (ChocoConfig.breeding.poslossHealth + ((float)Math.random() * ChocoConfig.breeding.posgainHealth)));
-        chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
+		ChocoboStatSnapshot mother = breedInfo.getMother();
+		ChocoboStatSnapshot father = breedInfo.getFather();
 
-        float speed = ((mother.speed + father.speed) / 2f) * (ChocoConfig.breeding.poslossSpeed + ((float)Math.random() * ChocoConfig.breeding.posgainSpeed));
-        chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
+		chocobo.setLevel(1);
+		chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
+		//Stats
+		float health = Math.round(((mother.health + father.health) / 2) * (ChocoConfig.breeding.poslossHealth + ((float) Math.random() * ChocoConfig.breeding.posgainHealth)));
+		chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
 
-        float stamina = Math.round((mother.stamina + father.stamina) / 2) * (ChocoConfig.breeding.poslossStamina + ((float)Math.random() * ChocoConfig.breeding.posgainStamina));
-        chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
-//Traits
-        float canFlyChance = calculateChance(0.005f, 0.15f, 0.35f, mother.canFly, father.canFly);
-        float canflychancerandom = (float)Math.random();
-        chocobo.setCanFly(canFlyChance > canflychancerandom);
-        
-        float canDiveChance = calculateChance(0.01f, 0.20f, 0.40f, mother.canDive, father.canDive);
-        float candivechancerandom = (float)Math.random();
-        chocobo.setCanDive(canDiveChance > candivechancerandom);
-        
-        float canGlideChance = calculateChance(0.01f, 0.20f, 0.45f, mother.canGlide, father.canGlide);
-        float canglidechancerandom = (float)Math.random();
-        chocobo.setCanGlide(canGlideChance > canglidechancerandom);
-        
-        float canSprintChance = calculateChance(0.03f, 0.25f, 0.5f, mother.canSprint, father.canSprint);
-        float cansprintchancerandom = (float)Math.random();
-        chocobo.setCanSprint(canSprintChance > cansprintchancerandom);
-        
-        //is it a boy or a girl =D? HOW CAN YOU EVEN FORGET THIS, IM ASHAMED XALCON! ;p
-        chocobo.setMale(.50f > (float)Math.random());
-        
-// color
-     if (.02f > (float)Math.random())
-     {
-     chocobo.setChocoboColor(ChocoboColor.FLAME);
-     }
-     	else if (canFlyChance > canflychancerandom)
-    	{
-    	chocobo.setChocoboColor(ChocoboColor.GOLD);
-    	} 
-        	else if (canDiveChance > candivechancerandom)
-        	{
-    		chocobo.setChocoboColor(ChocoboColor.BLUE);
-        	}
-        		else if (canGlideChance > canglidechancerandom)
-        		{
-        		chocobo.setChocoboColor(ChocoboColor.WHITE);
-        		}
-        			else if (canSprintChance > cansprintchancerandom)
-        			{
-        				chocobo.setChocoboColor(ChocoboColor.GREEN);
-        			}
-        				else
-        				{
-        					chocobo.setChocoboColor(ChocoboColor.YELLOW);
-        				}
-//
-        chocobo.setGrowingAge(-24000);
+		float speed = ((mother.speed + father.speed) / 2f) * (ChocoConfig.breeding.poslossSpeed + ((float) Math.random() * ChocoConfig.breeding.posgainSpeed));
+		chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
-        return chocobo;
-    }
+		float stamina = Math.round((mother.stamina + father.stamina) / 2) * (ChocoConfig.breeding.poslossStamina + ((float) Math.random() * ChocoConfig.breeding.posgainStamina));
+		chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
+		//Traits
+		float canFlyChance = calculateChance(0.005f, 0.15f, 0.35f, mother.canFly, father.canFly);
+		float canflychancerandom = (float) Math.random();
+		chocobo.setCanFly(canFlyChance > canflychancerandom);
 
-    private static float calculateChance(float baseChance, float perParentChance, float bothParentsChance, boolean motherHasAbility, boolean fatherHasAbility)
-    {
-        return baseChance + (motherHasAbility || fatherHasAbility ? perParentChance : 0) + (motherHasAbility && fatherHasAbility ? bothParentsChance : 0);
-    }
+		float canDiveChance = calculateChance(0.01f, 0.20f, 0.40f, mother.canDive, father.canDive);
+		float candivechancerandom = (float) Math.random();
+		chocobo.setCanDive(canDiveChance > candivechancerandom);
+
+		float canGlideChance = calculateChance(0.01f, 0.20f, 0.45f, mother.canGlide, father.canGlide);
+		float canglidechancerandom = (float) Math.random();
+		chocobo.setCanGlide(canGlideChance > canglidechancerandom);
+
+		float canSprintChance = calculateChance(0.03f, 0.25f, 0.5f, mother.canSprint, father.canSprint);
+		float cansprintchancerandom = (float) Math.random();
+		chocobo.setCanSprint(canSprintChance > cansprintchancerandom);
+
+		//is it a boy or a girl =D? HOW CAN YOU EVEN FORGET THIS, IM ASHAMED XALCON! ;p
+		chocobo.setMale(.50f > (float) Math.random());
+
+		// color
+		if (.02f > (float) Math.random()) {
+			chocobo.setChocoboColor(ChocoboColor.FLAME);
+		}
+		else if (canFlyChance > canflychancerandom) {
+			chocobo.setChocoboColor(ChocoboColor.GOLD);
+		}
+		else if (canDiveChance > candivechancerandom) {
+			chocobo.setChocoboColor(ChocoboColor.BLUE);
+		}
+		else if (canGlideChance > canglidechancerandom) {
+			chocobo.setChocoboColor(ChocoboColor.WHITE);
+		}
+		else if (canSprintChance > cansprintchancerandom) {
+			chocobo.setChocoboColor(ChocoboColor.GREEN);
+		}
+		else {
+			chocobo.setChocoboColor(ChocoboColor.YELLOW);
+		}
+		//
+		chocobo.setGrowingAge(-24000);
+
+		return chocobo;
+	}
+
+	private static float calculateChance(float baseChance, float perParentChance, float bothParentsChance, boolean motherHasAbility, boolean fatherHasAbility) {
+		return baseChance + (motherHasAbility || fatherHasAbility ? perParentChance : 0) + (motherHasAbility && fatherHasAbility ? bothParentsChance : 0);
+	}
 }

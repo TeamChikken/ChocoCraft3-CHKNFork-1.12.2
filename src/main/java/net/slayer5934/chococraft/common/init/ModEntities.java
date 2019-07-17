@@ -15,22 +15,18 @@ import net.slayer5934.chococraft.client.renderer.entities.EntityRendererChocobo;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
-public class ModEntities
-{
-    @SubscribeEvent
-    public static void registerEntities(RegistryEvent.Register<EntityEntry> event)
-    {
-        // NOTE: We cannot use event.getRegistry() for our registration here, because it does only half the registration
-        // This is a limitation in the forge registry system :/
-        ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo");
-        EntityRegistry.registerModEntity(chocoboName,
-                EntityChocobo.class, "chocobo", 0, Chococraft.getInstance(), 64, 1, false);
-    }
-
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public static void onRegisterModels(ModelRegistryEvent event)
-    {
-        RenderingRegistry.registerEntityRenderingHandler(EntityChocobo.class, EntityRendererChocobo::new);
-    }
+public class ModEntities {
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+		// NOTE: We cannot use event.getRegistry() for our registration here, because it does only half the registration
+		// This is a limitation in the forge registry system :/
+		ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo");
+		EntityRegistry.registerModEntity(chocoboName, EntityChocobo.class, "chocobo", 0, Chococraft.getInstance(), 64, 1, false);
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void onRegisterModels(ModelRegistryEvent event) {
+		RenderingRegistry.registerEntityRenderingHandler(EntityChocobo.class, EntityRendererChocobo::new);
+	}
 }

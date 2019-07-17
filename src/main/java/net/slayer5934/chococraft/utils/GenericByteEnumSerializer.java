@@ -1,41 +1,35 @@
 package net.slayer5934.chococraft.utils;
 
-import java.io.IOException;
-
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializer;
 
-public class GenericByteEnumSerializer<E extends Enum<E>> implements DataSerializer<E>
-{
-    private E[] values;
+import java.io.IOException;
 
-    public GenericByteEnumSerializer(E[] values)
-    {
-        this.values = values;
-    }
+public class GenericByteEnumSerializer<E extends Enum<E>> implements DataSerializer<E> {
+	private E[] values;
 
-    @Override
-    public void write(PacketBuffer buf, E value)
-    {
-        buf.writeByte(value.ordinal());
-    }
+	public GenericByteEnumSerializer(E[] values) {
+		this.values = values;
+	}
 
-    @Override
-    public E read(PacketBuffer buf) throws IOException
-    {
-        return values[buf.readByte()];
-    }
+	@Override
+	public void write(PacketBuffer buf, E value) {
+		buf.writeByte(value.ordinal());
+	}
 
-    @Override
-    public DataParameter<E> createKey(int id)
-    {
-        return new DataParameter<>(id, this);
-    }
+	@Override
+	public E read(PacketBuffer buf) throws IOException {
+		return values[buf.readByte()];
+	}
 
-    @Override
-    public E copyValue(E value)
-    {
-        return value;
-    }
+	@Override
+	public DataParameter<E> createKey(int id) {
+		return new DataParameter<>(id, this);
+	}
+
+	@Override
+	public E copyValue(E value) {
+		return value;
+	}
 }

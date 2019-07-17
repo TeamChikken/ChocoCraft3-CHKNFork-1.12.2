@@ -1,7 +1,6 @@
 package net.slayer5934.chococraft.common.integration;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
 /**

@@ -1,9 +1,5 @@
 package net.slayer5934.chococraft.common.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,22 +12,23 @@ import net.minecraft.world.World;
 import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.utils.registration.IItemModelProvider;
 
-public class ItemChocopedia extends Item implements IItemModelProvider
-{
-    
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-    	
-    	Chococraft.proxy.openChocoBook(playerIn);
-    	
-        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-        }
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ItemChocopedia extends Item implements IItemModelProvider {
 	
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
-    {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(I18n.format(this.getTranslationKey(stack) + ".tooltip"));
-    }
-    
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		
+		Chococraft.proxy.openChocoBook(playerIn);
+		
+		return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		tooltip.add(I18n.format(this.getTranslationKey(stack) + ".tooltip"));
+	}
+	
 }

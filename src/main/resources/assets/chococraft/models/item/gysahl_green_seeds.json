@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chococraft:items/gysahl_green_seeds"
+	"layer0": "chococraft:items/gysahl_green_seeds"
   }
 }
