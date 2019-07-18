@@ -32,6 +32,6 @@ public class ChococraftThaumcraft {
 		
 		event.register.registerObjectTag(new ItemStack(ModBlocks.chocoboEgg), new AspectList().add(Aspect.LIFE, 10).add(Aspect.PROTECT, 10));
 		
-		ThaumcraftApi.registerEntityTag("chocobo", new AspectList().add(Aspect.BEAST, 35).add(Aspect.FLIGHT, 25).add(Aspect.SENSES, 8));
+		ThaumcraftApi.registerEntityTag("chocobo", new AspectList().add(Aspect.BEAST, 35).add(Aspect.FLIGHT, 25).add(Aspect.AIR, 15));
 	}
 }
