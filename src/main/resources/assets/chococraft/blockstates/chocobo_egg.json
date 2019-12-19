@@ -1,15 +1,17 @@
 {
-    "forge_marker": 1,
-    "defaults":
-    {
-        "textures": {
-            "egg": "blocks/hardened_clay_stained_white"
-        },
-        "model": "chococraft:chocobo_egg"
-    },
-    "variants":
-    {
-        "normal": [{}],
-        "inventory": [{}]
-    }
+  "forge_marker": 1,
+  "defaults": {
+	"textures": {
+	  "egg": "blocks/hardened_clay_stained_white"
+	},
+	"model": "chococraft:chocobo_egg"
+  },
+  "variants": {
+	"normal": [
+	  {}
+	],
+	"inventory": [
+	  {}
+	]
+  }
 }

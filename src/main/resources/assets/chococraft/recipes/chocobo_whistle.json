@@ -1,12 +1,16 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    { "item": "minecraft:gold_ingot" },
-    { "item": "chococraft:chocobo_feather" }
+	{
+	  "item": "minecraft:gold_ingot"
+	},
+	{
+	  "item": "chococraft:chocobo_feather"
+	}
   ],
   "result": {
-    "item": "chococraft:chocobo_whistle",
-    "count": 1,
-    "data": 0
+	"item": "chococraft:chocobo_whistle",
+	"count": 1,
+	"data": 0
   }
 }

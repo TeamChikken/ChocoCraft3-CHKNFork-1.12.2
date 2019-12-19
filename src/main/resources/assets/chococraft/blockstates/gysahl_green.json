@@ -1,15 +1,43 @@
 {
   "forge_marker": 1,
-  "defaults":
-  {
-    "model": "cross"
+  "defaults": {
+	"model": "cross"
   },
-  "variants":
-  {
-    "age=0": [{ "textures": { "cross": "chococraft:blocks/gysahl_green0" } }],
-    "age=1": [{ "textures": { "cross": "chococraft:blocks/gysahl_green1" } }],
-    "age=2": [{ "textures": { "cross": "chococraft:blocks/gysahl_green2" } }],
-    "age=3": [{ "textures": { "cross": "chococraft:blocks/gysahl_green3" } }],
-    "age=4": [{ "textures": { "cross": "chococraft:blocks/gysahl_green4" } }]
+  "variants": {
+	"age=0": [
+	  {
+		"textures": {
+		  "cross": "chococraft:blocks/gysahl_green0"
+		}
+	  }
+	],
+	"age=1": [
+	  {
+		"textures": {
+		  "cross": "chococraft:blocks/gysahl_green1"
+		}
+	  }
+	],
+	"age=2": [
+	  {
+		"textures": {
+		  "cross": "chococraft:blocks/gysahl_green2"
+		}
+	  }
+	],
+	"age=3": [
+	  {
+		"textures": {
+		  "cross": "chococraft:blocks/gysahl_green3"
+		}
+	  }
+	],
+	"age=4": [
+	  {
+		"textures": {
+		  "cross": "chococraft:blocks/gysahl_green4"
+		}
+	  }
+	]
   }
 }

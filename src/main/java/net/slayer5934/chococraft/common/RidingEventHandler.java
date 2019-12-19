@@ -9,34 +9,28 @@ import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
-public class RidingEventHandler
-{
-    @SubscribeEvent
-    public static void onMountEntity(EntityMountEvent event)
-    {
-        if(event.isMounting()) return;
-        if(event.getEntityBeingMounted().isDead) return;
-        if(!(event.getEntityBeingMounted() instanceof EntityChocobo)) return;
-
-        if(!event.getEntityBeingMounted().onGround)
-            event.setCanceled(true);
-    }
-    
+public class RidingEventHandler {
+	@SubscribeEvent
+	public static void onMountEntity(EntityMountEvent event) {
+		if (event.isMounting()) return;
+		if (event.getEntityBeingMounted().isDead) return;
+		if (!(event.getEntityBeingMounted() instanceof EntityChocobo)) return;
+		
+		if (!event.getEntityBeingMounted().onGround) event.setCanceled(true);
+	}
+	
     /* This Foricbly dismounts players that log out
      * when riding a chocobo to prevent them from
      * maintaining control over it upon logging back in
      */
-    
-    @SubscribeEvent
-    public static void onPlayerDisconnect(PlayerLoggedOutEvent event)
-    {
-        if(event.player.isRiding())
-        {
-            Entity entityRide = event.player.getRidingEntity();
-            if(entityRide instanceof EntityChocobo)
-            {
-                event.player.dismountRidingEntity();
-            }
-        }
-    }
+	
+	@SubscribeEvent
+	public static void onPlayerDisconnect(PlayerLoggedOutEvent event) {
+		if (event.player.isRiding()) {
+			Entity entityRide = event.player.getRidingEntity();
+			if (entityRide instanceof EntityChocobo) {
+				event.player.dismountRidingEntity();
+			}
+		}
+	}
 }
