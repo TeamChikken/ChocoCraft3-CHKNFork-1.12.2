@@ -8,36 +8,41 @@ import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.common.inventory.ContainerNest;
 import net.slayer5934.chococraft.common.tileentities.TileEntityChocoboNest;
 
-public class GuiChocoboNest extends GuiContainer {
-	private final static ResourceLocation TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest.png");
-	private TileEntityChocoboNest tile;
-	private EntityPlayer player;
+public class GuiChocoboNest extends GuiContainer
+{
+    private final static ResourceLocation TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest.png");
+    private TileEntityChocoboNest tile;
+    private EntityPlayer player;
 
-	public GuiChocoboNest(TileEntityChocoboNest tile, EntityPlayer player) {
-		super(new ContainerNest(tile, player));
-		this.xSize = 176;
-		this.ySize = 166;
-		this.tile = tile;
-		this.player = player;
-	}
+    public GuiChocoboNest(TileEntityChocoboNest tile, EntityPlayer player)
+    {
+        super(new ContainerNest(tile, player));
+        this.xSize = 176;
+        this.ySize = 166;
+        this.tile = tile;
+        this.player = player;
+    }
 
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
-	}
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
 
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.getTextureManager().bindTexture(TEXTURE);
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-	}
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
+    {
+        this.mc.getTextureManager().bindTexture(TEXTURE);
+        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+    }
 
-	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String name = I18n.format("gui.choconest");
-		int nameLength = this.fontRenderer.getStringWidth(name);
-		this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
-	}
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+    {
+        String name = I18n.format("gui.choconest");
+        int nameLength = this.fontRenderer.getStringWidth(name);
+        this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
+    }
 }

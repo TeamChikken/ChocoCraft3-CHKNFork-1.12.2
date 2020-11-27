@@ -1,15 +1,11 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-	{
-	  "item": "minecraft:book"
-	},
-	{
-	  "item": "chococraft:gysahl_green"
-	}
+    { "item": "minecraft:book" },
+    { "item": "chococraft:gysahl_green" }
   ],
   "result": {
-	"item": "chococraft:chocopedia",
-	"count": 1
+    "item": "chococraft:chocopedia",
+    "count": 1
   }
 }

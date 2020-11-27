@@ -11,28 +11,36 @@ import net.slayer5934.chococraft.common.network.PacketManager;
 import net.slayer5934.chococraft.common.network.packets.PacketChocoboSprinting;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID, value = Side.CLIENT)
-public class ChocoboSprintingEventHandler {
-	private static boolean isSprinting = false;
+public class ChocoboSprintingEventHandler
+{
+    private static boolean isSprinting = false;
 
-	@SubscribeEvent
-	public static void onKeyPress(InputEvent.KeyInputEvent event) {
-		if (Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.isRiding()) {
-			KeyBinding keyBinding = Minecraft.getMinecraft().gameSettings.keyBindSprint;
-			if (keyBinding.isPressed()) {
-				if (!isSprinting) {
-					isSprinting = true;
-					PacketManager.INSTANCE.sendToServer(new PacketChocoboSprinting(true));
-				}
-			}
-			else {
-				if (isSprinting) {
-					isSprinting = false;
-					PacketManager.INSTANCE.sendToServer(new PacketChocoboSprinting(false));
-				}
-			}
-		}
-		else {
-			isSprinting = false;
-		}
-	}
+    @SubscribeEvent
+    public static void onKeyPress(InputEvent.KeyInputEvent event)
+    {
+        if(Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.isRiding())
+        {
+            KeyBinding keyBinding = Minecraft.getMinecraft().gameSettings.keyBindSprint;
+            if(keyBinding.isPressed())
+            {
+                if(!isSprinting)
+                {
+                    isSprinting = true;
+                    PacketManager.INSTANCE.sendToServer(new PacketChocoboSprinting(true));
+                }
+            }
+            else
+            {
+                if(isSprinting)
+                {
+                    isSprinting = false;
+                    PacketManager.INSTANCE.sendToServer(new PacketChocoboSprinting(false));
+                }
+            }
+        }
+        else
+        {
+            isSprinting = false;
+        }
+    }
 }

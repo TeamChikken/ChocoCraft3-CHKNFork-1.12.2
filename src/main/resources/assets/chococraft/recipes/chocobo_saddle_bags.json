@@ -1,26 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-	" F ",
-	"LSL",
-	" L "
+    " F ",
+    "LSL",
+    " L "
   ],
   "key": {
-	"L": {
-	  "ore": "leather",
-	  "type": "forge:ore_dict"
-	},
-	"F": {
-	  "item": "chococraft:chocobo_feather"
-	},
-	"S": {
-	  "item": "chococraft:chocobo_saddle",
-	  "data": 0
-	}
+    "L": { "ore": "leather", "type": "forge:ore_dict" },
+    "F": { "item": "chococraft:chocobo_feather" },
+	"S": { "item": "chococraft:chocobo_saddle", "data": 0 }
   },
   "result": {
-	"item": "chococraft:chocobo_saddle",
-	"count": 1,
-	"data": 1
+    "item": "chococraft:chocobo_saddle",
+    "count": 1,
+    "data": 1
   }
 }

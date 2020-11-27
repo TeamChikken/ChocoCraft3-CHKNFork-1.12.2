@@ -13,15 +13,17 @@ import net.slayer5934.chococraft.Chococraft;
 import net.slayer5934.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID, value = Side.CLIENT)
-public class GuiChocoboIngameOverlay {
+public class GuiChocoboIngameOverlay
+{
 	public static final ResourceLocation ICONS = new ResourceLocation(Chococraft.MODID, "textures/gui/icons.png");
 
 	@SubscribeEvent
-	public static void onGuiInagmeOverlayRender(RenderGameOverlayEvent.Post event) {
-		if (event.getType() != RenderGameOverlayEvent.ElementType.HEALTHMOUNT) return;
+	public static void onGuiInagmeOverlayRender(RenderGameOverlayEvent.Post event)
+	{
+		if(event.getType() != RenderGameOverlayEvent.ElementType.HEALTHMOUNT) return;
 
 		Entity mountedEntity = Minecraft.getMinecraft().player.getRidingEntity();
-		if (!(mountedEntity instanceof EntityChocobo)) return;
+		if(!(mountedEntity instanceof EntityChocobo)) return;
 		EntityChocobo chocobo = (EntityChocobo) mountedEntity;
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(ICONS);
@@ -32,20 +34,25 @@ public class GuiChocoboIngameOverlay {
 		int top = height - GuiIngameForge.right_height;
 		float staminaPercentage = chocobo.getStaminaPercentage() * 10;
 
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 10; ++i)
+		{
 			int x = left_align - i * 8 - 9;
-			if (i >= staminaPercentage) {
+			if(i >= staminaPercentage)
+			{
 				// render empty
 				Gui.drawModalRectWithCustomSizedTexture(x, top, 0, 0, 9, 9, 32, 32);
 			}
-			else {
-				if (i == ((int) staminaPercentage)) {
+			else
+			{
+				if(i == ((int)staminaPercentage))
+				{
 					// draw partial
 					Gui.drawModalRectWithCustomSizedTexture(x, top, 0, 0, 9, 9, 32, 32);
 					int iconHeight = (int) (9 * (staminaPercentage - ((int) staminaPercentage)));
 					Gui.drawModalRectWithCustomSizedTexture(x, top + (9 - iconHeight), 0, 18 + (9 - iconHeight), 9, iconHeight, 32, 32);
 				}
-				else {
+				else
+				{
 					// draw full
 					Gui.drawModalRectWithCustomSizedTexture(x, top, 0, 18, 9, 9, 32, 32);
 				}

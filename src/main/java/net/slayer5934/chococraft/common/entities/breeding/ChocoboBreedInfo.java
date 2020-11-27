@@ -1,42 +1,51 @@
 package net.slayer5934.chococraft.common.entities.breeding;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import javax.annotation.Nullable;
 
-public class ChocoboBreedInfo {
-	public final static String NBTKEY_MOTHER_STATSNAPSHOT = "mother";
-	public final static String NBTKEY_FATHER_STATSNAPSHOT = "father";
+import net.minecraft.nbt.NBTTagCompound;
 
-	private ChocoboStatSnapshot mother = ChocoboStatSnapshot.DEFAULT;
-	private ChocoboStatSnapshot father = ChocoboStatSnapshot.DEFAULT;
+public class ChocoboBreedInfo
+{
+    public final static String NBTKEY_MOTHER_STATSNAPSHOT = "mother";
+    public final static String NBTKEY_FATHER_STATSNAPSHOT = "father";
 
-	public ChocoboStatSnapshot getMother() {
-		return this.mother;
-	}
+    private ChocoboStatSnapshot mother = ChocoboStatSnapshot.DEFAULT;
+    private ChocoboStatSnapshot father = ChocoboStatSnapshot.DEFAULT;
 
-	public ChocoboStatSnapshot getFather() {
-		return this.father;
-	}
+    public ChocoboStatSnapshot getMother()
+    {
+        return this.mother;
+    }
 
-	public ChocoboBreedInfo(ChocoboStatSnapshot mother, ChocoboStatSnapshot father) {
-		this.mother = mother;
-		this.father = father;
-	}
+    public ChocoboStatSnapshot getFather()
+    {
+        return this.father;
+    }
 
-	public ChocoboBreedInfo(NBTTagCompound nbt) {
-		if (nbt.hasKey(NBTKEY_MOTHER_STATSNAPSHOT)) this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_MOTHER_STATSNAPSHOT));
-		if (nbt.hasKey(NBTKEY_FATHER_STATSNAPSHOT)) this.father = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_FATHER_STATSNAPSHOT));
-	}
+    public ChocoboBreedInfo(ChocoboStatSnapshot mother, ChocoboStatSnapshot father)
+    {
+        this.mother = mother;
+        this.father = father;
+    }
 
-	public NBTTagCompound serialize() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setTag(NBTKEY_MOTHER_STATSNAPSHOT, this.mother.serialize());
-		nbt.setTag(NBTKEY_FATHER_STATSNAPSHOT, this.father.serialize());
-		return nbt;
-	}
+    public ChocoboBreedInfo(NBTTagCompound nbt)
+    {
+        if(nbt.hasKey(NBTKEY_MOTHER_STATSNAPSHOT))
+            this.mother = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_MOTHER_STATSNAPSHOT));
+        if(nbt.hasKey(NBTKEY_FATHER_STATSNAPSHOT))
+            this.father = new ChocoboStatSnapshot(nbt.getCompoundTag(NBTKEY_FATHER_STATSNAPSHOT));
+    }
 
-	public static ChocoboBreedInfo getFromNbtOrDefault(@Nullable NBTTagCompound nbt) {
-		return nbt != null ? new ChocoboBreedInfo(nbt) : new ChocoboBreedInfo(ChocoboStatSnapshot.DEFAULT, ChocoboStatSnapshot.DEFAULT);
-	}
+    public NBTTagCompound serialize()
+    {
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setTag(NBTKEY_MOTHER_STATSNAPSHOT, this.mother.serialize());
+        nbt.setTag(NBTKEY_FATHER_STATSNAPSHOT, this.father.serialize());
+        return nbt;
+    }
+
+    public static ChocoboBreedInfo getFromNbtOrDefault(@Nullable NBTTagCompound nbt)
+    {
+        return nbt != null ? new ChocoboBreedInfo(nbt) : new ChocoboBreedInfo(ChocoboStatSnapshot.DEFAULT, ChocoboStatSnapshot.DEFAULT);
+    }
 }
