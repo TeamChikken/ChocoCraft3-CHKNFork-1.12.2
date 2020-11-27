@@ -1,64 +1,25 @@
 {
   "forge_marker": 1,
   "defaults": {
-	"model": "builtin/generated",
-	"transform": "forge:default-item",
-	"textures": {
-	  "layer0": "chococraft:items/spawn_egg_yellow"
-	}
+    "model": "builtin/generated",
+    "transform": "forge:default-item",
+    "textures": {
+      "layer0": "chococraft:items/spawn_egg_yellow"
+    }
   },
   "variants": {
-	"type": {
-	  "yellow": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_yellow"
-		}
-	  },
-	  "green": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_green"
-		}
-	  },
-	  "blue": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_blue"
-		}
-	  },
-	  "white": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_white"
-		}
-	  },
-	  "black": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_black"
-		}
-	  },
-	  "gold": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_gold"
-		}
-	  },
-	  "pink": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_pink"
-		}
-	  },
-	  "red": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_red"
-		}
-	  },
-	  "purple": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_purple"
-		}
-	  },
-	  "flame": {
-		"textures": {
-		  "layer0": "chococraft:items/spawn_egg_flame"
-		}
-	  }
-	}
+    "type":
+    {
+      "yellow": { "textures": { "layer0": "chococraft:items/spawn_egg_yellow" } },
+      "green": { "textures": { "layer0": "chococraft:items/spawn_egg_green" } },
+      "blue": { "textures": { "layer0": "chococraft:items/spawn_egg_blue" } },
+      "white": { "textures": { "layer0": "chococraft:items/spawn_egg_white" } },
+      "black": { "textures": { "layer0": "chococraft:items/spawn_egg_black" } },
+      "gold": { "textures": { "layer0": "chococraft:items/spawn_egg_gold" } },
+      "pink": { "textures": { "layer0": "chococraft:items/spawn_egg_pink" } },
+      "red": { "textures": { "layer0": "chococraft:items/spawn_egg_red" } },
+      "purple": { "textures": { "layer0": "chococraft:items/spawn_egg_purple" } },
+      "flame": { "textures": { "layer0": "chococraft:items/spawn_egg_flame" } }
+    }
   }
 }
