@@ -661,7 +661,8 @@ public class EntityChocobo extends EntityTameable
 			return true;
 		}
 
-		if (this.getEntityWorld().isRemote) return true;
+		if (this.getEntityWorld().isRemote)
+			return true;
 
 		if (this.isSaddled() && heldItemStack.isEmpty() && !player.isSneaking() && !this.isChild())
 		{
@@ -686,19 +687,17 @@ public class EntityChocobo extends EntityTameable
 		
 		if(this.isTamed() && heldItemStack.getItem() == ModItems.gysahlGreen)
 		{
-			{
-				if(getHealth() != getMaxHealth()) {
-					this.consumeItemFromStack(player, player.inventory.getCurrentItem());
-					heal(5);
-				} else {
-					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.heal_fail"), true);
-				}
+			if(getHealth() != getMaxHealth()) {
+				this.consumeItemFromStack(player, player.inventory.getCurrentItem());
+				heal(5);
+			} else {
+				player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.heal_fail"), true);
 			}
 		}
 		
 		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle && !this.isChild())
 		{
-			{
+			if (getOwnerId() == player.getUniqueID()) {
 				if(this.followingmrhuman == 3) {
 					this.playSound(ModSounds.WHISTLE_SOUND_FOLLOW, 1.0F, 1.0F);
 					this.setNoAI(false);
@@ -716,7 +715,10 @@ public class EntityChocobo extends EntityTameable
 					followingmrhuman = 3;
 					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.chocobo_staycmd"), true);
 				}
+			} else {
+				player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.not_owner"), true);
 			}
+			return true;
 		}
 
 		if(this.isTamed() && !this.isInLove() && heldItemStack.getItem() == ModItems.lovelyGysahlGreen && !this.isChild())
@@ -737,12 +739,17 @@ public class EntityChocobo extends EntityTameable
 
 		if(this.isTamed() && !heldItemStack.isEmpty())
 		{
-			Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
-			if(color.isPresent())
-			{
-				this.consumeItemFromStack(player, heldItemStack);
-				this.setChocoboColor(color.get());
+			if (getOwnerId() == player.getUniqueID()) {
+				Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
+				if(color.isPresent())
+				{
+					this.consumeItemFromStack(player, heldItemStack);
+					this.setChocoboColor(color.get());
+				}
+			} else {
+				player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.not_owner"), true);
 			}
+			return true;
 		}
 
 		return super.processInteract(player, hand);
@@ -777,8 +784,8 @@ public class EntityChocobo extends EntityTameable
 			{
 				if(!this.isDead) 
 				{
-				ItemStack stack = this.chocoboInventory.extractItem(i, Integer.MAX_VALUE, false);
-				InventoryHelper.spawnItemStack(this.getEntityWorld(), this.posX, this.posY + .5, this.posZ, stack);
+					ItemStack stack = this.chocoboInventory.extractItem(i, Integer.MAX_VALUE, false);
+					InventoryHelper.spawnItemStack(this.getEntityWorld(), this.posX, this.posY + .5, this.posZ, stack);
 				}
 			}
 		}

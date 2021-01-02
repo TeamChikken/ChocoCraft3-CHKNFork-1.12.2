@@ -55,6 +55,7 @@ chococraft.entity_chocobo.saddle_applied=Saddle applied
 chococraft.entity_chocobo.chocobo_followcmd=Follow
 chococraft.entity_chocobo.chocobo_wandercmd=Wander
 chococraft.entity_chocobo.chocobo_staycmd=Stay
+chococraft.entity_chocobo.not_owner=§cYou are not the owner of this Chocobo!
 
 chococraft.general.world=World
 chococraft.general.world.gysahlgreenspawnweight=Gysahl Green Spawn Weight
