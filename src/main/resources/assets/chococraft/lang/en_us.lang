@@ -78,11 +78,22 @@ cmd.chococraft.chocobo.can_glide=Can Glide: §atrue
 cmd.chococraft.chocobo.can_not_fly=Can Fly: §cfalse
 cmd.chococraft.chocobo.can_fly=Can Fly: §atrue
 
-gui.chocoinfo.button.ability=You currently have %s out of %s experience needed to %s.
-gui.chocoinfo.button.sprint=Unlock Sprint
-gui.chocoinfo.button.glide=Unlock Glide
-gui.chocoinfo.button.dive=Unlock Dive
-gui.chocoinfo.button.fly=Unlock Fly
+gui.chocoinfo.button.ability=You currently have %s out of %s experience needed to unlock %s.
+gui.chocoinfo.button.already_unlocked_ability=You have already unlocked %s.
+gui.chocoinfo.button.button_format=Unlock %s
+gui.chocoinfo.button.sprint=Sprint
+gui.chocoinfo.button.glide=Glide
+gui.chocoinfo.button.dive=Dive
+gui.chocoinfo.button.fly=Fly
+gui.chocoinfo.texture.gender=Geneder
+gui.chocoinfo.texture.male=Male
+gui.chocoinfo.texture.female=Female
+gui.chocoinfo.texture.health=Health
+gui.chocoinfo.texture.speed=Speed
+gui.chocoinfo.texture.stamina=Stamina
+gui.chocoinfo.text.not_tamed=Not tamed
+gui.chocoinfo.text.unknown_owner=Unknown owner
+gui.chocoinfo.text.owner_format=Owner: %s
 
 gui.choconest=Chocobo Nest
 
