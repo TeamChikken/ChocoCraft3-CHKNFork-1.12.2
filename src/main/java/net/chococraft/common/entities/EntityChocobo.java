@@ -697,7 +697,7 @@ public class EntityChocobo extends EntityTameable
 		
 		if(this.isTamed() && heldItemStack.getItem() == ModItems.chocoboWhistle && !this.isChild())
 		{
-			if (getOwnerId() == player.getUniqueID()) {
+			if (isOwner(player)) {
 				if(this.followingmrhuman == 3) {
 					this.playSound(ModSounds.WHISTLE_SOUND_FOLLOW, 1.0F, 1.0F);
 					this.setNoAI(false);
@@ -739,7 +739,7 @@ public class EntityChocobo extends EntityTameable
 
 		if(this.isTamed() && !heldItemStack.isEmpty())
 		{
-			if (getOwnerId() == player.getUniqueID()) {
+			if (isOwner(player)) {
 				Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
 				if(color.isPresent())
 				{
