@@ -25,6 +25,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -739,16 +740,21 @@ public class EntityChocobo extends EntityTameable
 
 		if(this.isTamed() && !heldItemStack.isEmpty())
 		{
-			if (isOwner(player)) {
-				Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
-				if(color.isPresent())
-				{
+			Optional<ChocoboColor> color = ChocoboColor.getColorForItemstack(heldItemStack);
+			if(color.isPresent())
+			{
+				if (isOwner(player)) {
 					this.consumeItemFromStack(player, heldItemStack);
 					this.setChocoboColor(color.get());
+				} else {
+					player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.not_owner"), true);
 				}
-			} else {
-				player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.not_owner"), true);
+				return true;
 			}
+		}
+
+		if(this.isTamed() && heldItemStack.getItem() == Items.NAME_TAG && !isOwner(player)) {
+			player.sendStatusMessage(new TextComponentTranslation(Chococraft.MODID + ".entity_chocobo.not_owner"), true);
 			return true;
 		}
 
