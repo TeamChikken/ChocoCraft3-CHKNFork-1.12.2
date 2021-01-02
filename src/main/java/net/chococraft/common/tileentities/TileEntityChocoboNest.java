@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
@@ -55,8 +56,6 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     @SuppressWarnings("WeakerAccess")
     public static final String NBTKEY_TICKS = "Ticks";
     @SuppressWarnings("WeakerAccess")
-    public static final String NBTKEY_OWNER_CHOCOBO = "Chocobo";
-    @SuppressWarnings("WeakerAccess")
     public static final String NBTKEY_NEST_INVENTORY = "Inventory";
 
     private ItemStackHandler inventory = new ItemStackHandler(1)
@@ -80,14 +79,15 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         }
     };
 
-    private UUID ownerChocobo;
     private boolean isSheltered;
     private int ticks = 0;
 
     @Override
     public void update()
     {
-        if(this.world.isRemote) return;
+        if(this.world.isRemote)
+            return;
+
         this.ticks++;
         if(ticks > 1_000_000)
             ticks = 0;
@@ -102,7 +102,6 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         if(this.ticks % 200 == 100)
         {
             changed |= this.updateSheltered();
-            changed |= this.updateOwner();
         }
 
         if(changed)
@@ -123,12 +122,6 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
             time++;
 
         // TODO: Add a way to let the player control which chocobo is the owner of this nest, maybe even move the ownership info into the egg itself
-        /*if(this.ownerChocobo != null)
-        {
-            List<EntityChocobo> chocobos = this.world.getEntitiesWithinAABB(EntityChocobo.class, new AxisAlignedBB(this.pos).expand(6, 3, 6));
-            if(chocobos.stream().anyMatch(c -> c.getUniqueID().equals(this.ownerChocobo)))
-                time++;
-        }*/
 
         nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, ++time);
 
@@ -157,48 +150,18 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         return true;
     }
 
-    private boolean updateOwner()
-    {
-        if(this.ownerChocobo != null) return false;
-        List<EntityChocobo> chocobos = this.world.getEntitiesWithinAABB(EntityChocobo.class, new AxisAlignedBB(this.pos).expand(16, 8, 16));
-        double dist = Double.MAX_VALUE;
-        EntityChocobo closestChocobo = null;
-        for(EntityChocobo chocobo : chocobos)
-        {
-            double d = chocobo.getPosition().distanceSq(this.pos);
-            if(d < dist)
-            {
-                dist = d;
-                closestChocobo = chocobo;
-            }
-        }
-
-        if(closestChocobo != null)
-        {
-            this.ownerChocobo = closestChocobo.getUniqueID();
-            closestChocobo.setNestPosition(this.pos);
-        }
-        return this.ownerChocobo != null;
-    }
-
     private boolean updateSheltered()
     {
-        boolean changed = false;
         // TODO: Make this better, use "can see sky" for shelter detection
-        for(CheckOffset checkOffset : SHELTER_CHECK_OFFSETS)
+        boolean sheltered = isSheltered();
+
+        if (this.isSheltered != sheltered)
         {
-            if(world.isAirBlock(this.getPos().add(checkOffset.offset)) != checkOffset.shouldBeAir)
-            {
-                if(this.isSheltered)
-                    changed = true;
-                this.isSheltered = false;
-                return changed;
-            }
+            this.isSheltered = sheltered;
+            return true;
         }
-        if(!this.isSheltered)
-            changed = true;
-        this.isSheltered = true;
-        return changed;
+
+        return false;
     }
 
     public ItemStack getEggItemStack()
@@ -226,8 +189,6 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         super.readFromNBT(nbt);
         this.isSheltered = nbt.getBoolean(NBTKEY_IS_SHELTERED);
         this.ticks = nbt.getInteger(NBTKEY_TICKS);
-        if(nbt.hasKey(NBTKEY_OWNER_CHOCOBO))
-            this.ownerChocobo = NBTUtil.getUUIDFromTag(nbt.getCompoundTag(NBTKEY_OWNER_CHOCOBO));
         this.inventory.deserializeNBT(nbt.getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
 
@@ -236,8 +197,6 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     {
         nbt.setBoolean(NBTKEY_IS_SHELTERED, this.isSheltered);
         nbt.setInteger(NBTKEY_TICKS, this.ticks);
-        if(this.ownerChocobo != null)
-            nbt.setTag(NBTKEY_OWNER_CHOCOBO, NBTUtil.createUUIDTag(this.ownerChocobo));
         nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return super.writeToNBT(nbt);
     }
@@ -303,5 +262,18 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         this.markDirty();
         IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, !this.getEggItemStack().isEmpty());
         this.getWorld().setBlockState(this.getPos(), newState);
+    }
+
+    public boolean isSheltered() {
+        boolean sheltered = true;
+        for(CheckOffset checkOffset : SHELTER_CHECK_OFFSETS)
+        {
+            if(world.isAirBlock(this.getPos().add(checkOffset.offset)) != checkOffset.shouldBeAir)
+            {
+                sheltered = false;
+                break;
+            }
+        }
+        return sheltered;
     }
 }

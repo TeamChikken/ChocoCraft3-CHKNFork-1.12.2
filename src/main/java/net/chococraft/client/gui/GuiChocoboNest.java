@@ -11,6 +11,7 @@ import net.chococraft.common.tileentities.TileEntityChocoboNest;
 public class GuiChocoboNest extends GuiContainer
 {
     private final static ResourceLocation TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest.png");
+    private final static ResourceLocation TEXTURE_SHELTERED = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest_sheltered.png");
     private TileEntityChocoboNest tile;
     private EntityPlayer player;
 
@@ -34,8 +35,8 @@ public class GuiChocoboNest extends GuiContainer
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
-        this.mc.getTextureManager().bindTexture(TEXTURE);
-        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.mc.getTextureManager().bindTexture(this.tile.isSheltered() ? TEXTURE_SHELTERED : TEXTURE);
+        this.drawTexturedModalRect(this.guiLeft, this.guiTop,  0, 0, this.xSize, this.ySize);
     }
 
     @Override
