@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -25,6 +26,7 @@ import net.chococraft.common.items.ItemGysahlGreenSeeds;
 import net.chococraft.utils.inject.ClassInjector;
 import net.chococraft.utils.inject.InstanceFactoryMethod;
 import net.chococraft.utils.registration.IItemModelProvider;
+import net.minecraftforge.oredict.OreDictionary;
 
 @SuppressWarnings("unused")
 @GameRegistry.ObjectHolder(Chococraft.MODID)
@@ -121,6 +123,8 @@ public class ModItems
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(rl, "inventory"));
 			}
         }
+
+        OreDictionary.registerOre("feather", ModItems.chocoboFeather);
     }
 
     @Retention(RetentionPolicy.RUNTIME)
