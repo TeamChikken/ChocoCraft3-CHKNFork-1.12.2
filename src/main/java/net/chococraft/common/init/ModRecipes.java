@@ -14,5 +14,6 @@ public class ModRecipes
     public static void onRegisterRecipes(RegistryEvent.Register<IRecipe> event)
     {
         GameRegistry.addSmelting(ModItems.chocoboDrumStickRaw, new ItemStack(ModItems.chocoboDrumStickCooked), 2);
+        GameRegistry.addSmelting(ModItems.pickledGysahlRaw, new ItemStack(ModItems.pickledGysahlCooked), 2);
     }
 }
