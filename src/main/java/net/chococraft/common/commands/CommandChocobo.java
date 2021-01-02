@@ -27,7 +27,6 @@ public class CommandChocobo extends CommandBase
     static
     {
         setMap = new HashMap<>();
-        setMap.put("level", (entity, arg) -> entity.setLevel(Integer.parseInt(arg)));
         setMap.put("health", (entity, arg) -> entity.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Float.parseFloat(arg)));
         setMap.put("resistance", (entity, arg) -> entity.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Float.parseFloat(arg)));
         setMap.put("speed", (entity, arg) -> entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Float.parseFloat(arg)));

@@ -72,7 +72,6 @@ public class EntityChocobo extends EntityTameable
 	public static final String NBTKEY_SADDLE_ITEM = "Saddle";
 	public static final String NBTKEY_INVENTORY = "Inventory";
 	public static final String NBTKEY_NEST_POSITION = "NestPos";
-	public static final String NBTKEY_CHOCOBO_LEVEL = "Level";
 	public static final String NBTKEY_CHOCOBO_GENERATION = "Generation";
 	public static final String NBTKEY_CHOCOBO_STAMINA = "Stamina";
 	public static final String NBTKEY_CHOCOBO_CAN_FLY = "CanFly";
@@ -90,7 +89,6 @@ public class EntityChocobo extends EntityTameable
 	private static final DataParameter<MovementType> PARAM_MOVEMENT_TYPE = EntityDataManager.createKey(EntityChocobo.class, EntityDataSerializers.MOVEMENT_TYPE);
 	private static final DataParameter<ItemStack> PARAM_SADDLE_ITEM = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.ITEM_STACK);
 
-	private final static DataParameter<Integer> PARAM_LEVEL = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.VARINT);
 	private final static DataParameter<Integer> PARAM_GENERATION = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.VARINT);
 	private final static DataParameter<Float> PARAM_STAMINA = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.FLOAT);
 	private final static DataParameter<Byte> PARAM_ABILITY_MASK = EntityDataManager.createKey(EntityChocobo.class, DataSerializers.BYTE);
@@ -153,7 +151,6 @@ public class EntityChocobo extends EntityTameable
 		this.dataManager.register(PARAM_MOVEMENT_TYPE, MovementType.WANDER);
 		this.dataManager.register(PARAM_SADDLE_ITEM, ItemStack.EMPTY);
 
-		this.dataManager.register(PARAM_LEVEL, 1);
 		this.dataManager.register(PARAM_STAMINA, (float)ChocoConfig.chocobo.defaultStamina);
 		this.dataManager.register(PARAM_GENERATION, 0);
 		this.dataManager.register(PARAM_ABILITY_MASK, (byte)0);
@@ -195,7 +192,6 @@ public class EntityChocobo extends EntityTameable
 		if(nbt.hasKey(NBTKEY_NEST_POSITION))
 		    this.nestPos = NBTUtil.getPosFromTag(nbt.getCompoundTag(NBTKEY_NEST_POSITION));
 
-		this.setLevel(nbt.getInteger(NBTKEY_CHOCOBO_LEVEL));
 		this.setGeneration(nbt.getInteger(NBTKEY_CHOCOBO_GENERATION));
 		this.setStamina(nbt.getFloat(NBTKEY_CHOCOBO_STAMINA));
 
@@ -220,7 +216,6 @@ public class EntityChocobo extends EntityTameable
 		if(this.nestPos != null)
 		    nbt.setTag(NBTKEY_NEST_POSITION, NBTUtil.createPosTag(this.nestPos));
 
-		nbt.setInteger(NBTKEY_CHOCOBO_LEVEL, this.getLevel());
 		nbt.setInteger(NBTKEY_CHOCOBO_GENERATION, this.getGeneration());
 		nbt.setFloat(NBTKEY_CHOCOBO_STAMINA, this.getStamina());
 
@@ -293,8 +288,6 @@ public class EntityChocobo extends EntityTameable
 	}
 
 	//region Chocobo statistics getter/setter
-	public int getLevel() { return this.dataManager.get(PARAM_LEVEL); }
-	public void setLevel(int value) { this.dataManager.set(PARAM_LEVEL, value); }
 	public float getStamina() { return this.dataManager.get(PARAM_STAMINA); }
 	public void setStamina(float value) { this.dataManager.set(PARAM_STAMINA, value); }
 
