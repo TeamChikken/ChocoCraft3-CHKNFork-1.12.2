@@ -111,19 +111,17 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     private boolean updateEgg()
     {
         ItemStack egg = this.getEggItemStack();
+
+        if (!BlockChocoboEgg.isChocoboEgg(egg))
+            return false;
+
         if(!egg.hasTagCompound())
            return false;
 
         NBTTagCompound nbt = egg.getOrCreateSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
         int time = nbt.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
-        time++;
-
-        if(this.isSheltered)
-            time++;
-
-        // TODO: Add a way to let the player control which chocobo is the owner of this nest, maybe even move the ownership info into the egg itself
-
-        nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, ++time);
+        time += this.isSheltered ? 2 : 1;
+        nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, time);
 
         if(time < ChocoConfig.breeding.eggHatchTimeTicks)
             return false;
@@ -173,8 +171,15 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     {
         if(itemStack.isEmpty())
             this.inventory.setStackInSlot(0, ItemStack.EMPTY);
-        else if(BlockChocoboEgg.isChocoboEgg(itemStack))
+        else if(BlockChocoboEgg.isChocoboEgg(itemStack)) {
             this.inventory.setStackInSlot(0, itemStack);
+            if (itemStack.hasTagCompound())
+            {
+                NBTTagCompound nbt = itemStack.getOrCreateSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
+                int time = nbt.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
+                nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, time);
+            }
+        }
     }
 
     public IItemHandler getInventory()

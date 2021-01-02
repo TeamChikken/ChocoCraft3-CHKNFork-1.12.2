@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.chococraft.common.ChocoConfig;
+import net.chococraft.common.items.ItemBlockChocoboEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -12,6 +14,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -123,7 +126,7 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
             }
             if (breedInfo != null) {
                 itemStack.setTagInfo(NBTKEY_BREEDINFO, breedInfo.serialize());
-            	}
+            }
             spawnAsEntity(worldIn, pos, itemStack);
             return;
         }
@@ -133,10 +136,10 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced)
     {
-        NBTTagCompound nbt = stack.getSubCompound(NBTKEY_BREEDINFO);
-        if(nbt != null)
+        NBTTagCompound nbtBreedInfo = stack.getSubCompound(NBTKEY_BREEDINFO);
+        if(nbtBreedInfo != null)
         {
-            ChocoboBreedInfo info = new ChocoboBreedInfo(nbt);
+            ChocoboBreedInfo info = new ChocoboBreedInfo(nbtBreedInfo);
             ChocoboStatSnapshot mother = info.getMother();
             ChocoboStatSnapshot father = info.getFather();
 
@@ -147,5 +150,11 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider
         {
             tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.invalid_egg"));
         }
+    }
+
+    @Override
+    public Item createItemBlock()
+    {
+        return new ItemBlockChocoboEgg(this);
     }
 }
