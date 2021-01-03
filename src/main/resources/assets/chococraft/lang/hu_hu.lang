@@ -72,6 +72,7 @@ chococraft.general.gysahlgreenpatchsize=Gysahl Zöld Folt Méret
 
 cmd.chococraft.chocobo.invalid_set_parameters=Hibás parameter
 cmd.chococraft.chocobo.successfuly_set_parameters=%s beállítva: %s
+cmd.chococraft.chocobo.not_riding_chocobo=Egy Chocobon kell ülnöd a parancs használatához.
 
 cmd.chococraft.chocobo.get_health=Életerő: %s
 cmd.chococraft.chocobo.get_resistance=Ellenállóság: %s

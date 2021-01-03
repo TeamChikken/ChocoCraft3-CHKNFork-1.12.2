@@ -72,6 +72,7 @@ chococraft.general.gysahlgreenpatchsize=Gysahl Green Patch Size
 
 cmd.chococraft.chocobo.invalid_set_parameters=Invalid parameters
 cmd.chococraft.chocobo.successfuly_set_parameters=Set %s to %s
+cmd.chococraft.chocobo.not_riding_chocobo=You should ride the Chocobo to use this command!
 
 cmd.chococraft.chocobo.get_health=Health: %s
 cmd.chococraft.chocobo.get_resistance=Resitance: %s
