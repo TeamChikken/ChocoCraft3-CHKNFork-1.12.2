@@ -64,14 +64,13 @@ public class Chococraft {
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
 
-        // Attempt at biome spawn fix, as well as being less cluttery.
-        Set<Biome> MrBiomes = new HashSet<>();
+        Set<Biome> biomes = new HashSet<>();
 
-        MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
-        MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
+        biomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
+        biomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
+        biomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER));
 
-        EntityRegistry.addSpawn(EntityChocobo.class, ChocoConfig.world.chocoboSpawnWeight, ChocoConfig.world.chocoboPackSizeMin, ChocoConfig.world.chocoboPackSizeMax, EnumCreatureType.CREATURE, MrBiomes.toArray(new Biome[MrBiomes.size()]));
-        //
+        EntityRegistry.addSpawn(EntityChocobo.class, ChocoConfig.world.chocoboSpawnWeight, ChocoConfig.world.chocoboPackSizeMin, ChocoConfig.world.chocoboPackSizeMax, EnumCreatureType.CREATURE, biomes.toArray(new Biome[biomes.size()]));
     }
 
     @Mod.EventHandler

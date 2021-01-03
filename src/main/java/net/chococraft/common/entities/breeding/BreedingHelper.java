@@ -49,9 +49,7 @@ public class BreedingHelper {
 
         ChocoboColor color = ChocoboColor.YELLOW;
 
-        if (.02f > (float) Math.random()) {
-            color = ChocoboColor.FLAME;
-        } else if (canFlyChance > canflychancerandom) {
+        if (canFlyChance > canflychancerandom) {
             color = ChocoboColor.GOLD;
         } else if (canDiveChance > candivechancerandom) {
             color = ChocoboColor.BLUE;

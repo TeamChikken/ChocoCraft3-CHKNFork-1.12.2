@@ -44,6 +44,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.items.ItemStackHandler;
 import net.chococraft.Chococraft;
@@ -159,6 +160,8 @@ public class EntityChocobo extends EntityTameable {
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         this.setMale(this.world.rand.nextBoolean());
+        if (BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).contains(this.world.getBiome((new BlockPos(this)).down())))
+            this.setChocoboColor(ChocoboColor.FLAME);
         return super.onInitialSpawn(difficulty, livingdata);
     }
 
@@ -748,5 +751,13 @@ public class EntityChocobo extends EntityTameable {
     @Override
     public int getTalkInterval() {
         return (24 * (int) (Math.random() * 100));
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        if (BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).contains(this.world.getBiome((new BlockPos(this)).down())))
+            return true;
+
+        return super.getCanSpawnHere();
     }
 }
