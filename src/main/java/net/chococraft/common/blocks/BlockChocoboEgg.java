@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.chococraft.common.ChocoConfig;
+import net.chococraft.common.entities.properties.ChocoboColor;
 import net.chococraft.common.items.ItemBlockChocoboEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -123,6 +124,23 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider {
         super.harvestBlock(worldIn, player, pos, state, te, stack);
     }
 
+    public String getColorText(ChocoboColor color) {
+        switch (color) {
+            case YELLOW: return I18n.format("item.chococraft.chocobo_egg.tooltip.yellow");
+            case GREEN: return I18n.format("item.chococraft.chocobo_egg.tooltip.green");
+            case BLUE: return I18n.format("item.chococraft.chocobo_egg.tooltip.blue");
+            case WHITE: return I18n.format("item.chococraft.chocobo_egg.tooltip.white");
+            case BLACK: return I18n.format("item.chococraft.chocobo_egg.tooltip.black");
+            case GOLD: return I18n.format("item.chococraft.chocobo_egg.tooltip.gold");
+            case PINK: return I18n.format("item.chococraft.chocobo_egg.tooltip.pink");
+            case RED: return I18n.format("item.chococraft.chocobo_egg.tooltip.red");
+            case PURPLE: return I18n.format("item.chococraft.chocobo_egg.tooltip.purple");
+            case FLAME: return I18n.format("item.chococraft.chocobo_egg.tooltip.flame");
+        }
+
+        return "";
+    }
+
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         NBTTagCompound nbtBreedInfo = stack.getSubCompound(NBTKEY_BREEDINFO);
@@ -131,8 +149,8 @@ public class BlockChocoboEgg extends Block implements IItemBlockProvider {
             ChocoboStatSnapshot mother = info.getMother();
             ChocoboStatSnapshot father = info.getFather();
 
-            tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.mother_info", (int) mother.health, (int) (mother.speed * 100), (int) mother.stamina));
-            tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.father_info", (int) father.health, (int) (father.speed * 100), (int) father.stamina));
+            tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.mother_info", (int) mother.health, (int) (mother.speed * 100), (int) mother.stamina, getColorText(mother.color)));
+            tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.father_info", (int) father.health, (int) (father.speed * 100), (int) father.stamina, getColorText(mother.color)));
         } else {
             tooltip.add(I18n.format("item." + Chococraft.MODID + ".chocobo_egg.tooltip.invalid_egg"));
         }

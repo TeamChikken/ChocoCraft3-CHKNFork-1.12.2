@@ -1,5 +1,6 @@
 package net.chococraft.common.entities.breeding;
 
+import net.chococraft.common.entities.properties.ChocoboColor;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.chococraft.common.ChocoConfig;
@@ -17,6 +18,7 @@ public class ChocoboStatSnapshot {
     public static final String NBTKEY_CAN_GLIDE = "CanGlide";
     public static final String NBTKEY_CAN_DIVE = "CanDive";
     public static final String NBTKEY_CAN_FLY = "CanFly";
+    public static final String NBTKEY_COLOR = "Color";
 
     public int generation;
     public float health;
@@ -26,6 +28,7 @@ public class ChocoboStatSnapshot {
     public boolean canGlide;
     public boolean canDive;
     public boolean canFly;
+    public ChocoboColor color;
 
     static {
         DEFAULT = new ChocoboStatSnapshot();
@@ -38,6 +41,7 @@ public class ChocoboStatSnapshot {
         DEFAULT.canGlide = false;
         DEFAULT.canDive = false;
         DEFAULT.canFly = false;
+        DEFAULT.color = ChocoboColor.YELLOW;
     }
 
     private ChocoboStatSnapshot() {
@@ -53,6 +57,7 @@ public class ChocoboStatSnapshot {
         this.canGlide = chocobo.canGlide();
         this.canDive = chocobo.canDive();
         this.canFly = chocobo.canFly();
+        this.color = chocobo.getChocoboColor();
     }
 
     public ChocoboStatSnapshot(NBTTagCompound nbt) {
@@ -65,6 +70,7 @@ public class ChocoboStatSnapshot {
         this.canGlide = nbt.getBoolean(NBTKEY_CAN_GLIDE);
         this.canDive = nbt.getBoolean(NBTKEY_CAN_DIVE);
         this.canFly = nbt.getBoolean(NBTKEY_CAN_FLY);
+        this.color = ChocoboColor.values()[nbt.getByte(NBTKEY_COLOR)];
     }
 
     public NBTTagCompound serialize() {
@@ -78,6 +84,7 @@ public class ChocoboStatSnapshot {
         nbt.setBoolean(NBTKEY_CAN_GLIDE, this.canGlide);
         nbt.setBoolean(NBTKEY_CAN_SPRINT, this.canSprint);
         nbt.setBoolean(NBTKEY_CAN_DIVE, this.canDive);
+        nbt.setByte(NBTKEY_COLOR, (byte) this.color.ordinal());
         return nbt;
     }
 }

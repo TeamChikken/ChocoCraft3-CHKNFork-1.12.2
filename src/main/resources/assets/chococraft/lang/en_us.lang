@@ -45,8 +45,18 @@ item.chococraft.ability_fruit.dead_pepper.name=Dead Pepper
 item.chococraft.ability_fruit.dead_pepper.tooltip=Teaches a chocobo the flight ability
 
 item.chococraft.chocobo_egg.tooltip.invalid_egg=§cInvalid Egg
-item.chococraft.chocobo_egg.tooltip.mother_info=Mother: %s / %s / %s
-item.chococraft.chocobo_egg.tooltip.father_info=Father: %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.mother_info=Mother: %s / %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.father_info=Father: %s / %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.yellow=Yellow
+item.chococraft.chocobo_egg.tooltip.green=Green
+item.chococraft.chocobo_egg.tooltip.blue=Blue
+item.chococraft.chocobo_egg.tooltip.white=White
+item.chococraft.chocobo_egg.tooltip.black=Black
+item.chococraft.chocobo_egg.tooltip.gold=Golden
+item.chococraft.chocobo_egg.tooltip.pink=Pink
+item.chococraft.chocobo_egg.tooltip.red=Red
+item.chococraft.chocobo_egg.tooltip.purple=Purple
+item.chococraft.chocobo_egg.tooltip.flame=Flame
 
 chococraft.entity_chocobo.heal_fail=§cHealth full
 chococraft.entity_chocobo.tame_fail=§cTame failed

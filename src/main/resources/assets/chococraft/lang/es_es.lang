@@ -47,8 +47,8 @@ item.chococraft.ability_fruit.dead_pepper.name=Pimienta Muerta
 item.chococraft.ability_fruit.dead_pepper.tooltip=Enseña a un Chocobo la habilidad de volar
 
 item.chococraft.chocobo_egg.tooltip.invalid_egg=§cHuevo Invalido
-item.chococraft.chocobo_egg.tooltip.mother_info=Madre: %s / %s / %s
-item.chococraft.chocobo_egg.tooltip.father_info=Padre: %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.mother_info=Madre: %s / %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.father_info=Padre: %s / %s / %s / %s
 
 chococraft.entity_chocobo.heal_fail=§cSalud completa
 chococraft.entity_chocobo.tame_fail=§cDoma fallida

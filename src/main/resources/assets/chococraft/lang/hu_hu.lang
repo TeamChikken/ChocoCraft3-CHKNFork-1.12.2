@@ -45,8 +45,18 @@ item.chococraft.ability_fruit.dead_pepper.name=Halott Paprika
 item.chococraft.ability_fruit.dead_pepper.tooltip=Megtaníja egy chocobo a repülés képességet
 
 item.chococraft.chocobo_egg.tooltip.invalid_egg=§cHibás tojás
-item.chococraft.chocobo_egg.tooltip.mother_info=Anya: %s / %s / %s
-item.chococraft.chocobo_egg.tooltip.father_info=Apa: %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.mother_info=Anya: %s / %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.father_info=Apa: %s / %s / %s / %s
+item.chococraft.chocobo_egg.tooltip.yellow=Sárga
+item.chococraft.chocobo_egg.tooltip.green=Zöld
+item.chococraft.chocobo_egg.tooltip.blue=Kék
+item.chococraft.chocobo_egg.tooltip.white=Fehér
+item.chococraft.chocobo_egg.tooltip.black=Fekete
+item.chococraft.chocobo_egg.tooltip.gold=Arany
+item.chococraft.chocobo_egg.tooltip.pink=Rózsaszin
+item.chococraft.chocobo_egg.tooltip.red=Piros
+item.chococraft.chocobo_egg.tooltip.purple=Lila
+item.chococraft.chocobo_egg.tooltip.flame=Láng
 
 chococraft.entity_chocobo.heal_fail=§cÉleterő teli
 chococraft.entity_chocobo.tame_fail=§cMegszelidítés sikertelen
