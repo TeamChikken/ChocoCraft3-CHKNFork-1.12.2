@@ -3,6 +3,7 @@ package net.chococraft.common.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.util.BiConsumer;
 
 import net.minecraft.command.CommandBase;
@@ -68,7 +69,6 @@ public class CommandChocobo extends CommandBase
         switch(args[0].toLowerCase())
         {
             case "list":
-                //sender.sendMessage(new TextComponentTranslation("cmd." + MODID + ".chocobo.get_level", abilityInfo.getLevel()));
                 sender.sendMessage(getText("get_health", chocobo, SharedMonsterAttributes.MAX_HEALTH));
                 sender.sendMessage(getText("get_resistance", chocobo, SharedMonsterAttributes.ARMOR));
                 sender.sendMessage(getText("get_speed", chocobo, SharedMonsterAttributes.MOVEMENT_SPEED));
@@ -102,6 +102,6 @@ public class CommandChocobo extends CommandBase
 
     private static TextComponentTranslation getText(String key, boolean state)
     {
-        return new TextComponentTranslation("cmd." + MODID + ".chocobo.can" + (state ? "_" : "_not_") + key);
+        return new TextComponentTranslation("cmd." + MODID + ".chocobo." + key, I18n.format(state ? "cmd.chococraft.chocobo.true" : "cmd.chococraft.chocobo.false"));
     }
 }

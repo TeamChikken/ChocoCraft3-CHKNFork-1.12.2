@@ -53,7 +53,6 @@ item.chococraft.chocobo_egg.tooltip.father_info=Padre: %s / %s / %s
 chococraft.entity_chocobo.heal_fail=§cSalud completa
 chococraft.entity_chocobo.tame_fail=§cDoma fallida
 chococraft.entity_chocobo.tame_success=§aDoma exitosa
-chococraft.entity_chocobo.saddle_applied=Montura aplicada
 chococraft.entity_chocobo.chocobo_followcmd=Seguir
 chococraft.entity_chocobo.chocobo_wandercmd=Deambular
 chococraft.entity_chocobo.chocobo_staycmd=Permanecer
@@ -65,20 +64,17 @@ chococraft.general.gysahlgreenpatchsize=Tamaño de Parcela de Gisal Verde
 cmd.chococraft.chocobo.invalid_set_parameters=Parámetros inválidos
 cmd.chococraft.chocobo.successfuly_set_parameters=Fijar %s a %s
 
-cmd.chococraft.chocobo.get_level=Nivel: %s
 cmd.chococraft.chocobo.get_health=Salud: %s
 cmd.chococraft.chocobo.get_resistance=Resitencia: %s
 cmd.chococraft.chocobo.get_speed=Velocidad: %s
 cmd.chococraft.chocobo.get_stamina=Aguante: %s
 
-cmd.chococraft.chocobo.can_not_sprint=Puede Correr: §cNo
-cmd.chococraft.chocobo.can_sprint=Puede Correr: §aSi
-cmd.chococraft.chocobo.can_not_dive=Puede Bucear: §cNo
-cmd.chococraft.chocobo.can_dive=Puede Bucear: §aSi
-cmd.chococraft.chocobo.can_not_glide=Puede Planear: §cNo
-cmd.chococraft.chocobo.can_glide=Puede Planear: §aSi
-cmd.chococraft.chocobo.can_not_fly=Puede Volar: §cNo
-cmd.chococraft.chocobo.can_fly=Puede Volar: §aSi
+cmd.chococraft.chocobo.sprint=Puede Correr: %s
+cmd.chococraft.chocobo.dive=Puede Bucear: %s
+cmd.chococraft.chocobo.glide=Puede Planear: %s
+cmd.chococraft.chocobo.fly=Puede Volar: %s
+cmd.chococraft.chocobo.true=§aSi
+cmd.chococraft.chocobo.false=§cNo
 
 gui.chocoinfo.button.ability=Actualmente tiene %s de %s de la experiencia necesaria para %s.
 gui.chocoinfo.button.sprint=Desbloquear Carrera
@@ -88,7 +84,7 @@ gui.chocoinfo.button.fly=Desbloquear Vuelo
 
 gui.choconest=Nido de Chocobo
 
-gui.chocobook.title=Página de Chocopedia
+gui.chocobook.title=Página de Chocopedia %s
 gui.chocobook.page1=Los chocobos son enormes aves, como avestruces, que se encuentran en los biomas de llanuras y colinas. Su dieta consiste en Gisales Verdes y prácticamente nada más. Normalmente se encuentran de color amarillo, tienen dos patas con pies de tres dedos, alas grandes y cuellos largos.
 gui.chocobook.page2=Así que supongo que ahora te estás preguntando, cómo demonios domestico un Chocobo? Bueno, eso es fácil. Para domesticar un Chocobo debes encontrar Gisales verdes para alimentarlos, que se generan en todo el mundo. No puedes hacer que te quiera? Dale unos cuantos Gisales más, funcionará!
 gui.chocobook.page3=Entonces, cómo lo monto? A veces, los Chocobos soltarán una pluma única. Combínala con una montura normal para hacer una montura de Chocobo, y haga clic derecho en el Chocobo para ponérsela. Tal vez puedas hacer una montura mejor... una con almacenamiento o algo así.

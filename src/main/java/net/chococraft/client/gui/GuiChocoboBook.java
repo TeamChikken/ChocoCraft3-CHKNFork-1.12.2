@@ -63,7 +63,7 @@ public class GuiChocoboBook extends GuiScreen
         
         this.drawTexturedModalRect(0, 0, 0, 0, this.xSize, this.ySize);
 
-        String name = I18n.format("gui.chocobook.title") + currentpage;
+        String name = I18n.format("gui.chocobook.title", currentpage);
         int nameLength = this.fontRenderer.getStringWidth(name);
         this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
         
