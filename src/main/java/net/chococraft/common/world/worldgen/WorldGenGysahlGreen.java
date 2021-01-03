@@ -11,23 +11,19 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import net.chococraft.common.ChocoConfig;
 import net.chococraft.common.init.ModBlocks;
 
-public class WorldGenGysahlGreen implements IWorldGenerator
-{
+public class WorldGenGysahlGreen implements IWorldGenerator {
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
-    {
-        if(!world.provider.isSurfaceWorld() || !world.provider.hasSkyLight())
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+        if (!world.provider.isSurfaceWorld() || !world.provider.hasSkyLight())
             return;
-        
-        if(ChocoConfig.world.gysahlGreensSpawnOnlyInOverworld)
-        {
-        	if (world.provider.getDimension() != 0)
-        	{
-        		return;
-        	}
+
+        if (ChocoConfig.world.gysahlGreensSpawnOnlyInOverworld) {
+            if (world.provider.getDimension() != 0) {
+                return;
+            }
         }
-        	
-        if(random.nextFloat() > ChocoConfig.world.gysahlGreenSpawnChance)
+
+        if (random.nextFloat() > ChocoConfig.world.gysahlGreenSpawnChance)
             return;
 
         // offset the generation by +8 on x and z to prevent cascading chunk generation
@@ -37,15 +33,13 @@ public class WorldGenGysahlGreen implements IWorldGenerator
 
         IBlockState blockState = ModBlocks.gysahlGreen.getFullyGrownState();
 
-        for (int i = 0; i < ChocoConfig.world.gysahlGreenPatchSize; ++i)
-        {
+        for (int i = 0; i < ChocoConfig.world.gysahlGreenPatchSize; ++i) {
             BlockPos blockPos = finalPosition.add(
                     random.nextInt(8) - random.nextInt(8),
                     random.nextInt(4) - random.nextInt(4),
                     random.nextInt(8) - random.nextInt(8));
 
-            if (world.isAirBlock(blockPos) && blockPos.getY() < world.provider.getHeight() && ModBlocks.gysahlGreen.canBlockStay(world, blockPos, blockState))
-            {
+            if (world.isAirBlock(blockPos) && blockPos.getY() < world.provider.getHeight() && ModBlocks.gysahlGreen.canBlockStay(world, blockPos, blockState)) {
                 world.setBlockState(blockPos, blockState, 2);
             }
         }

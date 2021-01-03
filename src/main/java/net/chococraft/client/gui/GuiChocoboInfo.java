@@ -19,10 +19,9 @@ import net.chococraft.common.network.packets.PacketUpgradeChocobo;
 
 import java.io.IOException;
 
-public class GuiChocoboInfo extends GuiScreen
-{
+public class GuiChocoboInfo extends GuiScreen {
     public final static ResourceLocation TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_stats.png");
-    
+
     private final EntityChocobo chocobo;
     private final EntityPlayer player;
 
@@ -31,50 +30,46 @@ public class GuiChocoboInfo extends GuiScreen
     private int guiLeft;
     private int guiTop;
 
-    public GuiChocoboInfo(EntityChocobo chocobo, EntityPlayer player)
-    {
+    public GuiChocoboInfo(EntityChocobo chocobo, EntityPlayer player) {
         this.chocobo = chocobo;
         this.player = player;
     }
-    
+
     @Override
-    public void initGui()
-    {
+    public void initGui() {
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(new GuiButtonTextured( 0, 24, 52, 20, 20, TEXTURE, 0, 105, 16, 16));
-        this.buttonList.add(new GuiButtonTextured( 1, 60, 52, 20, 20, TEXTURE, 16, 105, 16, 16));
-        this.buttonList.add(new GuiButtonTextured( 2, 96, 52, 20, 20, TEXTURE, 32, 105, 16, 16));
-        this.buttonList.add(new GuiButtonTextured( 3, 132, 52, 20, 20, TEXTURE, 48, 105, 16, 16));
+        this.buttonList.add(new GuiButtonTextured(0, 24, 52, 20, 20, TEXTURE, 0, 105, 16, 16));
+        this.buttonList.add(new GuiButtonTextured(1, 60, 52, 20, 20, TEXTURE, 16, 105, 16, 16));
+        this.buttonList.add(new GuiButtonTextured(2, 96, 52, 20, 20, TEXTURE, 32, 105, 16, 16));
+        this.buttonList.add(new GuiButtonTextured(3, 132, 52, 20, 20, TEXTURE, 48, 105, 16, 16));
     }
-    
-   	/*
-   		SKILL ID Numbers
-   		1	-	SPRINT
-   		2	-	GLIDE
-   		3	-	DIVE
-   		4	-	FLY
-   	 */
+
+    /*
+        SKILL ID Numbers
+        1	-	SPRINT
+        2	-	GLIDE
+        3	-	DIVE
+        4	-	FLY
+     */
     @Override
-    protected void actionPerformed(GuiButton b)
-    {
+    protected void actionPerformed(GuiButton b) {
         PacketUpgradeChocobo packet = new PacketUpgradeChocobo(chocobo, b.id + 1);
         PacketManager.INSTANCE.sendToServer(packet);
     }
-    
+
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         mouseX -= this.guiLeft;
         mouseY -= this.guiTop;
 
-		this.drawDefaultBackground();
+        this.drawDefaultBackground();
         this.mc.getTextureManager().bindTexture(TEXTURE);
-        
+
         GlStateManager.pushMatrix();
         GlStateManager.translate(this.guiLeft, this.guiTop, 0);
-        
+
         this.drawTexturedModalRect(0, 0, 0, 0, this.xSize, this.ySize);
 
         String name = this.chocobo.getDisplayName().getUnformattedText();
@@ -82,8 +77,7 @@ public class GuiChocoboInfo extends GuiScreen
         this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);
 
         String ownerText = I18n.format("gui.chocoinfo.text.not_tamed");
-        if (chocobo.isTamed())
-        {
+        if (chocobo.isTamed()) {
             EntityLivingBase owner = chocobo.getOwner();
             if (owner == null)
                 ownerText = I18n.format("gui.chocoinfo.text.unknown_owner");
@@ -92,7 +86,7 @@ public class GuiChocoboInfo extends GuiScreen
         }
         int ownerTextLength = this.fontRenderer.getStringWidth(ownerText);
         this.fontRenderer.drawStringWithShadow(ownerText, (this.xSize / 2) - (ownerTextLength / 2), 74, -1);
-        
+
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawGenderInfo();
         this.drawHealthInfo();
@@ -110,41 +104,36 @@ public class GuiChocoboInfo extends GuiScreen
         GlStateManager.popMatrix();
     }
 
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
-    {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         mouseX -= this.guiLeft;
         mouseY -= this.guiTop;
 
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
-    protected void mouseReleased(int mouseX, int mouseY, int state)
-    {
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
         mouseX -= this.guiLeft;
         mouseY -= this.guiTop;
 
         super.mouseReleased(mouseX, mouseY, state);
     }
 
-    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
-    {
+    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
         mouseX -= this.guiLeft;
         mouseY -= this.guiTop;
 
         super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
     }
 
-    private void updateButtonTextures()
-    {
-        for (GuiButton btn: buttonList) {
+    private void updateButtonTextures() {
+        for (GuiButton btn : buttonList) {
             GuiButtonTextured btnt = (GuiButtonTextured) btn;
             btnt.setTexture(TEXTURE, btnt.id * 16, canUseAbility(btn.id) ? 89 : 105, 16, 16);
         }
     }
-    
-    private void interceptButtons()
-    {
-        for (GuiButton btn: buttonList) {
+
+    private void interceptButtons() {
+        for (GuiButton btn : buttonList) {
             btn.enabled = (getAbilityXPCost(btn.id) <= ExperienceHandler.getExperience(player)) && !canUseAbility(btn.id);
 
             if (btn.isMouseOver()) {
@@ -161,8 +150,7 @@ public class GuiChocoboInfo extends GuiScreen
         }
     }
 
-    private void drawGenderInfo()
-    {
+    private void drawGenderInfo() {
         this.drawTexturedModalRect(26, 18, 176, this.chocobo.isMale() ? 16 : 0, 16, 16);
 
         String value = I18n.format(this.chocobo.isMale() ? "gui.chocoinfo.texture.male" : "gui.chocoinfo.texture.female");
@@ -170,29 +158,25 @@ public class GuiChocoboInfo extends GuiScreen
         this.fontRenderer.drawStringWithShadow(value, 35 - (width / 2), 36, -1);
     }
 
-    private void drawHealthInfo()
-    {
+    private void drawHealthInfo() {
         String value = String.valueOf((int) this.chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue());
         int width = this.fontRenderer.getStringWidth(value);
         this.fontRenderer.drawStringWithShadow(value, 70 - (width / 2), 36, -1);
     }
 
-    private void drawSpeedInfo()
-    {
+    private void drawSpeedInfo() {
         String value = String.valueOf((int) Math.round(this.chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() * 100));
         int width = this.fontRenderer.getStringWidth(value);
         this.fontRenderer.drawStringWithShadow(value, 106 - (width / 2), 36, -1);
     }
 
-    private void drawStaminaInfo()
-    {
+    private void drawStaminaInfo() {
         String value = String.valueOf((int) this.chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).getBaseValue());
         int width = this.fontRenderer.getStringWidth(value);
         this.fontRenderer.drawStringWithShadow(value, 142 - (width / 2), 36, -1);
     }
 
-    private void drawHover(int mouseX, int mouseY)
-    {
+    private void drawHover(int mouseX, int mouseY) {
         if (mouseX >= 25 && mouseY >= 17 && mouseX < 25 + 18 && mouseY < 17 + 18)
             this.drawHoveringText(I18n.format("gui.chocoinfo.texture.gender"), mouseX, mouseY);
 
@@ -205,16 +189,15 @@ public class GuiChocoboInfo extends GuiScreen
         if (mouseX >= 133 && mouseY >= 17 && mouseX < 133 + 18 && mouseY < 17 + 18)
             this.drawHoveringText(I18n.format("gui.chocoinfo.texture.stamina"), mouseX, mouseY);
 
-        for (GuiButton btn: buttonList) {
+        for (GuiButton btn : buttonList) {
             if (btn.isMouseOver()) {
                 this.drawHoveringText(I18n.format("gui.chocoinfo.button.button_format", I18n.format(getAbilityFromButton(btn.id))), mouseX, mouseY);
             }
         }
     }
 
-    private boolean canUseAbility(int i)
-    {
-        switch(i) {
+    private boolean canUseAbility(int i) {
+        switch (i) {
             case 0:
                 return chocobo.canSprint();
             case 1:
@@ -227,37 +210,35 @@ public class GuiChocoboInfo extends GuiScreen
 
         return false;
     }
-	
-	private String getAbilityFromButton(int i)
-	{
-		String key = "gui.chocoinfo.button.";
-		switch(i) {
-			case 0:
-				return key + "sprint";
-			case 1:
-				return key + "glide";
-			case 2:
-				return key + "dive";
-			case 3:
-				return key + "fly";
-			default:
-				return key + "";
-		}
-	}
-	
-	private int getAbilityXPCost(int i)
-	{
-		switch(i) {
-			case 0:
-				return ChocoConfig.chocobo.ExpCostSprint;
-			case 1:
-				return ChocoConfig.chocobo.ExpCostGlide;
-			case 2:
-				return ChocoConfig.chocobo.ExpCostDive;
-			case 3:
-				return ChocoConfig.chocobo.ExpCostFly;
-			default:
-				return 0;
-		}
-	}
+
+    private String getAbilityFromButton(int i) {
+        String key = "gui.chocoinfo.button.";
+        switch (i) {
+            case 0:
+                return key + "sprint";
+            case 1:
+                return key + "glide";
+            case 2:
+                return key + "dive";
+            case 3:
+                return key + "fly";
+            default:
+                return key + "";
+        }
+    }
+
+    private int getAbilityXPCost(int i) {
+        switch (i) {
+            case 0:
+                return ChocoConfig.chocobo.ExpCostSprint;
+            case 1:
+                return ChocoConfig.chocobo.ExpCostGlide;
+            case 2:
+                return ChocoConfig.chocobo.ExpCostDive;
+            case 3:
+                return ChocoConfig.chocobo.ExpCostFly;
+            default:
+                return 0;
+        }
+    }
 }

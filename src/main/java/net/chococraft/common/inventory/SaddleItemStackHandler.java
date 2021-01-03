@@ -9,45 +9,38 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
-{
+public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
     protected ItemStack itemStack = ItemStack.EMPTY;
 
     @Override
-    public void setStackInSlot(int slot, @Nonnull ItemStack stack)
-    {
+    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
         ItemStack oldStack = this.itemStack;
         this.itemStack = stack;
         // dont update if we change from empty to empty
-        if(!(oldStack.isEmpty() && stack.isEmpty()))
-        {
+        if (!(oldStack.isEmpty() && stack.isEmpty())) {
             this.onStackChanged();
         }
     }
 
     @Override
-    public int getSlots()
-    {
+    public int getSlots() {
         return 1;
     }
 
     @Nonnull
     @Override
-    public ItemStack getStackInSlot(int slot)
-    {
+    public ItemStack getStackInSlot(int slot) {
         return this.itemStack;
     }
 
     @Nonnull
     @Override
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate)
-    {
-        if(stack.isEmpty())
+    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+        if (stack.isEmpty())
             return ItemStack.EMPTY;
 
-        if(this.itemStack.isEmpty())
-        {
-            if(simulate)
+        if (this.itemStack.isEmpty()) {
+            if (simulate)
                 return ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - 1);
             this.itemStack = stack.splitStack(1);
         }
@@ -57,12 +50,11 @@ public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandl
 
     @Nonnull
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate)
-    {
-        if(amount <= 0)
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        if (amount <= 0)
             return ItemStack.EMPTY;
 
-        if(simulate)
+        if (simulate)
             return ItemHandlerHelper.copyStackWithSize(this.itemStack, amount);
         ItemStack outStack = this.itemStack.splitStack(amount);
         this.onStackChanged();
@@ -70,20 +62,17 @@ public abstract class SaddleItemStackHandler implements IItemHandler, IItemHandl
     }
 
     @Override
-    public int getSlotLimit(int slot)
-    {
+    public int getSlotLimit(int slot) {
         return 1;
     }
 
     @Override
-    public NBTTagCompound serializeNBT()
-    {
+    public NBTTagCompound serializeNBT() {
         return this.itemStack.writeToNBT(new NBTTagCompound());
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
+    public void deserializeNBT(NBTTagCompound nbt) {
         this.itemStack = new ItemStack(nbt);
         this.onStackChanged();
     }

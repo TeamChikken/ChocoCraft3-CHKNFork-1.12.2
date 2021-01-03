@@ -9,8 +9,8 @@ import net.minecraft.tileentity.TileEntity;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface AttachedTileEntity
-{
+public @interface AttachedTileEntity {
     String name();
+
     Class<? extends TileEntity> tile();
 }

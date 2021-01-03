@@ -30,8 +30,7 @@ import net.chococraft.common.world.worldgen.WorldGenGysahlGreen;
 import net.chococraft.utils.Log4jFilter;
 
 @Mod(modid = Chococraft.MODID, version = Chococraft.VERSION, acceptedMinecraftVersions = Chococraft.MC_VERSION)
-public class Chococraft
-{
+public class Chococraft {
     public static final String MODID = "chococraft";
     public static final String VERSION = "@VERSION@";
     public static final String MC_VERSION = "@MC_VERSION@";
@@ -43,44 +42,41 @@ public class Chococraft
     @SidedProxy(clientSide = "net.chococraft.client.ClientProxy", serverSide = "net.chococraft.common.CommonProxy")
     public static CommonProxy proxy;
 
-    public static final CreativeTabs creativeTab = new CreativeTabs(MODID)
-    {
+    public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
         @Override
-        public ItemStack getTabIconItem()
-        {
+        public ItemStack getTabIconItem() {
             return new ItemStack(ModItems.gysahlGreen);
         }
     };
 
     @Mod.InstanceFactory
-    public static Chococraft getInstance()
-    {
+    public static Chococraft getInstance() {
         return instance;
     }
 
-    @Mod.EventHandler @SuppressWarnings("unused")
-    public static void onPreInit(FMLPreInitializationEvent event)
-    {
+    @Mod.EventHandler
+    @SuppressWarnings("unused")
+    public static void onPreInit(FMLPreInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ChococraftGuiHandler());
         EntityDataSerializers.init();
         PacketManager.init();
         Log4jFilter.init();
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
-        
-    	// Attempt at biome spawn fix, as well as being less cluttery.
-    	Set<Biome> MrBiomes = new HashSet<>();
 
-    	MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
-    	MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
+        // Attempt at biome spawn fix, as well as being less cluttery.
+        Set<Biome> MrBiomes = new HashSet<>();
 
-    	EntityRegistry.addSpawn(EntityChocobo.class, ChocoConfig.world.chocoboSpawnWeight, ChocoConfig.world.chocoboPackSizeMin, ChocoConfig.world.chocoboPackSizeMax, EnumCreatureType.CREATURE, MrBiomes.toArray(new Biome[MrBiomes.size()]));
+        MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
+        MrBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
+
+        EntityRegistry.addSpawn(EntityChocobo.class, ChocoConfig.world.chocoboSpawnWeight, ChocoConfig.world.chocoboPackSizeMin, ChocoConfig.world.chocoboPackSizeMax, EnumCreatureType.CREATURE, MrBiomes.toArray(new Biome[MrBiomes.size()]));
         //
     }
 
-    @Mod.EventHandler @SuppressWarnings("unused")
-    public static void onServerStarting(FMLServerStartingEvent event)
-    {
+    @Mod.EventHandler
+    @SuppressWarnings("unused")
+    public static void onServerStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandChocobo());
     }
 }

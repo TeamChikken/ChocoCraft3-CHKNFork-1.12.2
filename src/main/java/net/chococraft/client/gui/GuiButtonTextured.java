@@ -9,22 +9,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiButtonTextured extends GuiButton
-{
+public class GuiButtonTextured extends GuiButton {
     private ResourceLocation resourceLocation;
     private int textureX;
     private int textureY;
     private int textureWidth;
     private int textureHeight;
 
-    public GuiButtonTextured(int buttonId, int x, int y, int widthIn, int heightIn, ResourceLocation resourceLocation, int textureX, int textureY, int textureWidth, int textureHeight)
-    {
+    public GuiButtonTextured(int buttonId, int x, int y, int widthIn, int heightIn, ResourceLocation resourceLocation, int textureX, int textureY, int textureWidth, int textureHeight) {
         super(buttonId, x, y, widthIn, heightIn, "");
         setTexture(resourceLocation, textureX, textureY, textureWidth, textureHeight);
     }
 
-    public void setTexture(ResourceLocation resourceLocation, int textureX, int textureY, int textureWidth, int textureHeight)
-    {
+    public void setTexture(ResourceLocation resourceLocation, int textureX, int textureY, int textureWidth, int textureHeight) {
         this.resourceLocation = resourceLocation;
         this.textureX = textureX;
         this.textureY = textureY;
@@ -35,10 +32,8 @@ public class GuiButtonTextured extends GuiButton
     /**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
-    {
-        if (this.visible)
-        {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+        if (this.visible) {
             FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

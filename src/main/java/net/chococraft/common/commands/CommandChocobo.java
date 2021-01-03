@@ -19,14 +19,12 @@ import net.chococraft.Chococraft;
 import net.chococraft.common.entities.EntityChocobo;
 import net.chococraft.common.entities.properties.ChocoboAttributes;
 
-public class CommandChocobo extends CommandBase
-{
+public class CommandChocobo extends CommandBase {
     private static final String MODID = Chococraft.MODID;
 
     private static final Map<String, BiConsumer<EntityChocobo, String>> setMap;
 
-    static
-    {
+    static {
         setMap = new HashMap<>();
         setMap.put("health", (entity, arg) -> entity.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Float.parseFloat(arg)));
         setMap.put("resistance", (entity, arg) -> entity.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(Float.parseFloat(arg)));
@@ -40,34 +38,29 @@ public class CommandChocobo extends CommandBase
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "chocobo";
     }
 
     @Override
-    public String getUsage(ICommandSender sender)
-    {
+    public String getUsage(ICommandSender sender) {
         return "/chocobo list\n/chocobo set <trait> <value>";
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-    {
-        if(args.length == 0) return;
-        if(!(sender instanceof EntityPlayer)) return;
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+        if (args.length == 0) return;
+        if (!(sender instanceof EntityPlayer)) return;
 
         Entity mount = ((EntityPlayer) sender).getRidingEntity();
-        if(!(mount instanceof EntityChocobo))
-        {
+        if (!(mount instanceof EntityChocobo)) {
             sender.sendMessage(new TextComponentTranslation("cmd." + MODID + ".chocobo.not_riding_chocobo"));
             return;
         }
 
         EntityChocobo chocobo = (EntityChocobo) mount;
 
-        switch(args[0].toLowerCase())
-        {
+        switch (args[0].toLowerCase()) {
             case "list":
                 sender.sendMessage(getText("get_health", chocobo, SharedMonsterAttributes.MAX_HEALTH));
                 sender.sendMessage(getText("get_resistance", chocobo, SharedMonsterAttributes.ARMOR));
@@ -80,13 +73,12 @@ public class CommandChocobo extends CommandBase
                 sender.sendMessage(getText("fly", chocobo.canFly()));
                 break;
             case "set":
-                if(args.length != 3)
-                {
+                if (args.length != 3) {
                     sender.sendMessage(new TextComponentTranslation("cmd." + MODID + ".chocobo.invalid_set_parameters"));
                     return;
                 }
 
-                if(setMap.containsKey(args[1]))
+                if (setMap.containsKey(args[1]))
                     setMap.get(args[1]).accept(chocobo, args[2]);
 
                 sender.sendMessage(new TextComponentTranslation("cmd." + MODID + ".chocobo.successfuly_set_parameters", args[1], args[2]));
@@ -95,13 +87,11 @@ public class CommandChocobo extends CommandBase
         }
     }
 
-    private static TextComponentTranslation getText(String key, EntityChocobo chocobo, IAttribute attribute)
-    {
+    private static TextComponentTranslation getText(String key, EntityChocobo chocobo, IAttribute attribute) {
         return new TextComponentTranslation("cmd." + MODID + ".chocobo." + key, chocobo.getEntityAttribute(attribute).getBaseValue());
     }
 
-    private static TextComponentTranslation getText(String key, boolean state)
-    {
+    private static TextComponentTranslation getText(String key, boolean state) {
         return new TextComponentTranslation("cmd." + MODID + ".chocobo." + key, I18n.format(state ? "cmd.chococraft.chocobo.true" : "cmd.chococraft.chocobo.false"));
     }
 }

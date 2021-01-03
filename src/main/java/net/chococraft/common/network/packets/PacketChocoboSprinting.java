@@ -11,42 +11,38 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.chococraft.common.entities.EntityChocobo;
 
-public class PacketChocoboSprinting implements IMessage
-{
+public class PacketChocoboSprinting implements IMessage {
     private boolean sprinting;
 
     @SuppressWarnings("unused")
-    public PacketChocoboSprinting() { }
+    public PacketChocoboSprinting() {
+    }
 
-    public PacketChocoboSprinting(boolean sprinting)
-    {
+    public PacketChocoboSprinting(boolean sprinting) {
         this.sprinting = sprinting;
     }
 
     @Override
-    public void fromBytes(ByteBuf buf)
-    {
+    public void fromBytes(ByteBuf buf) {
         this.sprinting = buf.readBoolean();
     }
 
     @Override
-    public void toBytes(ByteBuf buf)
-    {
+    public void toBytes(ByteBuf buf) {
         buf.writeBoolean(this.sprinting);
     }
 
-    public static class Handler implements IMessageHandler<PacketChocoboSprinting, IMessage>
-    {
-        @Override @Nullable
-        public IMessage onMessage(PacketChocoboSprinting message, MessageContext ctx)
-        {
+    public static class Handler implements IMessageHandler<PacketChocoboSprinting, IMessage> {
+        @Override
+        @Nullable
+        public IMessage onMessage(PacketChocoboSprinting message, MessageContext ctx) {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() ->
             {
                 EntityPlayer player = ctx.getServerHandler().player;
-                if(!player.isRiding()) return;
+                if (!player.isRiding()) return;
 
                 Entity mount = player.getRidingEntity();
-                if(!(mount instanceof EntityChocobo)) return;
+                if (!(mount instanceof EntityChocobo)) return;
 
                 mount.setSprinting(message.sprinting);
             });

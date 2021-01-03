@@ -24,43 +24,36 @@ import net.chococraft.common.entities.EntityChocobo;
 import net.chococraft.common.entities.properties.ChocoboColor;
 import net.chococraft.utils.registration.IItemModelProvider;
 
-public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider
-{
-    public ItemChocoboSpawnEgg()
-    {
+public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider {
+    public ItemChocoboSpawnEgg() {
         this.setHasSubtypes(true);
     }
 
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
-    {
-        if(this.isInCreativeTab(tab))
-        {
-            for(ChocoboColor color : ChocoboColor.values())
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            for (ChocoboColor color : ChocoboColor.values())
                 items.add(new ItemStack(this, 1, color.ordinal()));
         }
     }
 
     @Override
-    public int getMetadata(int damage)
-    {
+    public int getMetadata(int damage) {
         return damage;
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if(worldIn.isRemote) return EnumActionResult.SUCCESS;
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.isRemote) return EnumActionResult.SUCCESS;
 
         Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Chococraft.MODID, "chocobo"), worldIn);
 
         int meta = player.getHeldItem(hand).getMetadata();
-        if(meta < 0 || meta >= ChocoboColor.values().length) return EnumActionResult.FAIL;
+        if (meta < 0 || meta >= ChocoboColor.values().length) return EnumActionResult.FAIL;
 
-        if (entity instanceof EntityChocobo)
-        {
-            EntityChocobo entityliving = (EntityChocobo)entity;
-            if(player.isSneaking())
+        if (entity instanceof EntityChocobo) {
+            EntityChocobo entityliving = (EntityChocobo) entity;
+            if (player.isSneaking())
                 entityliving.setGrowingAge(-24000);
             entity.setLocationAndAngles(pos.getX() + .5, pos.getY() + getYOffset(worldIn, pos), pos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
             entityliving.rotationYawHead = entityliving.rotationYaw;
@@ -75,45 +68,38 @@ public class ItemChocoboSpawnEgg extends Item implements IItemModelProvider
     }
 
     @Override
-    public void registerItemModel(Item item)
-    {
+    public void registerItemModel(Item item) {
         ResourceLocation rl = this.getRegistryName();
         assert rl != null;
 
         // this registers a "blockstate" for our item, which allows different models depending on the variant
         ResourceLocation loc = new ResourceLocation(rl.getResourceDomain(), "items/" + rl.getResourcePath());
-        for(ChocoboColor color : ChocoboColor.values())
+        for (ChocoboColor color : ChocoboColor.values())
             ModelLoader.setCustomModelResourceLocation(this, color.ordinal(), new ModelResourceLocation(loc, "type=" + color.name().toLowerCase()));
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack)
-    {
+    public String getUnlocalizedName(ItemStack stack) {
         int meta = stack.getMetadata();
-        if(meta >= 0 && meta < ChocoboColor.values().length)
+        if (meta >= 0 && meta < ChocoboColor.values().length)
             return super.getUnlocalizedName(stack) + "." + ChocoboColor.values()[meta].name().toLowerCase();
         return super.getUnlocalizedName(stack);
     }
 
-    private double getYOffset(World world, BlockPos pos)
-    {
+    private double getYOffset(World world, BlockPos pos) {
         AxisAlignedBB axisalignedbb = (new AxisAlignedBB(pos)).expand(0.0D, -1.0D, 0.0D);
         List<AxisAlignedBB> list = world.getCollisionBoxes(null, axisalignedbb);
 
-        if (list.isEmpty())
-        {
+        if (list.isEmpty()) {
             return 0.0D;
-        }
-        else
-        {
+        } else {
             double d0 = axisalignedbb.minY;
 
-            for (AxisAlignedBB axisalignedbb1 : list)
-            {
+            for (AxisAlignedBB axisalignedbb1 : list) {
                 d0 = Math.max(axisalignedbb1.maxY, d0);
             }
 
-            return d0 - (double)pos.getY();
+            return d0 - (double) pos.getY();
         }
     }
 }

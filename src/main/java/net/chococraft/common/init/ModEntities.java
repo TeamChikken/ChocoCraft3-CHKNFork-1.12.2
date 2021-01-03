@@ -15,11 +15,9 @@ import net.chococraft.client.renderer.entities.EntityRendererChocobo;
 import net.chococraft.common.entities.EntityChocobo;
 
 @Mod.EventBusSubscriber(modid = Chococraft.MODID)
-public class ModEntities
-{
+public class ModEntities {
     @SubscribeEvent
-    public static void registerEntities(RegistryEvent.Register<EntityEntry> event)
-    {
+    public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         // NOTE: We cannot use event.getRegistry() for our registration here, because it does only half the registration
         // This is a limitation in the forge registry system :/
         ResourceLocation chocoboName = new ResourceLocation(Chococraft.MODID, "chocobo");
@@ -29,8 +27,7 @@ public class ModEntities
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onRegisterModels(ModelRegistryEvent event)
-    {
+    public static void onRegisterModels(ModelRegistryEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityChocobo.class, EntityRendererChocobo::new);
     }
 }

@@ -2,6 +2,7 @@ package net.chococraft.common.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,21 +15,20 @@ import net.minecraftforge.common.MinecraftForge;
 
 public final class ExperienceHandler {
     // The following code was ripped from EPlus https://github.com/Epoxide-Software/Enchanting-Plus/ which adapted it from OpenModsLib https://github.com/OpenMods/OpenModsLib
-    public static int getExperience (EntityPlayer player) {
+    public static int getExperience(EntityPlayer player) {
 
         return (int) (getExperienceForLevels(player.experienceLevel) + player.experience * player.xpBarCap());
     }
 
-    public static boolean removeExperience (EntityPlayer player, int amount) {
-        if(getExperience(player) >= amount)
-        {
+    public static boolean removeExperience(EntityPlayer player, int amount) {
+        if (getExperience(player) >= amount) {
             addExperience(player, -amount);
             return true;
         }
         return false;
     }
 
-    public static void addExperience (EntityPlayer player, int amount) {
+    public static void addExperience(EntityPlayer player, int amount) {
 
         final int experience = getExperience(player) + amount;
         player.experienceTotal = experience;
@@ -37,7 +37,7 @@ public final class ExperienceHandler {
         player.experience = (float) (experience - expForLevel) / (float) player.xpBarCap();
     }
 
-    public static int getExperienceForLevels (int level) {
+    public static int getExperienceForLevels(int level) {
 
         if (level == 0) {
 
@@ -47,9 +47,7 @@ public final class ExperienceHandler {
         if (level > 0 && level < 17) {
 
             return level * level + 6 * level;
-        }
-
-        else if (level > 16 && level < 32) {
+        } else if (level > 16 && level < 32) {
 
             return (int) (2.5 * level * level - 40.5 * level + 360);
         }
@@ -57,7 +55,7 @@ public final class ExperienceHandler {
         return (int) (4.5 * level * level - 162.5 * level + 2220);
     }
 
-    public static int getLevelForExperience (int experience) {
+    public static int getLevelForExperience(int experience) {
 
         int level = 0;
 

@@ -13,43 +13,40 @@ public class ItemBlockChocoboEgg extends ItemBlock {
     }
 
     @Override
-    public boolean showDurabilityBar(ItemStack stack)
-    {
+    public boolean showDurabilityBar(ItemStack stack) {
         if (!BlockChocoboEgg.isChocoboEgg(stack))
             return super.showDurabilityBar(stack);
 
-        if(!stack.hasTagCompound())
+        if (!stack.hasTagCompound())
             return false;
 
         NBTTagCompound nbtHatchIngstate = stack.getSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
-        if(nbtHatchIngstate == null)
+        if (nbtHatchIngstate == null)
             return false;
 
         return true;
     }
 
     @Override
-    public double getDurabilityForDisplay(ItemStack stack)
-    {
+    public double getDurabilityForDisplay(ItemStack stack) {
         if (!BlockChocoboEgg.isChocoboEgg(stack))
             return super.getDurabilityForDisplay(stack);
 
-        if(!stack.hasTagCompound())
+        if (!stack.hasTagCompound())
             return 0.0;
 
         int time = 0;
         NBTTagCompound nbtHatchIngstate = stack.getSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
-        if(nbtHatchIngstate != null)
+        if (nbtHatchIngstate != null)
             time = nbtHatchIngstate.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
 
-        double percent = (double)time / (double)ChocoConfig.breeding.eggHatchTimeTicks;
+        double percent = (double) time / (double) ChocoConfig.breeding.eggHatchTimeTicks;
 
         return 1.0 - percent;
     }
 
     @Override
-    public int getRGBDurabilityForDisplay(ItemStack stack)
-    {
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
         if (!BlockChocoboEgg.isChocoboEgg(stack))
             return super.getRGBDurabilityForDisplay(stack);
 

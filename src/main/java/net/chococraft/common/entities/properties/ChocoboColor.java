@@ -7,8 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreIngredient;
 
-public enum ChocoboColor
-{
+public enum ChocoboColor {
     YELLOW(new OreIngredient("dyeYellow")),
     GREEN(new OreIngredient("dyeLime")),
     BLUE(new OreIngredient("dyeBlue")),
@@ -18,26 +17,22 @@ public enum ChocoboColor
     PINK(new OreIngredient("dyePink")),
     RED(new OreIngredient("dyeRed")),
     PURPLE(new OreIngredient("dyePurple")),
-	FLAME(new OreIngredient(""));
+    FLAME(new OreIngredient(""));
 
     private static Random rand = new Random();
     private Ingredient colorIngredient;
 
-    ChocoboColor(Ingredient colorIngredient)
-    {
+    ChocoboColor(Ingredient colorIngredient) {
         this.colorIngredient = colorIngredient;
     }
 
-    public static ChocoboColor getRandomColor()
-    {
+    public static ChocoboColor getRandomColor() {
         return values()[rand.nextInt(values().length)];
     }
 
-    public static Optional<ChocoboColor> getColorForItemstack(ItemStack itemStack)
-    {
-        for(ChocoboColor color : values())
-        {
-            if(color.colorIngredient.apply(itemStack))
+    public static Optional<ChocoboColor> getColorForItemstack(ItemStack itemStack) {
+        for (ChocoboColor color : values()) {
+            if (color.colorIngredient.apply(itemStack))
                 return Optional.of(color);
         }
         return Optional.empty();

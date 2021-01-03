@@ -8,11 +8,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
-public class ModRecipes
-{
+public class ModRecipes {
     @SubscribeEvent
-    public static void onRegisterRecipes(RegistryEvent.Register<IRecipe> event)
-    {
+    public static void onRegisterRecipes(RegistryEvent.Register<IRecipe> event) {
         GameRegistry.addSmelting(ModItems.chocoboDrumStickRaw, new ItemStack(ModItems.chocoboDrumStickCooked), 2);
         GameRegistry.addSmelting(ModItems.pickledGysahlRaw, new ItemStack(ModItems.pickledGysahlCooked), 2);
     }

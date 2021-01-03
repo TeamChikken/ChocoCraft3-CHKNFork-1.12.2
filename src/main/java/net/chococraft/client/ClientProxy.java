@@ -8,18 +8,15 @@ import net.chococraft.common.CommonProxy;
 import net.chococraft.common.entities.EntityChocobo;
 
 @SuppressWarnings("ALL")
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
     @Override
-    public void openChocoboInfoGui(EntityChocobo chocobo, EntityPlayer player)
-    {
+    public void openChocoboInfoGui(EntityChocobo chocobo, EntityPlayer player) {
         super.openChocoboInfoGui(chocobo, player);
         Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboInfo(chocobo, player));
     }
-    
+
     @Override
-    public void openChocoBook(EntityPlayer player)
-    {
+    public void openChocoBook(EntityPlayer player) {
         super.openChocoBook(player);
         Minecraft.getMinecraft().displayGuiScreen(new GuiChocoboBook(player));
     }

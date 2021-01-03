@@ -7,8 +7,7 @@ import net.chococraft.common.entities.EntityChocobo;
 import net.chococraft.common.entities.properties.ChocoboAttributes;
 
 @SuppressWarnings("WeakerAccess")
-public class ChocoboStatSnapshot
-{
+public class ChocoboStatSnapshot {
     public static final ChocoboStatSnapshot DEFAULT;
     public static final String NBTKEY_GENERATION = "Generation";
     public static final String NBTKEY_HEALTH = "Health";
@@ -28,8 +27,7 @@ public class ChocoboStatSnapshot
     public boolean canDive;
     public boolean canFly;
 
-    static
-    {
+    static {
         DEFAULT = new ChocoboStatSnapshot();
         DEFAULT.generation = 1;
         DEFAULT.health = ChocoConfig.chocobo.defaultHealth;
@@ -42,10 +40,10 @@ public class ChocoboStatSnapshot
         DEFAULT.canFly = false;
     }
 
-    private ChocoboStatSnapshot() { }
+    private ChocoboStatSnapshot() {
+    }
 
-    public ChocoboStatSnapshot(EntityChocobo chocobo)
-    {
+    public ChocoboStatSnapshot(EntityChocobo chocobo) {
         this.generation = chocobo.getGeneration();
         this.health = (float) chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue();
         this.speed = (float) chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue();
@@ -57,8 +55,7 @@ public class ChocoboStatSnapshot
         this.canFly = chocobo.canFly();
     }
 
-    public ChocoboStatSnapshot(NBTTagCompound nbt)
-    {
+    public ChocoboStatSnapshot(NBTTagCompound nbt) {
         this.generation = nbt.getInteger(NBTKEY_GENERATION);
         this.health = nbt.getFloat(NBTKEY_HEALTH);
         this.speed = nbt.getFloat(NBTKEY_SPEED);
@@ -70,8 +67,7 @@ public class ChocoboStatSnapshot
         this.canFly = nbt.getBoolean(NBTKEY_CAN_FLY);
     }
 
-    public NBTTagCompound serialize()
-    {
+    public NBTTagCompound serialize() {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger(NBTKEY_GENERATION, this.generation);
         nbt.setFloat(NBTKEY_HEALTH, this.health);

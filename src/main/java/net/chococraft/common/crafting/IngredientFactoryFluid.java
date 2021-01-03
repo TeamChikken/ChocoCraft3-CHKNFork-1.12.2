@@ -12,16 +12,14 @@ import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class IngredientFactoryFluid implements IIngredientFactory
-{
+public class IngredientFactoryFluid implements IIngredientFactory {
     @Nonnull
     @Override
-    public Ingredient parse(JsonContext context, JsonObject json)
-    {
+    public Ingredient parse(JsonContext context, JsonObject json) {
         String name = JsonUtils.getString(json, "fluid");
         int amount = JsonUtils.getInt(json, "amount", 1000);
         Fluid fluid = FluidRegistry.getFluid(name);
-        if(fluid == null)
+        if (fluid == null)
             throw new JsonSyntaxException("No fluid with name " + name + " was found");
         return new IngredientFluid(fluid, amount);
     }

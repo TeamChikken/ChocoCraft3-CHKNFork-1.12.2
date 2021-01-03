@@ -8,16 +8,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class WorldUtils
-{
-    public static int getDistanceToSurface(BlockPos startPos, World world)
-    {
+public class WorldUtils {
+    public static int getDistanceToSurface(BlockPos startPos, World world) {
         BlockPos lastLiquidPos = null;
 
-        for(BlockPos pos = startPos; pos.getY() < world.getHeight(); pos = pos.up())
-        {
+        for (BlockPos pos = startPos; pos.getY() < world.getHeight(); pos = pos.up()) {
             IBlockState state = world.getBlockState(pos);
-            if(!state.getMaterial().isLiquid())
+            if (!state.getMaterial().isLiquid())
                 break;
 
             lastLiquidPos = pos;
@@ -27,10 +24,9 @@ public class WorldUtils
     }
 
     @Nullable
-    public static <T extends TileEntity> T getTileEntitySafe(IBlockAccess world, BlockPos pos, Class<T> tileClass)
-    {
+    public static <T extends TileEntity> T getTileEntitySafe(IBlockAccess world, BlockPos pos, Class<T> tileClass) {
         TileEntity tile = world.getTileEntity(pos);
-        if(tile == null || !tileClass.isAssignableFrom(tile.getClass())) return null;
+        if (tile == null || !tileClass.isAssignableFrom(tile.getClass())) return null;
         return tileClass.cast(tile);
     }
 }

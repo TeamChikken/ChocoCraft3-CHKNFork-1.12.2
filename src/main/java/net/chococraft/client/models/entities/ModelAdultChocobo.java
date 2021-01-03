@@ -41,7 +41,7 @@ public class ModelAdultChocobo extends ModelBase {
     public ModelRenderer rlegHeel;
     public ModelRenderer rlegToeInner;
     public ModelRenderer rlegToeOuter;
-    
+
     public ModelRenderer child_head;
     public ModelRenderer child_body;
     public ModelRenderer child_rightleg;
@@ -201,7 +201,7 @@ public class ModelAdultChocobo extends ModelBase {
         this.BodyMain.addChild(this.rlegJOINThip);
         this.rlegThigh.addChild(this.rlegShin);
         this.Head.addChild(this.HeadCrestMiddle);
-        
+
         // child
         this.textureWidth = 64;
         this.textureHeight = 32;
@@ -220,20 +220,17 @@ public class ModelAdultChocobo extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
-        if(!(entity instanceof EntityChocobo)) return;
-        
-        if(((EntityChocobo) entity).isChild())
-        {
+        if (!(entity instanceof EntityChocobo)) return;
+
+        if (((EntityChocobo) entity).isChild()) {
             child_head.render(scale);
             child_body.render(scale);
             child_rightleg.render(scale);
             child_leftleg.render(scale);
-        }
-        else
-        this.BodyMain.render(scale);
+        } else
+            this.BodyMain.render(scale);
     }
 
     /**
@@ -244,31 +241,27 @@ public class ModelAdultChocobo extends ModelBase {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
-    
+
     @Override
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
-    {
-        if(!(entity instanceof EntityChocobo)) return;
-        
-        if(((EntityChocobo) entity).isChild())
-        {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
+        if (!(entity instanceof EntityChocobo)) return;
+
+        if (((EntityChocobo) entity).isChild()) {
             child_head.rotateAngleX = -(headPitch / 57.29578F);
             child_head.rotateAngleY = netHeadYaw / 57.29578F;
             child_rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
             child_leftleg.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 1.4F * limbSwingAmount;
-        }
-        else
-        {
+        } else {
             // ageInTicks = wing z movement (flutter)
             // netHeadYaw = head y movement
             // headPitch = head x movement
             // cos(limbSwing) and limbSwingAmount = leg movement
 
-            float pi = (float)Math.PI;
+            float pi = (float) Math.PI;
 
             // head/neck movement
-            Head.rotateAngleX = headPitch * (pi/180F);
-            Head.rotateAngleY = netHeadYaw * (pi/180F);
+            Head.rotateAngleX = headPitch * (pi / 180F);
+            Head.rotateAngleY = netHeadYaw * (pi / 180F);
             Neck.rotateAngleX = -0.8F;
             Neck.rotateAngleY = 0.0F;
             HeadCrestLeft.rotateAngleX = Head.rotateAngleX + 0.1745329F;
@@ -282,27 +275,21 @@ public class ModelAdultChocobo extends ModelBase {
             // walking animation
             this.setRightLegXRotation(MathHelper.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount);
             this.setLeftLegXRotation(MathHelper.cos(limbSwing * 0.6662F + pi) * 0.8F * limbSwingAmount);
-            
+
             // riding animation
-            if (Math.abs(entity.motionX) > 0.1F || Math.abs(entity.motionZ) > 0.1F )
-            {
-            	Neck.rotateAngleX = -0.5F;
-            }
-            else
-            {
-            	Neck.rotateAngleX = -0.8F;
+            if (Math.abs(entity.motionX) > 0.1F || Math.abs(entity.motionZ) > 0.1F) {
+                Neck.rotateAngleX = -0.5F;
+            } else {
+                Neck.rotateAngleX = -0.8F;
             }
 
             // flying animation
-            if (Math.abs(entity.motionY) > 0.1F || !entity.onGround)
-            {
-                setRotateAngle(WingRight, (pi/2F) - (pi/12), -0.0174533F, -90 + MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
-                setRotateAngle(WingLeft, (pi/2F) - (pi/12), 0.0174533F, 90 + MathHelper.cos(limbSwing * 0.6662F + pi) * 1.4F * limbSwingAmount);
+            if (Math.abs(entity.motionY) > 0.1F || !entity.onGround) {
+                setRotateAngle(WingRight, (pi / 2F) - (pi / 12), -0.0174533F, -90 + MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
+                setRotateAngle(WingLeft, (pi / 2F) - (pi / 12), 0.0174533F, 90 + MathHelper.cos(limbSwing * 0.6662F + pi) * 1.4F * limbSwingAmount);
                 this.setLeftLegXRotation(0.6F);
                 this.setRightLegXRotation(0.6F);
-            }
-            else
-            {
+            } else {
                 // reset wings
                 setRotateAngle(WingRight, 0F, -0.0174533F, 0F);
                 setRotateAngle(WingLeft, 0F, 0.0174533F, 0F);
@@ -310,8 +297,7 @@ public class ModelAdultChocobo extends ModelBase {
         }
     }
 
-    private void setLeftLegXRotation(float deltaX)
-    {
+    private void setLeftLegXRotation(float deltaX) {
         setRotateAngle(llegThigh, 0.2094395F + deltaX, 0F, 0F);
         setRotateAngle(llegShin, -0.1919862F + deltaX, 0F, 0F);
         setRotateAngle(llegToeInner, 0.3490659F + deltaX, 0.1570796F, 0F);
@@ -319,8 +305,7 @@ public class ModelAdultChocobo extends ModelBase {
         setRotateAngle(llegHeel, -0.3F + deltaX, 0F, 0F);
     }
 
-    private void setRightLegXRotation(float deltaX)
-    {
+    private void setRightLegXRotation(float deltaX) {
         setRotateAngle(rlegThigh, 0.2094395F + deltaX, 0F, 0F);
         setRotateAngle(rlegShin, -0.1919862F + deltaX, 0F, 0F);
         setRotateAngle(rlegToeOuter, 0.3490659F + deltaX, 0.1919862F, 0F);

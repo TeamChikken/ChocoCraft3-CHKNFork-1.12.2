@@ -8,15 +8,13 @@ import net.chococraft.Chococraft;
 import net.chococraft.common.inventory.ContainerNest;
 import net.chococraft.common.tileentities.TileEntityChocoboNest;
 
-public class GuiChocoboNest extends GuiContainer
-{
+public class GuiChocoboNest extends GuiContainer {
     private final static ResourceLocation TEXTURE = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest.png");
     private final static ResourceLocation TEXTURE_SHELTERED = new ResourceLocation(Chococraft.MODID, "textures/gui/chocobo_nest_sheltered.png");
     private TileEntityChocoboNest tile;
     private EntityPlayer player;
 
-    public GuiChocoboNest(TileEntityChocoboNest tile, EntityPlayer player)
-    {
+    public GuiChocoboNest(TileEntityChocoboNest tile, EntityPlayer player) {
         super(new ContainerNest(tile, player));
         this.xSize = 176;
         this.ySize = 166;
@@ -25,23 +23,20 @@ public class GuiChocoboNest extends GuiContainer
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         this.mc.getTextureManager().bindTexture(this.tile.isSheltered() ? TEXTURE_SHELTERED : TEXTURE);
-        this.drawTexturedModalRect(this.guiLeft, this.guiTop,  0, 0, this.xSize, this.ySize);
+        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = I18n.format("gui.choconest");
         int nameLength = this.fontRenderer.getStringWidth(name);
         this.fontRenderer.drawStringWithShadow(name, (this.xSize / 2) - (nameLength / 2), 4, -1);

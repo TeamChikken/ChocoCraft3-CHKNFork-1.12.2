@@ -34,22 +34,21 @@ import net.chococraft.common.entities.breeding.BreedingHelper;
 import net.chococraft.common.entities.breeding.ChocoboBreedInfo;
 import net.chococraft.common.init.ModBlocks;
 
-public class TileEntityChocoboNest extends TileEntity implements ITickable
-{
+public class TileEntityChocoboNest extends TileEntity implements ITickable {
     private final static CheckOffset[] SHELTER_CHECK_OFFSETS = new CheckOffset[]
-    {
-        new CheckOffset(new Vec3i(0, 1, 0), true),
-        new CheckOffset(new Vec3i(0, 2, 0), true),
-        new CheckOffset(new Vec3i(-1, 3, -1), false),
-        new CheckOffset(new Vec3i(-1, 3, 0), false),
-        new CheckOffset(new Vec3i(-1, 3, 1), false),
-        new CheckOffset(new Vec3i(0, 3, -1), false),
-        new CheckOffset(new Vec3i(0, 3, 0), false),
-        new CheckOffset(new Vec3i(0, 3, 1), false),
-        new CheckOffset(new Vec3i(1, 3, -1), false),
-        new CheckOffset(new Vec3i(1, 3, 0), false),
-        new CheckOffset(new Vec3i(1, 3, 1), false),
-    };
+            {
+                    new CheckOffset(new Vec3i(0, 1, 0), true),
+                    new CheckOffset(new Vec3i(0, 2, 0), true),
+                    new CheckOffset(new Vec3i(-1, 3, -1), false),
+                    new CheckOffset(new Vec3i(-1, 3, 0), false),
+                    new CheckOffset(new Vec3i(-1, 3, 1), false),
+                    new CheckOffset(new Vec3i(0, 3, -1), false),
+                    new CheckOffset(new Vec3i(0, 3, 0), false),
+                    new CheckOffset(new Vec3i(0, 3, 1), false),
+                    new CheckOffset(new Vec3i(1, 3, -1), false),
+                    new CheckOffset(new Vec3i(1, 3, 0), false),
+                    new CheckOffset(new Vec3i(1, 3, 1), false),
+            };
 
     @SuppressWarnings("WeakerAccess")
     public static final String NBTKEY_IS_SHELTERED = "IsSheltered";
@@ -58,23 +57,19 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     @SuppressWarnings("WeakerAccess")
     public static final String NBTKEY_NEST_INVENTORY = "Inventory";
 
-    private ItemStackHandler inventory = new ItemStackHandler(1)
-    {
+    private ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
-        public int getSlotLimit(int slot)
-        {
+        public int getSlotLimit(int slot) {
             return 1;
         }
 
         @Override
-        protected int getStackLimit(int slot, @Nonnull ItemStack stack)
-        {
+        protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
             return 1;
         }
 
         @Override
-        protected void onContentsChanged(int slot)
-        {
+        protected void onContentsChanged(int slot) {
             TileEntityChocoboNest.this.onInventoryChanged();
         }
     };
@@ -83,47 +78,43 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     private int ticks = 0;
 
     @Override
-    public void update()
-    {
-        if(this.world.isRemote)
+    public void update() {
+        if (this.world.isRemote)
             return;
 
         this.ticks++;
-        if(ticks > 1_000_000)
+        if (ticks > 1_000_000)
             ticks = 0;
 
         boolean changed = false;
 
-        if(this.ticks % 5 == 0 && !this.getEggItemStack().isEmpty())
-        {
+        if (this.ticks % 5 == 0 && !this.getEggItemStack().isEmpty()) {
             changed = this.updateEgg();
         }
 
-        if(this.ticks % 200 == 100)
-        {
+        if (this.ticks % 200 == 100) {
             changed |= this.updateSheltered();
         }
 
-        if(changed)
+        if (changed)
             this.world.setBlockState(this.pos, this.world.getBlockState(this.pos));
     }
 
-    private boolean updateEgg()
-    {
+    private boolean updateEgg() {
         ItemStack egg = this.getEggItemStack();
 
         if (!BlockChocoboEgg.isChocoboEgg(egg))
             return false;
 
-        if(!egg.hasTagCompound())
-           return false;
+        if (!egg.hasTagCompound())
+            return false;
 
         NBTTagCompound nbt = egg.getOrCreateSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
         int time = nbt.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
         time += this.isSheltered ? 2 : 1;
         nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, time);
 
-        if(time < ChocoConfig.breeding.eggHatchTimeTicks)
+        if (time < ChocoConfig.breeding.eggHatchTimeTicks)
             return false;
 
         // egg is ready to hatch
@@ -133,8 +124,7 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         this.world.spawnEntity(baby);
 
         Random random = baby.getRNG();
-        for (int i = 0; i < 7; ++i)
-        {
+        for (int i = 0; i < 7; ++i) {
             double d0 = random.nextGaussian() * 0.02D;
             double d1 = random.nextGaussian() * 0.02D;
             double d2 = random.nextGaussian() * 0.02D;
@@ -148,13 +138,11 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         return true;
     }
 
-    private boolean updateSheltered()
-    {
+    private boolean updateSheltered() {
         // TODO: Make this better, use "can see sky" for shelter detection
         boolean sheltered = isSheltered();
 
-        if (this.isSheltered != sheltered)
-        {
+        if (this.isSheltered != sheltered) {
             this.isSheltered = sheltered;
             return true;
         }
@@ -162,19 +150,16 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         return false;
     }
 
-    public ItemStack getEggItemStack()
-    {
+    public ItemStack getEggItemStack() {
         return this.inventory.getStackInSlot(0);
     }
 
-    public void setEggItemStack(ItemStack itemStack)
-    {
-        if(itemStack.isEmpty())
+    public void setEggItemStack(ItemStack itemStack) {
+        if (itemStack.isEmpty())
             this.inventory.setStackInSlot(0, ItemStack.EMPTY);
-        else if(BlockChocoboEgg.isChocoboEgg(itemStack)) {
+        else if (BlockChocoboEgg.isChocoboEgg(itemStack)) {
             this.inventory.setStackInSlot(0, itemStack);
-            if (itemStack.hasTagCompound())
-            {
+            if (itemStack.hasTagCompound()) {
                 NBTTagCompound nbt = itemStack.getOrCreateSubCompound(BlockChocoboEgg.NBTKEY_HATCHINGSTATE);
                 int time = nbt.getInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME);
                 nbt.setInteger(BlockChocoboEgg.NBTKEY_HATCHINGSTATE_TIME, time);
@@ -182,15 +167,13 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
         }
     }
 
-    public IItemHandler getInventory()
-    {
+    public IItemHandler getInventory() {
         return this.inventory;
     }
 
     //region Data Synchronization/Persistence
     @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
+    public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.isSheltered = nbt.getBoolean(NBTKEY_IS_SHELTERED);
         this.ticks = nbt.getInteger(NBTKEY_TICKS);
@@ -198,8 +181,7 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt.setBoolean(NBTKEY_IS_SHELTERED, this.isSheltered);
         nbt.setInteger(NBTKEY_TICKS, this.ticks);
         nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
@@ -208,62 +190,53 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
 
     @Nullable
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket()
-    {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return new SPacketUpdateTileEntity(this.getPos(), 0, nbt);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
-    {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         this.inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
 
     @Override
-    public NBTTagCompound getUpdateTag()
-    {
+    public NBTTagCompound getUpdateTag() {
         NBTTagCompound nbt = super.getUpdateTag();
         nbt.setTag(NBTKEY_NEST_INVENTORY, this.inventory.serializeNBT());
         return nbt;
     }
 
     @Override
-    public void handleUpdateTag(NBTTagCompound nbt)
-    {
+    public void handleUpdateTag(NBTTagCompound nbt) {
         super.handleUpdateTag(nbt);
         this.inventory.deserializeNBT(nbt.getCompoundTag(NBTKEY_NEST_INVENTORY));
     }
     //endregion
 
-    private static class CheckOffset
-    {
+    private static class CheckOffset {
         Vec3i offset;
         boolean shouldBeAir;
 
-        CheckOffset(Vec3i offset, boolean shouldBeAir)
-        {
+        CheckOffset(Vec3i offset, boolean shouldBeAir) {
             this.offset = offset;
             this.shouldBeAir = shouldBeAir;
         }
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
-    {
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
         return oldState.getBlock() != newSate.getBlock();
     }
 
     @Nonnull
     @Override
-    public ITextComponent getDisplayName()
-    {
+    public ITextComponent getDisplayName() {
         return new TextComponentTranslation(Chococraft.MODID + ".container.nest");
     }
 
-    public void onInventoryChanged()
-    {
+    public void onInventoryChanged() {
         this.markDirty();
         IBlockState newState = ModBlocks.strawNest.getDefaultState().withProperty(BlockStrawNest.HAS_EGG, !this.getEggItemStack().isEmpty());
         this.getWorld().setBlockState(this.getPos(), newState);
@@ -271,10 +244,8 @@ public class TileEntityChocoboNest extends TileEntity implements ITickable
 
     public boolean isSheltered() {
         boolean sheltered = true;
-        for(CheckOffset checkOffset : SHELTER_CHECK_OFFSETS)
-        {
-            if(world.isAirBlock(this.getPos().add(checkOffset.offset)) != checkOffset.shouldBeAir)
-            {
+        for (CheckOffset checkOffset : SHELTER_CHECK_OFFSETS) {
+            if (world.isAirBlock(this.getPos().add(checkOffset.offset)) != checkOffset.shouldBeAir) {
                 sheltered = false;
                 break;
             }
