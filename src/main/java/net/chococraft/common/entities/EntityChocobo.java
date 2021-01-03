@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -35,10 +36,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -222,6 +220,7 @@ public class EntityChocobo extends EntityTameable {
 
     public void setChocoboColor(ChocoboColor color) {
         this.dataManager.set(PARAM_COLOR, color);
+        this.isImmuneToFire = color == ChocoboColor.FLAME;
     }
 
     public boolean isMale() {
@@ -526,12 +525,24 @@ public class EntityChocobo extends EntityTameable {
         }
 
         if (!this.getEntityWorld().isRemote) {
-            if (this.canDive() && this.ticksExisted % 60 == 0) {
-                this.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
-                if (this.isBeingRidden()) {
-                    Entity controller = this.getControllingPassenger();
-                    if (controller instanceof EntityPlayer) {
-                        ((EntityPlayer) controller).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
+            if (this.ticksExisted % 60 == 0)
+            {
+                if (this.canDive()) {
+                    this.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
+                    if (this.isBeingRidden()) {
+                        Entity controller = this.getControllingPassenger();
+                        if (controller instanceof EntityPlayer) {
+                            ((EntityPlayer) controller).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 100, 0, true, false));
+                        }
+                    }
+                }
+                if (this.getChocoboColor() == ChocoboColor.FLAME) {
+                    this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 100, 0, true, false));
+                    if (this.isBeingRidden()) {
+                        Entity controller = this.getControllingPassenger();
+                        if (controller instanceof EntityPlayer) {
+                            ((EntityPlayer) controller).addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 100, 0, true, false));
+                        }
                     }
                 }
             }
