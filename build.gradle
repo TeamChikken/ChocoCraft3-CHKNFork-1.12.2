@@ -22,7 +22,7 @@ def mc_uuid = project.hasProperty('dev_uuid') ? dev_uuid : mod_id
 def buildNumber = "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 
 version = "${mod_version_major}.${mod_version_minor}.${mod_version_patch}.${buildNumber}"
-group = "net.slayer5934.${mod_id}"
+group = "net.${mod_id}"
 archivesBaseName = "${mod_id}_${mc_version}"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -43,7 +43,7 @@ minecraft {
 }
 
 repositories {
-	maven { url 'http://dvs1.progwml6.com/files/maven' } // JEI
+	maven { url = 'http://dvs1.progwml6.com/files/maven' } // JEI
 }
 
 dependencies {
