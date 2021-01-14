@@ -1,3 +1,17 @@
+# Version 0.9.9 - This version is thanks to balika011.
+- Added translation for the Hungarian language.
+- Added new checks for Chocobo ownership, that way your friend cant plop a nametag on your Chocobo n stuff.
+- Added a gold bolder around nesting zones.
+- Added a hatching progress bar to eggs.
+- Updated eggs to store parents color.
+- Updated the flame Chocobo to spawn in the nether.
+- Updated the flame Chocobo to have fire resistance.
+- Updated the flame Chocobo to have little flame babies.
+- Updated the Chocobo feather to be an alternative to normal feathers.
+- Fixed Baked Pickled Gysahl Green not being smeltable.
+- Fixed owners checks on servers.
+- Internal refactoring and fixes.
+
 # Version 0.9.8 - beta
 - Added framework to make a guide in Chocopedia, and then made a guide in said Chocopedia.
 - Added new buttons to the Chocopedia GUI to unlock abilities to replace the ability fruits. - Thanks to mallrat208 for helping me make these!
