@@ -59,8 +59,17 @@ public class BreedingHelper {
             color = ChocoboColor.WHITE;
         } else if (canSprintChance > cansprintchancerandom) {
             color = ChocoboColor.GREEN;
+        } else if (.25f > (float) Math.random()) {
+            if (mother.color == ChocoboColor.GREEN && father.color == ChocoboColor.BLUE || mother.color == ChocoboColor.BLUE && father.color == ChocoboColor.GREEN) {
+                color = ChocoboColor.BLACK;
+            } else if (mother.color == ChocoboColor.RED && father.color == ChocoboColor.WHITE || mother.color == ChocoboColor.WHITE && father.color == ChocoboColor.RED) {
+                color = ChocoboColor.PINK;
+            } else if (mother.color == ChocoboColor.FLAME && father.color == ChocoboColor.GOLD || mother.color == ChocoboColor.GOLD && father.color == ChocoboColor.FLAME) {
+                color = ChocoboColor.RED;
+            } else if (mother.color == ChocoboColor.RED && father.color == ChocoboColor.BLUE || mother.color == ChocoboColor.BLUE && father.color == ChocoboColor.RED) {
+                color = ChocoboColor.PURPLE;
+            }
         }
-        // BLACK PINK RED PURPLE ?
 
         chocobo.setChocoboColor(color);
 
