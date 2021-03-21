@@ -1,3 +1,6 @@
+# Version 0.9.11 - beta
+- Fixed baby Chocobos never gaining health or stamina when breeding
+
 # Version 0.9.10 - beta
 - Support breeding black, pink, red, and purple Chocobos.
 -   Black: 25% chance if one parent is green and one parent is blue.
