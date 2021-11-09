@@ -18,15 +18,15 @@ public class BreedingHelper {
         ChocoboStatSnapshot mother = breedInfo.getMother();
         ChocoboStatSnapshot father = breedInfo.getFather();
 
-        chocobo.setGeneration(((mother.generation + father.generation) / 2) + 1);
+        chocobo.setGeneration((int) (((mother.generation + father.generation) / 2f) + 1f));
 
-        float health = Math.round(((mother.health + father.health) / 2) * (ChocoConfig.breeding.poslossHealth + ((float) Math.random() * ChocoConfig.breeding.posgainHealth)));
+        float health = Math.round(((mother.health + father.health) / 2f) * (ChocoConfig.breeding.poslossHealth + ((float) Math.random() * ChocoConfig.breeding.posgainHealth)));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.min(health, ChocoConfig.breeding.maxHealth));
 
         float speed = ((mother.speed + father.speed) / 2f) * (ChocoConfig.breeding.poslossSpeed + ((float) Math.random() * ChocoConfig.breeding.posgainSpeed));
         chocobo.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.min(speed, (ChocoConfig.breeding.maxSpeed / 100f)));
 
-        float stamina = Math.round((mother.stamina + father.stamina) / 2) * (ChocoConfig.breeding.poslossStamina + ((float) Math.random() * ChocoConfig.breeding.posgainStamina));
+        float stamina = Math.round((mother.stamina + father.stamina) / 2f) * (ChocoConfig.breeding.poslossStamina + ((float) Math.random() * ChocoConfig.breeding.posgainStamina));
         chocobo.getEntityAttribute(ChocoboAttributes.MAX_STAMINA).setBaseValue(Math.min(stamina, ChocoConfig.breeding.maxStamina));
 
         float canFlyChance = calculateChance(0.005f, 0.15f, 0.35f, mother.canFly, father.canFly);
@@ -59,8 +59,17 @@ public class BreedingHelper {
             color = ChocoboColor.WHITE;
         } else if (canSprintChance > cansprintchancerandom) {
             color = ChocoboColor.GREEN;
+        } else if (.25f > (float) Math.random()) {
+            if (mother.color == ChocoboColor.GREEN && father.color == ChocoboColor.BLUE || mother.color == ChocoboColor.BLUE && father.color == ChocoboColor.GREEN) {
+                color = ChocoboColor.BLACK;
+            } else if (mother.color == ChocoboColor.RED && father.color == ChocoboColor.WHITE || mother.color == ChocoboColor.WHITE && father.color == ChocoboColor.RED) {
+                color = ChocoboColor.PINK;
+            } else if (mother.color == ChocoboColor.FLAME && father.color == ChocoboColor.GOLD || mother.color == ChocoboColor.GOLD && father.color == ChocoboColor.FLAME) {
+                color = ChocoboColor.RED;
+            } else if (mother.color == ChocoboColor.RED && father.color == ChocoboColor.BLUE || mother.color == ChocoboColor.BLUE && father.color == ChocoboColor.RED) {
+                color = ChocoboColor.PURPLE;
+            }
         }
-        // BLACK PINK RED PURPLE ?
 
         chocobo.setChocoboColor(color);
 
