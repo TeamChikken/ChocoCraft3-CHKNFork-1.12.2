@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.chococraft.common.ChocoConfig;
 import net.chococraft.common.entities.properties.ChocoboColor;
 import net.chococraft.common.items.ItemBlockChocoboEgg;
 import net.minecraft.block.Block;

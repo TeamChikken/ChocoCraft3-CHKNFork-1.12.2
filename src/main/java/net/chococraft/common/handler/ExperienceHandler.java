@@ -1,17 +1,6 @@
 package net.chococraft.common.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 public final class ExperienceHandler {
     // The following code was ripped from EPlus https://github.com/Epoxide-Software/Enchanting-Plus/ which adapted it from OpenModsLib https://github.com/OpenMods/OpenModsLib
