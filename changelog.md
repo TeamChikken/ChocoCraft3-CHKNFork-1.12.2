@@ -1,5 +1,6 @@
-# Version 0.9.11 - beta
-- Fixed baby Chocobos never gaining health or stamina when breeding
+# Version 0.9.11 - release
+- Fixed baby Chocobos never gaining health or stamina when breeding.
+- Removed unused imports.
 
 # Version 0.9.10 - beta
 - Support breeding black, pink, red, and purple Chocobos.
