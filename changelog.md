@@ -1,3 +1,6 @@
+# Version 3.1.4 - release
+- Fixed being unable to dismount if the Chocobo is riding something.
+
 # Version 0.9.11 - release
 - Fixed baby Chocobos never gaining health or stamina when breeding.
 - Removed unused imports.

@@ -16,7 +16,7 @@ public class RidingEventHandler {
         if (event.getEntityBeingMounted().isDead) return;
         if (!(event.getEntityBeingMounted() instanceof EntityChocobo)) return;
 
-        if (!event.getEntityBeingMounted().onGround)
+        if (!event.getEntityBeingMounted().onGround && !event.getEntityBeingMounted().isRiding())
             event.setCanceled(true);
     }
 
