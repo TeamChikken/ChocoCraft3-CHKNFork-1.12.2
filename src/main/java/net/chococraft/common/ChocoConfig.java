@@ -55,6 +55,10 @@ public class ChocoConfig {
     }
 
     public static class ChocoboConfig {
+    	
+    	@Config.Comment("This decides whether or not saddles are cosmetic only.")
+    	public boolean saddlesCosmeticOnly = false;
+    	
         @Config.Comment("This multiplier controls the tame chance per gysahl used, so .15 results in 15% chance to tame.")
         @Config.RangeDouble(min = 0, max = 1)
         public double tameChance = 0.15;

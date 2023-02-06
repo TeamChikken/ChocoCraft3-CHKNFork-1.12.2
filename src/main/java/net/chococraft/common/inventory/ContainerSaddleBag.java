@@ -6,6 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.chococraft.common.ChocoConfig;
 import net.chococraft.common.entities.EntityChocobo;
 
 public class ContainerSaddleBag extends Container {
@@ -30,6 +31,7 @@ public class ContainerSaddleBag extends Container {
     }
 
     private void bindInventorySmall(IItemHandler inventory) {
+    	if (ChocoConfig.chocobo.saddlesCosmeticOnly) return;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 5; col++) {
                 this.addSlotToContainer(new SlotItemHandler(inventory, row * 5 + col, 44 + col * 18, 36 + row * 18));
@@ -38,6 +40,7 @@ public class ContainerSaddleBag extends Container {
     }
 
     private void bindInventoryBig(IItemHandler inventory) {
+    	if (ChocoConfig.chocobo.saddlesCosmeticOnly) return;
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 9; col++) {
                 this.addSlotToContainer(new SlotItemHandler(inventory, row * 9 + col, 8 + col * 18, 18 + row * 18));
