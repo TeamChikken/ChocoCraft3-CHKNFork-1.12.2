@@ -2,6 +2,7 @@
 - Fixed being unable to dismount if the Chocobo is riding something.
 - Added a config option to make saddles cosmetic only.
 - Brought back old Chocobo sound.
+- Fixed a crash caused when chocoboSpawnWeight is set to 0.
 
 # Version 0.9.11 - release
 - Fixed baby Chocobos never gaining health or stamina when breeding.

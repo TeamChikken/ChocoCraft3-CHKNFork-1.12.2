@@ -64,6 +64,8 @@ public class Chococraft {
 
         GameRegistry.registerWorldGenerator(new WorldGenGysahlGreen(), ChocoConfig.world.gysahlGreenSpawnWeight);
 
+        if (ChocoConfig.world.chocoboSpawnWeight == 0) return;
+
         Set<Biome> biomes = new HashSet<>();
 
         biomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
