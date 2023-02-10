@@ -27,16 +27,6 @@ public class ContainerSaddleBag extends Container {
 		// Saddle slot
 		this.addSlotToContainer(new SlotChocoboSaddle(chocobo.saddleItemStackHandler, 0, -16, 18));
 		
-		//Player inventory
-		for (int row = 0; row < 3; ++row) {
-			for (int col = 0; col < 9; ++col) {
-				this.addSlotToContainer(new Slot(player.inventory, col + row * 9 + 9, 8 + col * 18, 122 + row * 18));
-			}
-		}
-		for (int i = 0; i < 9; ++i) {
-			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 180));
-		}
-		
 		//Chocobo inventory
 		switch (chocobo.getSaddleType()) {
 	    case SADDLE_BAGS:
@@ -46,6 +36,16 @@ public class ContainerSaddleBag extends Container {
 	    bindInventoryBig(chocobo.chocoboInventory);
 	    break;
 	    }
+		
+		//Player inventory
+		for (int row = 0; row < 3; ++row) {
+			for (int col = 0; col < 9; ++col) {
+				this.addSlotToContainer(new Slot(player.inventory, col + row * 9 + 9, 8 + col * 18, 122 + row * 18));
+			}
+		}
+		for (int i = 0; i < 9; ++i) {
+			this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 180));
+		}
 	}
 	
 	//Chocobo inventory binding

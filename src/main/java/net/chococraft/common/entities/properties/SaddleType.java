@@ -1,7 +1,8 @@
 package net.chococraft.common.entities.properties;
 
 public enum SaddleType {
-    NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 2 * 9, 1), PACK(true, 6 * 9, 2);
+	//THE CENTER VALUE IS INV SIZE, + 1 is for saddle slot.
+    NONE(false, 0, -1), SADDLE(true, 0, 0), SADDLE_BAGS(true, 15 + 1, 1), PACK(true, 45 + 1, 2);
 
     private boolean isRidingSaddle;
     private int inventorySize;
