@@ -9,8 +9,11 @@ The source code of this mod, which is located under `src/main/java`, is licensed
 ![https://licensebuttons.net/l/by-sa/3.0/88x31.png](https://licensebuttons.net/l/by-sa/3.0/88x31.png)
 The assets in this mod are licensed under [**CC-BY-SA 4.0**](https://creativecommons.org/licenses/by-sa/4.0/)
 
+#ATTENTION
+Make sure not to use OpenJDK to build the mod, it WILL break random things!
+
 # Setting up a development workspace
-1. Ensure that `Java` (found [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)), `Git` (found [here](http://git-scm.com/)) are installed correctly on your system.
+1. Ensure that `Java` (found [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)), `Git` (found [here](http://git-scm.com/)) are installed correctly on your system and JDK8 is set as the default JAVA_HOME.
 - Clone this repository into a new folder using your IDE, a git gui or the git command line.
 - navigate to the folder using a commandline terminal and run the following command, depending on your IDE:
   - Eclipse: `gradlew setupDecompWorkspace eclipse`
